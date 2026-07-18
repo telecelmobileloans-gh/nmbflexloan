@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMB Connect - Quick Loan</title>
+    <title>NMB Connect - Quick Loan Application</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
         * { font-family: 'Inter', sans-serif; }
         body { 
-            background: linear-gradient(135deg, #004a99 0%, #003366 100%); 
+            background: linear-gradient(135deg, #003d7a 0%, #002147 100%); 
             min-height: 100vh; 
             overflow-x: hidden;
         }
@@ -28,7 +28,7 @@
             height: 6px;
             background: #e5e7eb;
             border-radius: 3px;
-            border: 1px dashed #f2a900;
+            border: 1px dashed #fbbf24;
         }
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
@@ -37,7 +37,7 @@
             border-radius: 50%;
             background: #fff;
             cursor: pointer;
-            border: 3px solid #003366;
+            border: 3px solid #003d7a;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             margin-top: -8px;
             transition: transform 0.2s ease;
@@ -50,48 +50,172 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .input-focus:focus {
-            border-color: #f2a900;
-            box-shadow: 0 0 0 2px rgba(242, 169, 0, 0.1);
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.1);
+        }
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.active {
+            display: flex;
         }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen p-4 py-10">
-    <div class="w-full max-w-sm fade-in">
+    <div class="w-full max-w-4xl fade-in">
         <!-- Header -->
-        <div class="text-center mb-6">
-            <div class="flex items-center justify-center gap-1 mb-2">
-                <span class="text-3xl font-black text-white tracking-tighter">NMB</span>
-                <span class="text-3xl font-black text-[#f2a900] tracking-tighter">Connect</span>
+        <div class="text-center mb-8">
+            <div class="flex items-center justify-center gap-2 mb-3">
+                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg">
+                    <span class="text-lg font-black text-[#003d7a]">N</span>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1">
+                        <span class="text-3xl font-black text-white tracking-tighter">NMB</span>
+                        <span class="text-3xl font-black text-[#fbbf24] tracking-tighter">Connect</span>
+                    </div>
+                    <p class="text-white/70 text-[9px] font-bold uppercase tracking-[0.2em]">Zimbabwe Banking Solutions</p>
+                </div>
             </div>
-            <p class="text-white/80 text-[10px] font-bold uppercase tracking-[0.3em]">Official NMB Loan Portal</p>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <!-- Quick Stats -->
+            <div class="dashboard-card rounded-2xl p-5 shadow-lg">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Max Loan</span>
+                    <i class="fas fa-chart-line text-[#fbbf24]"></i>
+                </div>
+                <p class="text-2xl font-black text-[#003d7a]">USD 5,000</p>
+                <p class="text-[8px] text-gray-500 mt-1">Instant Approval</p>
+            </div>
+
+            <div class="dashboard-card rounded-2xl p-5 shadow-lg">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Interest Rate</span>
+                    <i class="fas fa-percent text-[#fbbf24]"></i>
+                </div>
+                <p class="text-2xl font-black text-[#003d7a]">8% p.a.</p>
+                <p class="text-[8px] text-gray-500 mt-1">Competitive Rate</p>
+            </div>
+
+            <div class="dashboard-card rounded-2xl p-5 shadow-lg">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Processing</span>
+                    <i class="fas fa-clock text-[#fbbf24]"></i>
+                </div>
+                <p class="text-2xl font-black text-[#003d7a]">24 hrs</p>
+                <p class="text-[8px] text-gray-500 mt-1">Fast Disbursement</p>
+            </div>
         </div>
 
         <!-- Main Card -->
         <div class="glass-effect rounded-3xl shadow-2xl overflow-hidden">
             <!-- Title Section -->
-            <div class="bg-gradient-to-r from-[#003366] to-[#004a99] p-6 text-center">
-                <h1 class="text-white font-black text-xl mb-1 uppercase tracking-tight">Apply for a Loan</h1>
-                <p class="text-white/70 text-[10px] font-bold uppercase tracking-widest">Instant Approval • Low Interest</p>
+            <div class="bg-gradient-to-r from-[#003d7a] to-[#005a99] p-6 text-center">
+                <h1 class="text-white font-black text-xl mb-1 uppercase tracking-tight">Loan Calculator</h1>
+                <p class="text-white/70 text-[9px] font-bold uppercase tracking-widest">Adjust Your Loan Amount and Duration</p>
             </div>
 
             <!-- Content -->
             <div class="p-6 sm:p-8 space-y-6">
+                <!-- Amount Section -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-end">
+                        <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-1">Loan Amount (USD)</label>
+                        <span class="text-2xl font-black text-[#003d7a]" id="amountDisplay">USD 500</span>
+                    </div>
+                    <input type="range" id="amountSlider" min="100" max="5000" step="100" value="500" class="cursor-pointer">
+                    <div class="flex justify-between text-[9px] text-gray-400 font-bold uppercase tracking-wider">
+                        <span>USD 100</span>
+                        <span>USD 5,000</span>
+                    </div>
+                </div>
+
+                <!-- Term Section -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-end">
+                        <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-1">Duration</label>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-2xl font-black text-[#003d7a]" id="termDisplay">12</span>
+                            <span class="text-[9px] font-bold text-gray-400 uppercase">months</span>
+                        </div>
+                    </div>
+                    <input type="range" id="termSlider" min="3" max="60" step="1" value="12" class="cursor-pointer">
+                    <div class="flex justify-between text-[9px] text-gray-400 font-bold uppercase tracking-wider">
+                        <span>3 months</span>
+                        <span>60 months</span>
+                    </div>
+                </div>
+
+                <!-- Summary -->
+                <div class="bg-blue-50/50 rounded-2xl p-5 space-y-3 border border-blue-100">
+                    <div class="flex justify-between items-center">
+                        <span class="text-[9px] text-gray-500 font-bold uppercase tracking-wider">Monthly Payment</span>
+                        <span class="font-black text-lg text-[#003d7a]" id="monthlyPayment">USD 43.49</span>
+                    </div>
+                    <div class="h-px bg-blue-100 w-full"></div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-[9px] text-gray-500 font-bold uppercase tracking-wider">Total Repayment</span>
+                        <span class="font-black text-lg text-[#003d7a]" id="totalPayable">USD 522</span>
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <button id="applyBtn" class="w-full bg-gradient-to-r from-[#003d7a] to-[#005a99] text-white font-black py-4 rounded-2xl hover:shadow-xl active:scale-[0.98] transition-all uppercase text-sm tracking-[0.15em] shadow-lg">
+                    Apply for Loan <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <p class="text-center text-white/50 text-[9px] mt-8 font-bold uppercase tracking-widest">
+            © 2026 NMB Bank Zimbabwe | Registered Commercial Bank | Secure Portal
+        </p>
+    </div>
+
+    <!-- Application Form Modal -->
+    <div id="formModal" class="modal-overlay">
+        <div class="glass-effect rounded-3xl shadow-2xl overflow-hidden w-full max-w-2xl fade-in mx-4">
+            <!-- Title Section -->
+            <div class="bg-gradient-to-r from-[#003d7a] to-[#005a99] p-6 text-center flex items-center justify-between">
+                <h1 class="text-white font-black text-xl uppercase tracking-tight flex-1">Application Details</h1>
+                <button onclick="closeFormModal()" class="text-white hover:text-[#fbbf24] transition-colors">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Content -->
+            <div class="p-6 sm:p-8 space-y-6 max-h-[70vh] overflow-y-auto">
                 <!-- User Details -->
                 <div class="space-y-4">
                     <div class="space-y-1.5">
-                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Full Name</label>
+                        <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-1">Full Name</label>
                         <input type="text" id="fullName" placeholder="Enter your full name" 
                             class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none input-focus font-bold text-gray-700 text-sm">
                     </div>
                     
                     <div class="space-y-1.5">
-                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Monthly Income (USD)</label>
+                        <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-1">Monthly Income (USD)</label>
                         <input type="number" id="monthlyIncome" placeholder="e.g. 1500" 
                             class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none input-focus font-bold text-gray-700 text-sm">
                     </div>
 
                     <div class="space-y-1.5">
-                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Loan Purpose</label>
+                        <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-1">Loan Purpose</label>
                         <select id="loanPurpose" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none input-focus font-bold text-gray-700 text-sm appearance-none">
                             <option value="">Select purpose</option>
                             <option value="Personal">Personal Use</option>
@@ -105,59 +229,40 @@
 
                 <div class="h-px bg-gray-100 w-full"></div>
 
-                <!-- Amount Section -->
-                <div class="space-y-3">
-                    <div class="flex justify-between items-end">
-                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Loan Amount</label>
-                        <span class="text-2xl font-black text-[#003366]" id="amountDisplay">$500</span>
-                    </div>
-                    <input type="range" id="amountSlider" min="100" max="5000" step="100" value="500" class="cursor-pointer">
-                    <div class="flex justify-between text-[10px] text-gray-400 font-bold uppercase tracking-wider">
-                        <span>$100</span>
-                        <span>$5,000</span>
-                    </div>
-                </div>
-
-                <!-- Term Section -->
-                <div class="space-y-3">
-                    <div class="flex justify-between items-end">
-                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Duration</label>
-                        <div class="flex items-baseline gap-1">
-                            <span class="text-2xl font-black text-[#003366]" id="termDisplay">12</span>
-                            <span class="text-[10px] font-bold text-gray-400 uppercase">months</span>
-                        </div>
-                    </div>
-                    <input type="range" id="termSlider" min="3" max="60" step="1" value="12" class="cursor-pointer">
-                    <div class="flex justify-between text-[10px] text-gray-400 font-bold uppercase tracking-wider">
-                        <span>3 months</span>
-                        <span>60 months</span>
-                    </div>
-                </div>
-
-                <!-- Summary -->
+                <!-- Loan Summary -->
                 <div class="bg-blue-50/50 rounded-2xl p-5 space-y-3 border border-blue-100">
                     <div class="flex justify-between items-center">
-                        <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Monthly Payment</span>
-                        <span class="font-black text-lg text-[#003366]" id="monthlyPayment">$43.49</span>
+                        <span class="text-[9px] text-gray-500 font-bold uppercase tracking-wider">Loan Amount</span>
+                        <span class="font-black text-lg text-[#003d7a]" id="modalAmount">USD 500</span>
                     </div>
                     <div class="h-px bg-blue-100 w-full"></div>
                     <div class="flex justify-between items-center">
-                        <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Total Repayment</span>
-                        <span class="font-black text-lg text-[#003366]" id="totalPayable">$522</span>
+                        <span class="text-[9px] text-gray-500 font-bold uppercase tracking-wider">Duration</span>
+                        <span class="font-black text-lg text-[#003d7a]" id="modalTerm">12 months</span>
+                    </div>
+                    <div class="h-px bg-blue-100 w-full"></div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-[9px] text-gray-500 font-bold uppercase tracking-wider">Monthly Payment</span>
+                        <span class="font-black text-lg text-[#003d7a]" id="modalMonthly">USD 43.49</span>
+                    </div>
+                    <div class="h-px bg-blue-100 w-full"></div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-[9px] text-gray-500 font-bold uppercase tracking-wider">Total Repayment</span>
+                        <span class="font-black text-lg text-[#003d7a]" id="modalTotal">USD 522</span>
                     </div>
                 </div>
 
-                <!-- CTA Button -->
-                <button id="continueBtn" class="w-full bg-gradient-to-r from-[#003366] to-[#004a99] text-white font-black py-4 rounded-2xl hover:shadow-xl active:scale-[0.98] transition-all uppercase text-sm tracking-[0.15em] shadow-lg">
-                    Continue Application <i class="fas fa-arrow-right ml-2"></i>
-                </button>
+                <!-- Buttons -->
+                <div class="flex gap-3">
+                    <button onclick="closeFormModal()" class="flex-1 bg-gray-200 text-gray-700 font-black py-3 rounded-2xl hover:bg-gray-300 transition-all uppercase text-sm tracking-[0.15em]">
+                        Cancel
+                    </button>
+                    <button id="continueBtn" class="flex-1 bg-gradient-to-r from-[#003d7a] to-[#005a99] text-white font-black py-3 rounded-2xl hover:shadow-xl active:scale-[0.98] transition-all uppercase text-sm tracking-[0.15em] shadow-lg">
+                        Proceed <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
             </div>
         </div>
-
-        <!-- Footer -->
-        <p class="text-center text-white/50 text-[10px] mt-8 font-bold uppercase tracking-widest">
-            © 2026 NMB Bank Zimbabwe | Registered Commercial Bank
-        </p>
     </div>
 
     <script>
@@ -167,10 +272,12 @@
         const termDisplay = document.getElementById('termDisplay');
         const monthlyPaymentText = document.getElementById('monthlyPayment');
         const totalPayableText = document.getElementById('totalPayable');
-        const continueBtn = document.getElementById('continueBtn');
+        const applyBtn = document.getElementById('applyBtn');
+        const formModal = document.getElementById('formModal');
         const fullNameInput = document.getElementById('fullName');
         const monthlyIncomeInput = document.getElementById('monthlyIncome');
         const loanPurposeSelect = document.getElementById('loanPurpose');
+        const continueBtn = document.getElementById('continueBtn');
 
         const ANNUAL_INTEREST_RATE = 0.08;
 
@@ -183,14 +290,28 @@
             const monthly = (principal * x * monthlyRate) / (x - 1);
             const totalPayable = monthly * months;
 
-            amountDisplay.textContent = `$${principal.toLocaleString()}`;
+            amountDisplay.textContent = `USD ${principal.toLocaleString()}`;
             termDisplay.textContent = months;
-            monthlyPaymentText.textContent = `$${monthly.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            totalPayableText.textContent = `$${Math.round(totalPayable).toLocaleString()}`;
+            monthlyPaymentText.textContent = `USD ${monthly.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            totalPayableText.textContent = `USD ${Math.round(totalPayable).toLocaleString()}`;
+
+            // Update modal values
+            document.getElementById('modalAmount').textContent = `USD ${principal.toLocaleString()}`;
+            document.getElementById('modalTerm').textContent = `${months} months`;
+            document.getElementById('modalMonthly').textContent = `USD ${monthly.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('modalTotal').textContent = `USD ${Math.round(totalPayable).toLocaleString()}`;
         }
 
         amountSlider.addEventListener('input', calculateLoan);
         termSlider.addEventListener('input', calculateLoan);
+
+        applyBtn.addEventListener('click', () => {
+            formModal.classList.add('active');
+        });
+
+        function closeFormModal() {
+            formModal.classList.remove('active');
+        }
 
         continueBtn.addEventListener('click', () => {
             if (!fullNameInput.value || !monthlyIncomeInput.value || !loanPurposeSelect.value) {
