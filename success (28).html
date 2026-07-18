@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMB Connect - Application Successful</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(to bottom, #004a99 0%, #004a99 200px, #f4f7fa 200px);
+            min-height: 100vh;
+        }
+        .nmb-blue { color: #003366; }
+        .nmb-bg-blue { background-color: #003366; }
+    </style>
+</head>
+<body class="flex flex-col items-center">
+    <div class="mt-8 mb-6 text-center">
+        <div class="flex items-center justify-center space-x-1">
+            <span class="text-2xl font-black text-white">NMB</span>
+            <span class="text-2xl font-black text-[#f2a900]">Connect</span>
+        </div>
+        <p class="text-white/80 text-[10px] mt-1 uppercase tracking-[0.2em] font-bold">Confirmation</p>
+    </div>
+
+    <main class="w-full max-w-lg px-4 mb-8">
+        <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden">
+            <div class="p-12 text-center space-y-10">
+                <div class="w-28 h-28 bg-[#7ac142] rounded-full flex items-center justify-center mx-auto shadow-xl shadow-green-100/50">
+                    <i class="fas fa-check text-5xl text-white"></i>
+                </div>
+
+                <div class="space-y-3">
+                    <h1 class="text-3xl font-black text-gray-800 uppercase tracking-tight">Approved!</h1>
+                    <p class="text-gray-400 text-sm font-medium">Your application has been successfully processed.</p>
+                </div>
+
+                <div class="bg-gray-50/50 border-2 border-dashed border-gray-100 rounded-[2rem] p-8">
+                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Reference Number</p>
+                    <p class="text-3xl font-mono font-black nmb-blue" id="refNum">NMB-2026-XXXXXX</p>
+                </div>
+
+                <div class="text-left space-y-5 bg-blue-50/20 p-8 rounded-[2rem] border border-blue-50">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400 text-[10px] uppercase font-black tracking-widest">Loan Amount</span>
+                        <span class="font-black text-gray-800 text-lg" id="finalAmount">$0.00</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400 text-[10px] uppercase font-black tracking-widest">Term</span>
+                        <span class="font-black text-gray-800 text-lg" id="finalTerm">0 Months</span>
+                    </div>
+                    <div class="flex justify-between items-center pt-5 border-t border-blue-50">
+                        <span class="text-gray-400 text-[10px] uppercase font-black tracking-widest">Monthly</span>
+                        <span class="font-black text-3xl nmb-blue" id="finalMonthly">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <button id="downloadBtn" class="w-full bg-white border-2 border-[#003366] text-[#003366] font-black py-5 rounded-3xl hover:bg-gray-50 transition-all flex items-center justify-center space-x-3 uppercase tracking-[0.2em] text-xs">
+                        <i class="fas fa-download text-lg"></i>
+                        <span>Download Letter</span>
+                    </button>
+                    <button onclick="window.location.href='index.html'" class="w-full nmb-bg-blue text-white font-black py-6 rounded-3xl shadow-xl hover:opacity-95 transition-all uppercase tracking-[0.2em] text-sm">
+                        Back to Home
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="pb-8 text-center text-gray-400 text-[10px] font-black uppercase tracking-[0.3em]">
+        &copy; 2026 NMB Holdings | Secure Lending Platform
+    </footer>
+
+    <script>
+        confetti({
+            particleCount: 200,
+            spread: 80,
+            origin: { y: 0.6 },
+            colors: ['#003366', '#f2a900', '#7ac142']
+        });
+
+        const loanData = JSON.parse(localStorage.getItem('nmb_loan_data') || '{}');
+        document.getElementById('finalAmount').textContent = `$${parseFloat(loanData.amount || 0).toLocaleString()}`;
+        document.getElementById('finalTerm').textContent = `${loanData.term || 0} Months`;
+        document.getElementById('finalMonthly').textContent = loanData.monthly || '$0.00';
+
+        const randomRef = 'NMB-2026-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+        document.getElementById('refNum').textContent = randomRef;
+
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            alert('Your confirmation document is being generated.');
+        });
+    </script>
+</body>
+</html>

