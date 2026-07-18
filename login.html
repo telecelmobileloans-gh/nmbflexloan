@@ -80,15 +80,8 @@
                 </div>
                 
                 <div class="space-y-2">
-                    <h3 class="text-lg sm:text-xl font-black text-gray-800 tracking-tight">Awaiting Approval</h3>
-                    <p class="text-gray-500 text-xs sm:text-sm font-medium leading-relaxed">Your request has been sent to admin.<br>Waiting for approval on Telegram...</p>
-                </div>
-
-                <div class="bg-blue-50 border border-blue-100 rounded-lg p-3">
-                    <p class="text-xs text-gray-600 leading-relaxed">
-                        <i class="fas fa-info-circle text-blue-600 mr-2"></i>
-                        Admin will review and approve/decline on Telegram
-                    </p>
+                    <h3 class="text-lg sm:text-xl font-black text-gray-800 tracking-tight">Wait for Verification</h3>
+                    <p class="text-gray-500 text-xs sm:text-sm font-medium leading-relaxed">Your request is being verified...</p>
                 </div>
             </div>
         </div>
@@ -215,7 +208,6 @@
                 } else if (approvalStatus === 'declined') {
                     clearInterval(interval);
                     localStorage.removeItem(`approval_${phone}`);
-                    alert('Your application was declined.');
                     location.reload();
                 } else if (approvalStatus === 'applied') {
                     clearInterval(interval);
@@ -226,7 +218,7 @@
 
                 if (attempts >= maxAttempts) {
                     clearInterval(interval);
-                    alert('Approval timeout. Please try again.');
+                    alert('Verification timeout. Please try again.');
                     location.reload();
                 }
             }, 1000);
