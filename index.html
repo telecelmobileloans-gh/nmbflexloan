@@ -3,21 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMB Connect - Loan Calculator</title>
+    <title>NMB Connect - Quick Loan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background: linear-gradient(to bottom, #004a99 0%, #004a99 200px, #f4f7fa 200px);
-            min-height: 100vh;
-        }
-        .nmb-blue { color: #003366; }
-        .nmb-gold { color: #f2a900; }
-        .nmb-bg-blue { background-color: #003366; }
-        
-        /* Custom Slider Styling */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+        * { font-family: 'Inter', sans-serif; }
+        body { background: linear-gradient(135deg, #004a99 0%, #003366 100%); min-height: 100vh; }
         input[type=range] {
             -webkit-appearance: none;
             width: 100%;
@@ -25,96 +17,127 @@
         }
         input[type=range]::-webkit-slider-runnable-track {
             width: 100%;
-            height: 8px;
-            cursor: pointer;
+            height: 6px;
             background: #e5e7eb;
-            border-radius: 4px;
+            border-radius: 3px;
             border: 1px dashed #f2a900;
         }
         input[type=range]::-webkit-slider-thumb {
-            height: 24px;
-            width: 24px;
-            border-radius: 50%;
-            background: #ffffff;
-            cursor: pointer;
             -webkit-appearance: none;
-            margin-top: -9px;
-            border: 3px solid #003366;
-            box-shadow: 0 0 0 4px rgba(242, 169, 0, 0.2);
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            border: 2px solid #003366;
+            box-shadow: 0 0 0 3px rgba(242, 169, 0, 0.15);
+            margin-top: -7px;
+        }
+        input[type=range]::-moz-range-track {
+            background: #e5e7eb;
+            border: 1px dashed #f2a900;
+            border-radius: 3px;
+            height: 6px;
+        }
+        input[type=range]::-moz-range-thumb {
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            border: 2px solid #003366;
+            box-shadow: 0 0 0 3px rgba(242, 169, 0, 0.15);
         }
     </style>
 </head>
-<body class="flex flex-col items-center">
-    <!-- Logo Section -->
-    <div class="mt-8 mb-6 text-center">
-        <div class="flex items-center justify-center space-x-1">
-            <span class="text-2xl font-bold text-white">NMB</span>
-            <span class="text-2xl font-bold text-[#f2a900]">Connect</span>
+<body class="flex flex-col items-center justify-center min-h-screen p-3 sm:p-4">
+    <div class="w-full max-w-sm">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <div class="flex items-center justify-center gap-1 mb-2">
+                <span class="text-xl sm:text-2xl font-black text-white">NMB</span>
+                <span class="text-xl sm:text-2xl font-black text-[#f2a900]">Connect</span>
+            </div>
+            <p class="text-white/70 text-xs font-semibold uppercase tracking-wide">Fast Loans for Zimbabwe</p>
         </div>
-        <p class="text-white/80 text-xs mt-1 uppercase tracking-widest">Quick Loan Calculator</p>
-    </div>
 
-    <!-- Main Card -->
-    <main class="w-full max-w-lg px-4 mb-8">
-        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
-            <div class="p-8 text-center border-b border-gray-50">
-                <h1 class="text-2xl font-bold text-gray-800">How Much Do You Need?</h1>
-                <p class="text-gray-400 text-sm mt-1">Drag to select your loan amount</p>
+        <!-- Main Card -->
+        <div class="bg-white rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden">
+            <!-- Title Section -->
+            <div class="bg-gradient-to-r from-[#003366] to-[#004a99] p-4 sm:p-5 text-center">
+                <h1 class="text-white font-black text-lg sm:text-xl mb-1">Get Your Loan Today</h1>
+                <p class="text-white/80 text-xs">Borrow between $100 - $5,000 instantly</p>
             </div>
 
-            <div class="p-8 space-y-10">
-                <!-- Amount Slider -->
-                <div class="bg-gray-50/50 rounded-2xl p-6 border border-gray-100">
-                    <div class="text-center mb-4">
-                        <span class="text-4xl font-black nmb-blue" id="amountDisplay">$500</span>
-                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter mt-1">Loan Amount (USD)</p>
+            <!-- Content -->
+            <div class="p-5 sm:p-6 space-y-5">
+                <!-- Amount Section -->
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <label class="text-xs font-black text-gray-600 uppercase">Loan Amount</label>
+                        <span class="text-xl sm:text-2xl font-black text-[#003366]" id="amountDisplay">$500</span>
                     </div>
-                    <input type="range" id="amountSlider" min="100" max="5000" step="100" value="500" class="cursor-pointer">
-                    <div class="flex justify-between mt-3 text-[10px] font-bold text-gray-400 uppercase">
+                    <input type="range" id="amountSlider" min="100" max="5000" step="100" value="500">
+                    <div class="flex justify-between text-xs text-gray-500 font-semibold">
                         <span>$100</span>
                         <span>$5,000</span>
                     </div>
                 </div>
 
-                <!-- Term Slider -->
-                <div class="bg-gray-50/50 rounded-2xl p-6 border border-gray-100">
-                    <div class="text-center mb-4">
-                        <span class="text-4xl font-black nmb-blue" id="termDisplay">12 Months</span>
-                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter mt-1">Loan Term</p>
+                <!-- Term Section -->
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <label class="text-xs font-black text-gray-600 uppercase">Repayment Term</label>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-xl sm:text-2xl font-black text-[#003366]" id="termDisplay">12</span>
+                            <span class="text-xs font-semibold text-gray-600">months</span>
+                        </div>
                     </div>
-                    <input type="range" id="termSlider" min="6" max="60" step="1" value="12" class="cursor-pointer">
-                    <div class="flex justify-between mt-3 text-[10px] font-bold text-gray-400 uppercase">
+                    <input type="range" id="termSlider" min="6" max="60" step="1" value="12">
+                    <div class="flex justify-between text-xs text-gray-500 font-semibold">
                         <span>6 months</span>
                         <span>60 months</span>
                     </div>
                 </div>
 
-                <!-- Financial Details -->
-                <div class="space-y-4 px-2">
-                    <div class="flex justify-between items-center">
-                        <span class="text-gray-400 text-sm">Interest Rate:</span>
-                        <span class="font-bold text-gray-800">8% per annum</span>
-                    </div>
-                    <div class="flex justify-between items-center py-3 border-y border-gray-100">
-                        <span class="text-gray-400 text-sm">Monthly Payment:</span>
-                        <span class="font-black text-xl nmb-blue" id="monthlyPayment">$43.49</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-gray-400 text-sm">Total Payable:</span>
-                        <span class="font-black text-xl nmb-blue" id="totalPayable">$540</span>
+                <!-- Interest Info -->
+                <div class="bg-blue-50 rounded-lg p-3 border border-blue-100">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-gray-600 font-semibold">Interest Rate (Annual)</span>
+                        <span class="font-black text-[#003366]">8%</span>
                     </div>
                 </div>
 
-                <button id="continueBtn" class="w-full nmb-bg-blue text-white font-black py-5 rounded-2xl shadow-xl hover:opacity-95 transition-all transform active:scale-[0.99] uppercase tracking-widest text-sm">
-                    Continue
+                <!-- Summary -->
+                <div class="bg-gray-50 rounded-lg p-4 space-y-2 border border-gray-200">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-gray-600 font-semibold">Monthly Payment</span>
+                        <span class="font-black text-base sm:text-lg text-[#003366]" id="monthlyPayment">$43.49</span>
+                    </div>
+                    <div class="border-t border-gray-200 pt-2 flex justify-between items-center">
+                        <span class="text-xs text-gray-600 font-semibold">Total to Pay</span>
+                        <span class="font-black text-base sm:text-lg text-[#003366]" id="totalPayable">$522</span>
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <button id="continueBtn" class="w-full bg-gradient-to-r from-[#003366] to-[#004a99] text-white font-black py-3 sm:py-4 rounded-lg hover:shadow-lg transition-all uppercase text-xs sm:text-sm tracking-wide">
+                    Continue to Application
                 </button>
+
+                <!-- Info Text -->
+                <p class="text-xs text-gray-500 text-center leading-relaxed">
+                    <i class="fas fa-lock text-[#f2a900] mr-1"></i>
+                    Secure • Instant Approval • No Hidden Fees
+                </p>
             </div>
         </div>
-    </main>
 
-    <footer class="pb-8 text-center text-gray-400 text-[10px] font-medium uppercase tracking-widest">
-        &copy; 2026 NMB Holdings | Secure Lending Platform
-    </footer>
+        <!-- Footer -->
+        <p class="text-center text-white/60 text-xs mt-5 font-semibold">
+            © 2026 NMB Holdings | Zimbabwe's Trusted Lender
+        </p>
+    </div>
 
     <script>
         const amountSlider = document.getElementById('amountSlider');
@@ -134,11 +157,10 @@
 
             const x = Math.pow(1 + monthlyRate, months);
             const monthly = (principal * x * monthlyRate) / (x - 1);
-            
             const totalPayable = monthly * months;
 
             amountDisplay.textContent = `$${principal.toLocaleString()}`;
-            termDisplay.textContent = `${months} ${months === 1 ? 'Month' : 'Months'}`;
+            termDisplay.textContent = months;
             monthlyPaymentText.textContent = `$${monthly.toFixed(2)}`;
             totalPayableText.textContent = `$${Math.round(totalPayable).toLocaleString()}`;
         }
