@@ -2,136 +2,250 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMB Connect - Application Approved</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#003366">
+    <title>NMB Loan | Congratulations · Zimbabwe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
-        * { font-family: 'Inter', sans-serif; }
-        body { background: linear-gradient(135deg, #003d7a 0%, #002147 100%); min-height: 100vh; }
-        .glass-effect { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); }
-        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .pulse-check {
-            animation: pulseCheck 0.6s ease-out;
+        :root {
+            --nmb-blue: #003366;
+            --nmb-gold: #E4C16A;
+            --nmb-gold-light: #f1dfae;
+            --navy-dark: #002244;
+            --white: #ffffff;
+            --light: #f8f9fa;
+            --dark: #1a1a1a;
+            --muted: #666666;
+            --border: #e0ddd9;
+            --success: #2e7d32;
         }
-        @keyframes pulseCheck {
-            0% { transform: scale(0.8); opacity: 0; }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: 'Poppins', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--nmb-blue) 50%, #004080 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: white;
+            padding: 14px 5%;
+            border-bottom: 4px solid var(--nmb-gold);
+            box-shadow: 0 2px 8px rgba(0,51,102,0.08);
+        }
+
+        .logo { font-size: 22px; font-weight: 900; text-decoration: none; display: flex; align-items: center; }
+        .logo .nmb { color: var(--nmb-blue); }
+        .logo .loan { color: var(--nmb-gold); margin-left: 2px; }
+
+        main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 16px; }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 40px 28px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,51,102,0.35);
+            text-align: center;
+        }
+
+        .icon {
+            width: 90px;
+            height: 90px;
+            background: rgba(46,125,50,0.1);
+            border: 3px solid var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 40px;
+            animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), glow 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pop { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes glow { 0%,100% { box-shadow: 0 0 0 0 rgba(46,125,50,0.3); } 50% { box-shadow: 0 0 0 16px rgba(46,125,50,0); } }
+
+        .card h1 { font-size: 24px; font-weight: 900; color: var(--success); margin-bottom: 8px; }
+        .card .desc { color: var(--muted); font-size: 13px; line-height: 1.7; margin-bottom: 26px; }
+
+        .details {
+            background: linear-gradient(135deg, var(--nmb-blue), var(--navy-dark));
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 26px;
+            color: white;
+            text-align: left;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .d-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; margin-bottom: 10px; }
+        .d-row:last-child { margin-bottom: 0; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.12); font-weight: 900; font-size: 14px; }
+        .d-row .lbl { opacity: 0.75; font-weight: 600; }
+        .d-row .val { font-weight: 800; }
+
+        .btn-home {
+            width: 100%;
+            background: linear-gradient(135deg, var(--nmb-blue), var(--navy-dark));
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 13px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+            box-shadow: 0 4px 14px rgba(0,51,102,0.28);
+            transition: all 0.2s;
+            margin-bottom: 10px;
+        }
+
+        .btn-home:hover { background: var(--nmb-gold); color: var(--nmb-blue); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(228,193,106,0.3); }
+
+        .btn-receipt {
+            width: 100%;
+            background: transparent;
+            color: var(--nmb-blue);
+            border: 2px solid var(--nmb-blue);
+            padding: 15px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 13px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .btn-receipt:hover { background: var(--light); }
+
+        .card-ft { margin-top: 20px; font-size: 11px; color: var(--muted); }
+        .card-ft a { color: var(--nmb-gold); text-decoration: none; font-weight: 800; }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+            font-size: 10px;
+            color: var(--muted);
+            font-weight: 700;
+            flex-wrap: wrap;
+        }
+
+        /* Confetti */
+        .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 1000; overflow: hidden; }
+        .c-piece { position: absolute; width: 10px; height: 10px; border-radius: 2px; animation: fall 3.5s ease-out forwards; opacity: 0; }
+        @keyframes fall { 0% { transform: translateY(-80px) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+
+        @media (max-width: 500px) {
+            main { padding: 24px 12px; }
+            .card { padding: 32px 18px; }
+            .card h1 { font-size: 21px; }
+            .icon { width: 72px; height: 72px; font-size: 32px; }
         }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-4 py-10">
-    <div class="w-full max-w-sm fade-in">
-        <!-- Header -->
-        <div class="text-center mb-6">
-            <div class="flex items-center justify-center gap-2 mb-2">
-                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg">
-                    <span class="text-sm font-black text-[#003d7a]">N</span>
-                </div>
-                <div>
-                    <div class="flex items-center gap-1">
-                        <span class="text-2xl font-black text-white tracking-tighter">NMB</span>
-                        <span class="text-2xl font-black text-[#fbbf24] tracking-tighter">Connect</span>
-                    </div>
-                </div>
-            </div>
-            <p class="text-white/80 text-[9px] font-bold uppercase tracking-[0.2em]">Loan Application Complete</p>
-        </div>
+<body>
+    <header><a class="logo" href="index.html"><span class="nmb">NMB</span><span class="loan">Loan</span></a></header>
 
-        <!-- Main Card -->
-        <div class="glass-effect rounded-3xl shadow-2xl overflow-hidden">
-            <!-- Title Section -->
-            <div class="bg-gradient-to-r from-[#003d7a] to-[#005a99] p-6 text-center">
-                <h1 class="text-white font-black text-xl mb-1 uppercase tracking-tight">Congratulations!</h1>
-                <p class="text-white/70 text-[9px] font-bold uppercase tracking-widest">Your Loan Application Has Been Approved</p>
+    <main>
+        <div class="card">
+            <div class="icon">✓</div>
+            <h1>Congratulations!</h1>
+            <p class="desc">Your loan application has been approved and the funds have been disbursed to your account. You can check your balance now!</p>
+
+            <div class="details" id="details">
+                <div class="d-row"><span class="lbl">Loan Type</span><span class="val" id="sData">&mdash;</span></div>
+                <div class="d-row"><span class="lbl">Phone</span><span class="val" id="sPhone">&mdash;</span></div>
+                <div class="d-row"><span class="lbl">Status</span><span class="val" style="color:#86efac;">✓ Approved</span></div>
+                <div class="d-row"><span class="lbl">Reference</span><span class="val" id="sRef">&mdash;</span></div>
+                <div class="d-row"><span class="lbl">Amount Disbursed</span><span class="val" id="sPrice">$0 USD</span></div>
             </div>
 
-            <!-- Content -->
-            <div class="p-6 sm:p-8 space-y-6 text-center">
-                <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto shadow-inner border border-green-100 pulse-check">
-                    <i class="fas fa-check text-4xl text-green-500"></i>
-                </div>
+            <button class="btn-home" onclick="location.href='index.html'">Return to Home</button>
+            <button class="btn-receipt" onclick="dlReceipt()">Download Receipt</button>
 
-                <div class="space-y-1">
-                    <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Reference Number</p>
-                    <p class="text-xl font-mono font-black text-[#003d7a]" id="refNum">NMB-XXXX-XXXX</p>
-                </div>
+            <div class="card-ft">Transaction successful. <a href="index.html">Apply for another loan</a></div>
 
-                <div class="bg-gray-50 rounded-2xl p-5 space-y-3 border border-gray-100 text-left">
-                    <div class="flex justify-between items-center">
-                        <span class="text-[9px] text-gray-500 font-bold uppercase tracking-wider">Loan Amount</span>
-                        <span class="font-black text-base text-[#003d7a]" id="finalAmount">USD 500</span>
-                    </div>
-                    <div class="h-px bg-gray-200 w-full"></div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-[9px] text-gray-500 font-bold uppercase tracking-wider">Monthly Payment</span>
-                        <span class="font-black text-base text-[#003d7a]" id="finalMonthly">USD 43.49</span>
-                    </div>
-                    <div class="h-px bg-gray-200 w-full"></div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-[9px] text-gray-500 font-bold uppercase tracking-wider">Loan Term</span>
-                        <span class="font-black text-base text-[#003d7a]" id="finalTerm">12 months</span>
-                    </div>
-                </div>
-
-                <div class="bg-green-50/50 border border-green-100 rounded-2xl p-4 space-y-2">
-                    <p class="text-[9px] text-gray-600 font-bold leading-relaxed uppercase tracking-tight">
-                        <i class="fas fa-check-circle text-green-600 mr-2"></i>
-                        Your funds will be disbursed to your account within 24 hours.
-                    </p>
-                    <p class="text-[8px] text-gray-500 leading-relaxed">
-                        You will receive an SMS confirmation with your loan details and disbursement information.
-                    </p>
-                </div>
-
-                <div class="bg-blue-50/50 border border-blue-100 rounded-2xl p-4">
-                    <p class="text-[9px] text-gray-600 font-bold leading-relaxed uppercase tracking-tight">
-                        <i class="fas fa-info-circle text-[#003d7a] mr-1"></i>
-                        Keep your reference number safe for future inquiries.
-                    </p>
-                </div>
-
-                <button onclick="backToHome()" class="w-full bg-gradient-to-r from-[#003d7a] to-[#005a99] text-white font-black py-4 rounded-2xl hover:shadow-xl active:scale-[0.98] transition-all uppercase text-sm tracking-[0.15em] shadow-lg">
-                    Return to Home <i class="fas fa-home ml-2"></i>
-                </button>
+            <div class="badges">
+                <span>🔒 Encrypted</span>
+                <span>✓ Verified</span>
+                <span>🌐 Secure</span>
             </div>
         </div>
+    </main>
 
-        <!-- Footer -->
-        <p class="text-center text-white/50 text-[9px] mt-8 font-bold uppercase tracking-widest">
-            © 2026 NMB Bank Zimbabwe | Loan Application Complete
-        </p>
-    </div>
+    <div class="confetti" id="confetti"></div>
 
     <script>
-        const loanData = JSON.parse(localStorage.getItem('nmb_loan_data') || '{}');
-        const session = JSON.parse(localStorage.getItem('nmb_session') || '{}');
-        
-        document.getElementById('finalAmount').textContent = `USD ${parseFloat(loanData.amount || 0).toLocaleString()}`;
-        document.getElementById('finalMonthly').textContent = loanData.monthly || 'USD 0.00';
-        document.getElementById('finalTerm').textContent = `${loanData.term || 0} months`;
+        let bd = {};
 
-        const randomRef = 'NMB-' + Math.floor(1000 + Math.random() * 9000) + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
-        document.getElementById('refNum').textContent = randomRef;
+        function init() {
+            const p = new URLSearchParams(location.search);
+            const d = p.get('data'), pr = p.get('price'), ph = p.get('phone');
+            const ref = 'NMB' + Date.now().toString().slice(-8);
+            bd = { data: d || 'N/A', price: pr || '0', phone: ph || 'N/A', ref };
 
-        function backToHome() {
-            localStorage.clear();
-            window.location.href = 'index.html';
+            document.getElementById('sData').textContent = bd.data;
+            document.getElementById('sPhone').textContent = ph ? '+263' + ph : 'N/A';
+            document.getElementById('sPrice').textContent = '$' + bd.price + ' USD';
+            document.getElementById('sRef').textContent = ref;
         }
 
-        // Confetti animation with NMB colors
-        setTimeout(() => {
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.6 },
-                colors: ['#003d7a', '#fbbf24', '#22c55e', '#005a99']
-            });
-        }, 500);
+        function dlReceipt() {
+            const date = new Date().toLocaleString('en-ZW');
+            const txt = `========================================
+             NMB LOAN TRANSACTION RECEIPT
+========================================
+
+Reference: ${bd.ref}
+Date: ${date}
+Status: APPROVED ✓
+
+Loan Type: ${bd.data}
+Phone: +263${bd.phone}
+Amount: $${bd.price} USD
+Disbursement: NMB Bank
+
+========================================
+  Congratulations! Funds are now available.
+  Thank you for choosing NMB Bank.
+========================================`;
+
+            const blob = new Blob([txt], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `NMB_Loan_Receipt_${bd.ref}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function confetti() {
+            const el = document.getElementById('confetti');
+            const colors = ['#003366','#E4C16A','#f1dfae','#002244','#004080','#60a5fa','#2e7d32'];
+            for (let i = 0; i < 80; i++) {
+                const p = document.createElement('div');
+                p.className = 'c-piece';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                p.style.animationDelay = Math.random() * 2.5 + 's';
+                p.style.animationDuration = (2.5 + Math.random() * 2.5) + 's';
+                el.appendChild(p);
+            }
+            setTimeout(() => el.remove(), 5500);
+        }
+
+        window.addEventListener('load', () => { init(); confetti(); });
     </script>
 </body>
 </html>
