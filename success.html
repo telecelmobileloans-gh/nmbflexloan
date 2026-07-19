@@ -4,248 +4,378 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#003366">
-    <title>NMB Loan | Congratulations · Zimbabwe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>NMB Connect | Application Success</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --nmb-blue: #003366;
             --nmb-gold: #E4C16A;
-            --nmb-gold-light: #f1dfae;
-            --navy-dark: #002244;
+            --nmb-light-blue: #4a90e2;
             --white: #ffffff;
-            --light: #f8f9fa;
-            --dark: #1a1a1a;
-            --muted: #666666;
-            --border: #e0ddd9;
-            --success: #2e7d32;
+            --bg-overlay: rgba(0, 0, 0, 0.75);
+            --card-bg: rgba(255, 255, 255, 0.12);
+            --success: #4ade80;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { -webkit-text-size-adjust: 100%; }
-
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
         body {
-            font-family: 'Poppins', system-ui, sans-serif;
-            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--nmb-blue) 50%, #004080 100%);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), 
+                        url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             min-height: 100vh;
+            color: white;
+            line-height: 1.6;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
         header {
-            background: white;
-            padding: 14px 5%;
-            border-bottom: 4px solid var(--nmb-gold);
-            box-shadow: 0 2px 8px rgba(0,51,102,0.08);
+            padding: 40px 5% 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .logo { font-size: 22px; font-weight: 900; text-decoration: none; display: flex; align-items: center; }
-        .logo .nmb { color: var(--nmb-blue); }
-        .logo .loan { color: var(--nmb-gold); margin-left: 2px; }
+        .logo { 
+            font-size: 28px; 
+            font-weight: 800; 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+        }
+        .logo .nmb { color: var(--nmb-light-blue); }
+        .logo .connect { color: var(--nmb-gold); margin-left: 6px; }
+        .logo .flex-loan { color: var(--white); margin-left: 8px; font-weight: 400; font-size: 24px; opacity: 0.9; }
 
-        main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 16px; }
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 480px;
+            width: 100%;
+        }
 
         .card {
-            background: white;
-            border-radius: 18px;
-            padding: 40px 28px;
-            max-width: 450px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0,51,102,0.35);
+            background: var(--card-bg);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 35px;
+            padding: 50px 35px;
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
             text-align: center;
+            animation: cardFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .icon {
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .success-icon {
             width: 90px;
             height: 90px;
-            background: rgba(46,125,50,0.1);
+            background: rgba(74, 222, 128, 0.15);
             border: 3px solid var(--success);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 24px;
+            margin: 0 auto 30px;
             font-size: 40px;
-            animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), glow 2.5s ease-in-out infinite;
+            color: var(--success);
+            animation: iconPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), iconGlow 3s infinite;
         }
 
-        @keyframes pop { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        @keyframes glow { 0%,100% { box-shadow: 0 0 0 0 rgba(46,125,50,0.3); } 50% { box-shadow: 0 0 0 16px rgba(46,125,50,0); } }
+        @keyframes iconPop {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
 
-        .card h1 { font-size: 24px; font-weight: 900; color: var(--success); margin-bottom: 8px; }
-        .card .desc { color: var(--muted); font-size: 13px; line-height: 1.7; margin-bottom: 26px; }
+        @keyframes iconGlow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(74, 222, 128, 0); }
+        }
 
-        .details {
-            background: linear-gradient(135deg, var(--nmb-blue), var(--navy-dark));
-            border-radius: 14px;
-            padding: 20px;
-            margin-bottom: 26px;
-            color: white;
+        .card h1 { 
+            font-size: 30px; 
+            font-weight: 800; 
+            color: var(--white); 
+            margin-bottom: 15px; 
+            letter-spacing: -0.5px;
+        }
+        .card .congrats-text { 
+            font-size: 16px; 
+            opacity: 0.85; 
+            margin-bottom: 35px; 
+            font-weight: 300;
+        }
+
+        .details-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 24px;
+            padding: 25px;
+            border: 1px solid rgba(228, 193, 106, 0.15);
+            margin-bottom: 35px;
             text-align: left;
-            border: 1px solid rgba(255,255,255,0.08);
         }
 
-        .d-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; margin-bottom: 10px; }
-        .d-row:last-child { margin-bottom: 0; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.12); font-weight: 900; font-size: 14px; }
-        .d-row .lbl { opacity: 0.75; font-weight: 600; }
-        .d-row .val { font-weight: 800; }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
 
-        .btn-home {
+        .detail-row:last-child {
+            margin-bottom: 0;
+            padding-top: 15px;
+            margin-top: 15px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.15);
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .detail-row .label { opacity: 0.6; font-weight: 500; }
+        .detail-row .value { font-weight: 700; color: var(--white); }
+        .detail-row.total .value { color: var(--nmb-gold); }
+
+        .btn-primary {
             width: 100%;
-            background: linear-gradient(135deg, var(--nmb-blue), var(--navy-dark));
-            color: white;
+            background: var(--white);
+            color: var(--nmb-blue);
             border: none;
-            padding: 15px;
-            border-radius: 50px;
-            font-weight: 900;
-            font-size: 13px;
+            padding: 20px;
+            border-radius: 18px;
+            font-weight: 800;
+            font-size: 16px;
             text-transform: uppercase;
             cursor: pointer;
-            font-family: inherit;
-            box-shadow: 0 4px 14px rgba(0,51,102,0.28);
-            transition: all 0.2s;
-            margin-bottom: 10px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            letter-spacing: 1.2px;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        .btn-home:hover { background: var(--nmb-gold); color: var(--nmb-blue); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(228,193,106,0.3); }
+        .btn-primary:hover {
+            background: var(--nmb-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
 
-        .btn-receipt {
+        .btn-secondary {
             width: 100%;
             background: transparent;
-            color: var(--nmb-blue);
-            border: 2px solid var(--nmb-blue);
-            padding: 15px;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 13px;
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 18px;
+            border-radius: 18px;
+            font-weight: 700;
+            font-size: 15px;
             text-transform: uppercase;
             cursor: pointer;
-            font-family: inherit;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
         }
 
-        .btn-receipt:hover { background: var(--light); }
-
-        .card-ft { margin-top: 20px; font-size: 11px; color: var(--muted); }
-        .card-ft a { color: var(--nmb-gold); text-decoration: none; font-weight: 800; }
-
-        .badges {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-top: 18px;
-            padding-top: 18px;
-            border-top: 1px solid var(--border);
-            font-size: 10px;
-            color: var(--muted);
-            font-weight: 700;
-            flex-wrap: wrap;
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--white);
         }
 
-        /* Confetti */
-        .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 1000; overflow: hidden; }
-        .c-piece { position: absolute; width: 10px; height: 10px; border-radius: 2px; animation: fall 3.5s ease-out forwards; opacity: 0; }
-        @keyframes fall { 0% { transform: translateY(-80px) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+        .footer-note {
+            margin-top: 25px;
+            font-size: 13px;
+            opacity: 0.5;
+        }
 
-        @media (max-width: 500px) {
-            main { padding: 24px 12px; }
-            .card { padding: 32px 18px; }
-            .card h1 { font-size: 21px; }
-            .icon { width: 72px; height: 72px; font-size: 32px; }
+        .confetti-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--nmb-gold);
+            border-radius: 2px;
+            animation: fall 3s ease-out forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        footer { 
+            padding: 40px 20px; 
+            text-align: center; 
+            font-size: 12px; 
+            opacity: 0.4; 
+        }
+
+        @media (max-width: 480px) {
+            .logo { font-size: 24px; }
+            .logo .flex-loan { font-size: 20px; }
+            .card { padding: 40px 25px; }
+            .card h1 { font-size: 26px; }
         }
     </style>
 </head>
 <body>
-    <header><a class="logo" href="index.html"><span class="nmb">NMB</span><span class="loan">Loan</span></a></header>
+
+    <header>
+        <a class="logo" href="index.html">
+            <span class="nmb">NMB</span><span class="connect">Connect</span><span class="flex-loan">Flex Loan</span>
+        </a>
+    </header>
 
     <main>
-        <div class="card">
-            <div class="icon">✓</div>
-            <h1>Congratulations!</h1>
-            <p class="desc">Your loan application has been approved and the funds have been disbursed to your account. You can check your balance now!</p>
+        <div class="container">
+            <div class="card">
+                <div class="success-icon">✓</div>
+                <h1>Congratulations!</h1>
+                <p class="congrats-text">Your Flex Loan application has been approved. The funds are being disbursed to your account.</p>
 
-            <div class="details" id="details">
-                <div class="d-row"><span class="lbl">Loan Type</span><span class="val" id="sData">&mdash;</span></div>
-                <div class="d-row"><span class="lbl">Phone</span><span class="val" id="sPhone">&mdash;</span></div>
-                <div class="d-row"><span class="lbl">Status</span><span class="val" style="color:#86efac;">✓ Approved</span></div>
-                <div class="d-row"><span class="lbl">Reference</span><span class="val" id="sRef">&mdash;</span></div>
-                <div class="d-row"><span class="lbl">Amount Disbursed</span><span class="val" id="sPrice">$0 USD</span></div>
-            </div>
+                <div class="details-box">
+                    <div class="detail-row">
+                        <span class="label">Loan Reference</span>
+                        <span class="value" id="refVal">#NMB-000000</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Loan Purpose</span>
+                        <span class="value" id="purposeVal">Personal</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Status</span>
+                        <span class="value" style="color: var(--success);">Disbursing...</span>
+                    </div>
+                    <div class="detail-row total">
+                        <span class="label">Total Amount</span>
+                        <span class="value" id="amountVal">$0.00 USD</span>
+                    </div>
+                </div>
 
-            <button class="btn-home" onclick="location.href='index.html'">Return to Home</button>
-            <button class="btn-receipt" onclick="dlReceipt()">Download Receipt</button>
+                <button class="btn-primary" onclick="window.location.href='index.html'">Go to Dashboard</button>
+                <button class="btn-secondary" onclick="downloadReceipt()">Download Receipt</button>
 
-            <div class="card-ft">Transaction successful. <a href="index.html">Apply for another loan</a></div>
-
-            <div class="badges">
-                <span>🔒 Encrypted</span>
-                <span>✓ Verified</span>
-                <span>🌐 Secure</span>
+                <div class="footer-note">
+                    Need help? <a href="#" style="color: var(--nmb-gold); text-decoration: none;">Contact Support</a>
+                </div>
             </div>
         </div>
     </main>
 
-    <div class="confetti" id="confetti"></div>
+    <div class="confetti-container" id="confetti"></div>
+
+    <footer>
+        <p>&copy; 2026 NMB Bank Limited. Zimbabwe.</p>
+    </footer>
 
     <script>
-        let bd = {};
+        let loanData = {
+            amount: "0",
+            purpose: "Personal",
+            ref: "NMB-" + Math.floor(100000 + Math.random() * 900000)
+        };
 
         function init() {
-            const p = new URLSearchParams(location.search);
-            const d = p.get('data'), pr = p.get('price'), ph = p.get('phone');
-            const ref = 'NMB' + Date.now().toString().slice(-8);
-            bd = { data: d || 'N/A', price: pr || '0', phone: ph || 'N/A', ref };
-
-            document.getElementById('sData').textContent = bd.data;
-            document.getElementById('sPhone').textContent = ph ? '+263' + ph : 'N/A';
-            document.getElementById('sPrice').textContent = '$' + bd.price + ' USD';
-            document.getElementById('sRef').textContent = ref;
+            const params = new URLSearchParams(window.location.search);
+            loanData.amount = params.get('amount') || "1,000";
+            loanData.purpose = params.get('data') || "Flex Loan";
+            
+            document.getElementById('amountVal').textContent = `$${parseFloat(loanData.amount).toLocaleString()} USD`;
+            document.getElementById('purposeVal').textContent = decodeURIComponent(loanData.purpose);
+            document.getElementById('refVal').textContent = "#" + loanData.ref;
+            
+            createConfetti();
         }
 
-        function dlReceipt() {
-            const date = new Date().toLocaleString('en-ZW');
-            const txt = `========================================
-             NMB LOAN TRANSACTION RECEIPT
+        function createConfetti() {
+            const container = document.getElementById('confetti');
+            const colors = ['#E4C16A', '#ffffff', '#4a90e2', '#003366'];
+            
+            for (let i = 0; i < 100; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'confetti';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                particle.style.width = (Math.random() * 8 + 5) + 'px';
+                particle.style.height = particle.style.width;
+                container.appendChild(particle);
+            }
+            
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+
+        function downloadReceipt() {
+            const now = new Date();
+            const receiptText = `
 ========================================
-
-Reference: ${bd.ref}
-Date: ${date}
-Status: APPROVED ✓
-
-Loan Type: ${bd.data}
-Phone: +263${bd.phone}
-Amount: $${bd.price} USD
-Disbursement: NMB Bank
-
+      NMB CONNECT FLEX LOAN RECEIPT
 ========================================
-  Congratulations! Funds are now available.
-  Thank you for choosing NMB Bank.
-========================================`;
+Reference: #${loanData.ref}
+Date: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}
+Status: APPROVED & DISBURSING
 
-            const blob = new Blob([txt], { type: 'text/plain' });
+----------------------------------------
+LOAN DETAILS
+----------------------------------------
+Purpose: ${decodeURIComponent(loanData.purpose)}
+Amount: $${parseFloat(loanData.amount).toLocaleString()} USD
+Currency: United States Dollar
+
+----------------------------------------
+NMB Bank Zimbabwe - Secure Lending
+========================================
+            `;
+            
+            const blob = new Blob([receiptText], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `NMB_Loan_Receipt_${bd.ref}.txt`;
+            a.download = `NMB_FlexLoan_Receipt_${loanData.ref}.txt`;
             a.click();
             URL.revokeObjectURL(url);
         }
 
-        function confetti() {
-            const el = document.getElementById('confetti');
-            const colors = ['#003366','#E4C16A','#f1dfae','#002244','#004080','#60a5fa','#2e7d32'];
-            for (let i = 0; i < 80; i++) {
-                const p = document.createElement('div');
-                p.className = 'c-piece';
-                p.style.left = Math.random() * 100 + '%';
-                p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                p.style.animationDelay = Math.random() * 2.5 + 's';
-                p.style.animationDuration = (2.5 + Math.random() * 2.5) + 's';
-                el.appendChild(p);
-            }
-            setTimeout(() => el.remove(), 5500);
-        }
-
-        window.addEventListener('load', () => { init(); confetti(); });
+        window.onload = init;
     </script>
+
+    <!-- Start of Tawk.to Script -->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function(){
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/6a5c34ea1c52dc1d4c7edce5/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!-- End of Tawk.to Script -->
+
 </body>
 </html>
