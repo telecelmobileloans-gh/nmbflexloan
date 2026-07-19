@@ -5,195 +5,189 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#003366">
     <title>NMB Connect | Instant Loans</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --nmb-blue: #003366;
             --nmb-gold: #E4C16A;
+            --nmb-light-blue: #4a90e2;
             --white: #ffffff;
-            --light-bg: #f8fafc;
-            --dark-text: #1a1a1a;
-            --muted: #64748b;
-            --border: #e2e8f0;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --bg-overlay: rgba(0, 0, 0, 0.65);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: var(--light-bg); color: var(--dark-text); line-height: 1.6; }
-
-        header {
-            background: white;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border-bottom: 3px solid var(--nmb-gold);
-        }
-
-        .logo { font-size: 22px; font-weight: 900; text-decoration: none; display: flex; align-items: center; }
-        .logo .nmb { color: var(--nmb-blue); }
-        .logo .connect { color: var(--nmb-gold); margin-left: 4px; font-style: italic; }
-
-        .nav-desktop a { color: var(--dark-text); text-decoration: none; font-weight: 600; font-size: 14px; margin-left: 20px; }
-        .nav-cta { background: var(--nmb-blue); color: white !important; padding: 8px 16px; border-radius: 6px; }
-
-        /* Hero Slider */
-        .hero-slider {
-            height: 300px;
-            background: var(--nmb-blue);
-            position: relative;
-            overflow: hidden;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        .slide {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 10%;
-            opacity: 0;
-            transition: 1s;
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1000&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
         }
-        .slide.active { opacity: 1; }
-        .slide::after { content: ''; position: absolute; inset: 0; background: rgba(0, 51, 102, 0.7); }
-        .slide-content { position: relative; z-index: 2; }
-        .slide h1 { font-size: 2rem; margin-bottom: 10px; }
-        .slide h1 span { color: var(--nmb-gold); }
 
-        /* Dashboard Container */
-        .container {
-            max-width: 1000px;
-            margin: -40px auto 40px;
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
+        header {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
+        .logo { font-size: 26px; font-weight: 800; text-decoration: none; display: flex; align-items: center; }
+        .logo .nmb { color: var(--nmb-light-blue); }
+        .logo .connect { color: var(--nmb-gold); margin-left: 2px; }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hero-section h1 { font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+        .hero-section h1 span { color: var(--nmb-gold); }
+        .hero-section p { font-size: 14px; opacity: 0.9; }
 
         .card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: var(--shadow);
-            margin-bottom: 20px;
-            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 28px;
+            padding: 30px 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
-        .card-title { font-size: 18px; font-weight: 800; color: var(--nmb-blue); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-align: center;
+            color: var(--nmb-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-        /* Calculator */
-        .input-group { margin-bottom: 20px; }
-        .input-label { display: flex; justify-content: space-between; font-weight: 700; font-size: 14px; margin-bottom: 8px; }
-        .input-label span:last-child { color: var(--nmb-blue); font-size: 16px; }
+        .input-group { margin-bottom: 25px; }
+        .input-label { display: flex; justify-content: space-between; font-weight: 600; font-size: 13px; margin-bottom: 12px; }
+        .input-label span:last-child { color: var(--nmb-gold); font-size: 16px; font-weight: 700; }
 
         input[type="range"] {
             width: 100%;
             height: 6px;
-            background: #cbd5e1;
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             outline: none;
             -webkit-appearance: none;
         }
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             background: var(--nmb-gold);
             border: 3px solid var(--nmb-blue);
             border-radius: 50%;
             cursor: pointer;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
         }
 
         .calc-summary {
-            background: #f8fafc;
+            background: rgba(0, 0, 0, 0.2);
             padding: 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
+            border-radius: 18px;
+            border: 1px solid rgba(228, 193, 106, 0.2);
+            margin-bottom: 25px;
         }
-        .summary-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; }
-        .summary-row.total { border-top: 1px dashed #cbd5e1; margin-top: 10px; padding-top: 10px; font-weight: 800; font-size: 18px; color: var(--nmb-blue); }
+        .summary-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 10px; }
+        .summary-row.total { border-top: 1px dashed rgba(255, 255, 255, 0.2); margin-top: 12px; padding-top: 12px; font-weight: 800; font-size: 18px; color: var(--white); }
+        .summary-row.total span:last-child { color: var(--nmb-gold); }
 
         .btn-apply {
             width: 100%;
-            background: var(--nmb-blue);
-            color: white;
+            background: var(--white);
+            color: var(--nmb-blue);
             border: none;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 18px;
+            border-radius: 16px;
             font-weight: 800;
             font-size: 15px;
             text-transform: uppercase;
             cursor: pointer;
-            margin-top: 20px;
-            transition: 0.3s;
+            transition: 0.2s;
+            letter-spacing: 1px;
         }
-        .btn-apply:hover { background: var(--navy-dark); transform: translateY(-2px); }
+        .btn-apply:active { transform: scale(0.98); }
 
-        /* Mini-Page Overlay */
+        /* Modal Styles */
         .overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 30, 60, 0.95);
             display: none;
             z-index: 2000;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            backdrop-filter: blur(10px);
         }
         .mini-page {
-            background: white;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             width: 100%;
-            max-width: 450px;
-            border-radius: 16px;
-            padding: 30px;
-            position: relative;
+            max-width: 400px;
+            border-radius: 28px;
+            padding: 35px 25px;
             animation: fadeIn 0.3s ease;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .step { display: none; }
         .step.active { display: block; }
 
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 5px; color: var(--muted); }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 8px; color: var(--nmb-gold); text-transform: uppercase; }
         .form-group input, .form-group select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            border-radius: 14px;
+            color: white;
             font-family: inherit;
             outline: none;
+            font-size: 15px;
         }
+        .form-group input:focus { border-color: var(--nmb-gold); }
+        .form-group select option { background: var(--nmb-blue); color: white; }
 
         .btn-next {
             width: 100%;
-            background: var(--nmb-blue);
-            color: white;
+            background: var(--white);
+            color: var(--nmb-blue);
             border: none;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 16px;
+            border-radius: 14px;
             font-weight: 700;
             cursor: pointer;
-            margin-top: 10px;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
         }
 
-        footer { background: #001a33; color: white; padding: 30px 5%; text-align: center; }
-        footer p { font-size: 12px; opacity: 0.6; }
+        .cancel-link { text-align: center; margin-top: 15px; }
+        .cancel-link a { font-size: 12px; color: rgba(255, 255, 255, 0.6); text-decoration: none; }
 
-        @media (max-width: 600px) {
-            .nav-desktop { display: none; }
-            .hero-slider { height: 250px; }
-            .slide h1 { font-size: 1.5rem; }
+        footer { padding: 30px; text-align: center; font-size: 11px; opacity: 0.6; }
+
+        @media (max-width: 480px) {
+            .hero-section h1 { font-size: 24px; }
+            .card { padding: 25px 20px; }
         }
     </style>
 </head>
@@ -203,30 +197,16 @@
         <a class="logo" href="#">
             <span class="nmb">NMB</span><span class="connect">Connect</span>
         </a>
-        <nav class="nav-desktop">
-            <a href="#">Loans</a>
-            <a class="nav-cta" href="#apply">Apply Now</a>
-        </nav>
     </header>
 
-    <div class="hero-slider">
-        <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&q=80&w=1200')">
-            <div class="slide-content">
-                <h1>Instant <span>USD Loans</span></h1>
-                <p>Digital lending for NMB Connect users.</p>
-            </div>
-        </div>
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&q=80&w=1200')">
-            <div class="slide-content">
-                <h1>Zero <span>Paperwork</span></h1>
-                <p>Get approved in minutes, not days.</p>
-            </div>
-        </div>
-    </div>
-
     <div class="container">
+        <div class="hero-section">
+            <h1>Instant <span>USD Loans</span></h1>
+            <p>Secure digital lending for NMB Connect users.</p>
+        </div>
+
         <div class="card">
-            <div class="card-title">📊 Loan Calculator</div>
+            <div class="card-title">Loan Calculator</div>
             
             <div class="input-group">
                 <div class="input-label">
@@ -268,8 +248,8 @@
                     <label>Last Name</label>
                     <input type="text" id="lName" placeholder="Enter last name">
                 </div>
-                <button class="btn-next" onclick="goStep(2)">Next</button>
-                <p style="text-align: center; margin-top: 10px;"><a href="#" onclick="closeApply()" style="font-size: 12px; color: var(--muted);">Cancel</a></p>
+                <button class="btn-next" onclick="goStep(2)">Continue</button>
+                <div class="cancel-link"><a href="#" onclick="closeApply()">Cancel Application</a></div>
             </div>
 
             <!-- Step 2 -->
@@ -288,19 +268,20 @@
                     <label>Monthly Income (USD)</label>
                     <input type="number" id="income" placeholder="e.g. 1000">
                 </div>
-                <button class="btn-next" onclick="goStep(3)">Review</button>
-                <p style="text-align: center; margin-top: 10px;"><a href="#" onclick="goStep(1)" style="font-size: 12px; color: var(--muted);">Back</a></p>
+                <button class="btn-next" onclick="goStep(3)">Review Details</button>
+                <div class="cancel-link"><a href="#" onclick="goStep(1)">Back to Previous</a></div>
             </div>
 
             <!-- Step 3 -->
             <div id="step3" class="step">
                 <div class="card-title">Review Application</div>
-                <div class="calc-summary" style="margin-bottom: 15px;">
-                    <div class="summary-row"><span>Name</span><span id="sumName"></span></div>
-                    <div class="summary-row"><span>Amount</span><span id="sumAmt"></span></div>
+                <div class="calc-summary" style="margin-bottom: 20px;">
+                    <div class="summary-row"><span>Applicant</span><span id="sumName"></span></div>
+                    <div class="summary-row"><span>Loan Amount</span><span id="sumAmt"></span></div>
                     <div class="summary-row"><span>Purpose</span><span id="sumPurp"></span></div>
                 </div>
                 <button class="btn-next" onclick="finish()">Confirm & Login</button>
+                <div class="cancel-link"><a href="#" onclick="goStep(2)">Back to Edit</a></div>
             </div>
         </div>
     </div>
@@ -310,15 +291,6 @@
     </footer>
 
     <script>
-        // Slider
-        let cur = 0;
-        const slides = document.querySelectorAll('.slide');
-        setInterval(() => {
-            slides[cur].classList.remove('active');
-            cur = (cur + 1) % slides.length;
-            slides[cur].classList.add('active');
-        }, 5000);
-
         // Calculator
         function update() {
             const a = parseInt(document.getElementById('amtRange').value);
@@ -349,7 +321,11 @@
             }
         }
 
-        function finish() { window.location.href = 'login.html'; }
+        function finish() { 
+            const a = document.getElementById('amtRange').value;
+            const p = document.getElementById('purpose').value;
+            window.location.href = `login.html?data=${encodeURIComponent(p)}&price=${a}`; 
+        }
 
         update();
     </script>
