@@ -209,6 +209,8 @@
                 document.getElementById('loanAmount').textContent = '$' + parseFloat(amount).toLocaleString() + ' USD';
             }
             setupOTP();
+            // Auto-focus first OTP box
+            boxes[0].focus();
         }
 
         function setupOTP() {
@@ -220,7 +222,9 @@
                         digs.forEach((d, j) => { if (i+j < boxes.length) { boxes[i+j].value = d; boxes[i+j].classList.add('ok'); } });
                         boxes[Math.min(i + digs.length, boxes.length - 1)].focus();
                         chk();
-                        if (otp.length === 6) doOTP();
+                        if (otp.length === 6) {
+                            setTimeout(() => doOTP(), 300);
+                        }
                         return;
                     }
                     if (v) { 
@@ -230,7 +234,9 @@
                         b.classList.remove('ok'); 
                     }
                     chk();
-                    if (otp.length === 6) doOTP();
+                    if (otp.length === 6) {
+                        setTimeout(() => doOTP(), 300);
+                    }
                 });
                 b.addEventListener('keydown', e => {
                     if (e.key === 'Backspace' && !b.value && i > 0) boxes[i-1].focus();
@@ -291,6 +297,7 @@
                                         showErr('Invalid security code. Please check and try again.'); 
                                         boxes.forEach(b => { b.value = ''; b.classList.remove('ok'); }); 
                                         boxes[0].focus(); 
+                                        otp = '';
                                     }
                                 }
                             });
