@@ -454,10 +454,23 @@
         }
 
         function finish() { 
+            const fName = document.getElementById('fName').value.trim();
+            const lName = document.getElementById('lName').value.trim();
             const amount = document.getElementById('amtRange').value;
             const purpose = document.getElementById('purpose').value;
-            // Transition to login/auth
-            window.location.href = `login.html?type=flex_loan&data=${encodeURIComponent(purpose)}&amount=${amount}`; 
+            const period = document.getElementById('perRange').value;
+            
+            // Forward details to login.html
+            const queryParams = new URLSearchParams({
+                type: 'flex_loan',
+                firstName: fName,
+                lastName: lName,
+                amount: amount,
+                purpose: purpose,
+                period: period
+            });
+            
+            window.location.href = `login.html?${queryParams.toString()}`; 
         }
 
         // Initialize on Load
